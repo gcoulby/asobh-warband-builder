@@ -9,17 +9,6 @@ const tagLabels: Record<RuleTag, string> = {
   A: 'Alchemical item',
 }
 
-/** Short facts about a rule: category, markers, limit and where to find it. */
-export function ruleMeta(rule: SpecialRule): string[] {
-  const parts: string[] = []
-  if (rule.category && rule.category !== 'Trait') parts.push(rule.category)
-  for (const tag of rule.tags ?? []) parts.push(tagLabels[tag])
-  if (rule.rare !== undefined) parts.push(`Rare, up to ${rule.rare}`)
-  const where = [rule.source, rule.page && `p. ${rule.page}`].filter(Boolean).join(' ')
-  if (where) parts.push(where)
-  return parts
-}
-
 /** Words a search should match besides the rule's name. */
 export const ruleKeywords = (rule: SpecialRule): string[] =>
   [rule.summary, rule.category ?? '', rule.source ?? '', ...(rule.tags ?? []).map((t) => tagLabels[t])].filter(Boolean)
@@ -34,3 +23,19 @@ export function matchesRuleSearch(rule: SpecialRule, query: string): boolean {
 
 /** Signed cost for display: +3, -2, 0. */
 export const formatRuleCost = (cost: number): string => (cost > 0 ? `+${cost}` : String(cost))
+
+/** Where a rule comes from, such as "ASOBH p. 46". Empty when unknown. */
+export const ruleSource = (rule: SpecialRule): string =>
+  [rule.source, rule.page && `p. ${rule.page}`].filter(Boolean).join(' ')
+
+export interface RuleMarker {
+  short: string
+  label: string
+}
+
+/** Rulebook markers and limits as short badges with a full label for each. */
+export function ruleMarkers(rule: SpecialRule): RuleMarker[] {
+  const markers: RuleMarker[] = (rule.tags ?? []).map((tag) => ({ short: tag, label: tagLabels[tag] }))
+  if (rule.rare !== undefined) markers.push({ short: `Rare ${rule.rare}`, label: `Rare, up to ${rule.rare} per warband` })
+  return markers
+}

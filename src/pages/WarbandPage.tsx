@@ -21,6 +21,7 @@ import { useImageUrls } from '@/hooks/use-image-urls'
 import { DESKTOP_QUERY, useMediaQuery } from '@/hooks/use-media-query'
 import { usePrefs } from '@/hooks/use-prefs'
 import { useRoster } from '@/hooks/use-roster'
+import { useDeleteModel } from '@/hooks/use-delete-model'
 import { useWarbandFiles } from '@/hooks/use-warband-files'
 import { bundleWarband } from '@/lib/bundle'
 import { modelCost } from '@/lib/cost'
@@ -59,6 +60,9 @@ export function WarbandPage() {
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [shareOpen, setShareOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
+  const [deletingModelId, setDeletingModelId] = useState<string>()
+  const deleteModel = useDeleteModel()
+  const allWarbands = useDataStore((s) => s.warbands)
 
   useEffect(() => {
     if (warband) setPrefs({ lastWarbandId: warband.id })
@@ -80,6 +84,10 @@ export function WarbandPage() {
 
   if (!warband || !view) return <NotFoundPage what="warband" />
 
+  const deletingModel = deletingModelId ? models.find((m) => m.id === deletingModelId) : undefined
+  const deletingUsage = deletingModelId
+    ? allWarbands.filter((w) => w.entries.some((e) => e.modelId === deletingModelId)).length
+    : 0
   const selectedExists = selectedId !== undefined && models.some((m) => m.id === selectedId)
 
   const select = (modelId: string, openOnMobile = true) => {
@@ -115,10 +123,19 @@ export function WarbandPage() {
   const library = (
     <LibraryPanel
       items={libraryItems}
+      rules={rules}
       selectedModelId={selectedId}
       onSelect={(modelId) => select(modelId)}
       onAdd={addToWarband}
       onNew={createModel}
+      onDuplicate={(modelId) => {
+        const copy = actions.duplicateModel(modelId)
+        if (copy) {
+          select(copy)
+          toast.success('Model duplicated')
+        }
+      }}
+      onDelete={setDeletingModelId}
     />
   )
 
@@ -296,6 +313,25 @@ export function WarbandPage() {
             .writeText(share)
             .then(() => toast.success('Link copied'))
             .catch(() => toast.error('The link could not be copied. Select it and copy it by hand.'))
+        }}
+      />
+
+      <ConfirmDialog
+        open={deletingModel !== undefined}
+        onOpenChange={(open) => !open && setDeletingModelId(undefined)}
+        title={`Delete ${deletingModel?.name ?? 'model'}?`}
+        description={
+          deletingUsage > 0
+            ? `It is used in ${deletingUsage} ${deletingUsage === 1 ? 'warband' : 'warbands'} and will be removed from ${deletingUsage === 1 ? 'it' : 'them'}. This cannot be undone.`
+            : 'It is removed from your library. This cannot be undone.'
+        }
+        confirmLabel="Delete model"
+        onConfirm={() => {
+          if (!deletingModelId) return
+          deleteModel(deletingModelId)
+          if (selectedId === deletingModelId) setSelectedId(undefined)
+          setDeletingModelId(undefined)
+          toast.success('Model deleted')
         }}
       />
 

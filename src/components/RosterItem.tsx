@@ -96,13 +96,15 @@ export function RosterItem({
             </span>
           )}
           {leader && (
-            <span className="flex shrink-0 items-center gap-0.5 text-xs text-primary">
-              <Crown className="size-3.5" aria-hidden="true" /> Leader
+            <span className="shrink-0 text-primary" title="Leader">
+              <Crown className="size-3.5" aria-hidden="true" />
+              <span className="sr-only">Leader</span>
             </span>
           )}
           {personality && (
-            <span className="flex shrink-0 items-center gap-0.5 text-xs text-primary">
-              <Star className="size-3.5" aria-hidden="true" /> Personality
+            <span className="shrink-0 text-primary" title="Personality">
+              <Star className="size-3.5" aria-hidden="true" />
+              <span className="sr-only">Personality</span>
             </span>
           )}
         </h3>

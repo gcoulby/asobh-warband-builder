@@ -6,7 +6,8 @@ import { Switch } from '@/components/ui/switch'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { isRuleGroupId, ruleGroupLabels, type RuleGroupId } from '@/data/rule-groups'
 import { groupRules } from '@/lib/rule-groups'
-import { formatRuleCost, matchesRuleSearch, ruleMeta } from '@/lib/rule-meta'
+import { RuleMarkers } from '@/components/RuleMarkers'
+import { formatRuleCost, matchesRuleSearch, ruleMarkers, ruleSource } from '@/lib/rule-meta'
 import type { SpecialRule } from '@/lib/schema'
 import { cn } from '@/lib/utils'
 
@@ -43,30 +44,26 @@ export function RuleBrowser({ rules, value, onChange, title, className }: RuleBr
 
   const item = (rule: SpecialRule) => {
     const isOn = selected.has(rule.id)
-    const meta = ruleMeta(rule)
+    const source = ruleSource(rule)
     return (
       <CommandItem
         key={rule.id}
         value={rule.id}
         onSelect={() => toggle(rule.id)}
         data-chosen={isOn}
+        title={[rule.summary, source].filter(Boolean).join(' · ') || undefined}
         className={cn(
-          'min-h-10 items-start gap-2 rounded-none border-b border-l-2 border-l-transparent px-3 py-1.5',
+          'h-9 gap-2 rounded-none border-b border-l-2 border-l-transparent px-3 py-0 [&>svg:last-child]:hidden',
           isOn && 'border-l-primary bg-accent/70',
         )}
       >
-        <Check className={cn('mt-0.5 shrink-0 text-primary', isOn ? 'opacity-100' : 'opacity-0')} aria-hidden="true" />
-        <div className="flex min-w-0 flex-1 flex-col">
-          <span className="flex justify-between gap-2 font-bold">
-            <span>
-              {rule.name}
-              {isOn && <span className="sr-only">, chosen</span>}
-            </span>
-            <span className="font-display text-sm tabular-nums">{formatRuleCost(rule.cost)}</span>
-          </span>
-          {rule.summary && <span className="text-xs text-muted-foreground">{rule.summary}</span>}
-          {meta.length > 0 && <span className="text-xs text-muted-foreground">{meta.join(' · ')}</span>}
-        </div>
+        <Check className={cn('shrink-0 text-primary', isOn ? 'opacity-100' : 'opacity-0')} aria-hidden="true" />
+        <span className="min-w-0 truncate font-semibold">
+          {rule.name}
+          {isOn && <span className="sr-only">, chosen</span>}
+        </span>
+        <RuleMarkers markers={ruleMarkers(rule)} />
+        <span className="ml-auto w-9 shrink-0 text-right font-display text-sm font-bold tabular-nums">{formatRuleCost(rule.cost)}</span>
       </CommandItem>
     )
   }

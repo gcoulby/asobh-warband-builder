@@ -4,12 +4,12 @@ import { toast } from 'sonner'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { EditorSheet } from '@/components/EditorSheet'
 import { EmptyState } from '@/components/EmptyState'
-import { ModelCard } from '@/components/ModelCard'
+import { ModelRow } from '@/components/ModelRow'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ModelPanelContainer } from '@/containers/ModelPanelContainer'
-import { usePersistenceContext } from '@/hooks/persistence-context'
+import { useDeleteModel } from '@/hooks/use-delete-model'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { DESKTOP_QUERY, useMediaQuery } from '@/hooks/use-media-query'
 import { modelCost } from '@/lib/cost'
@@ -22,8 +22,7 @@ export function LibraryPage() {
   const rules = useDataStore((s) => s.rules)
   const warbands = useDataStore((s) => s.warbands)
   const duplicateModel = useDataStore((s) => s.duplicateModel)
-  const deleteModel = useDataStore((s) => s.deleteModel)
-  const { deleteImage } = usePersistenceContext()
+  const deleteModel = useDeleteModel()
   const imageUrls = useImageUrls(useMemo(() => models.map((m) => m.imageId), [models]))
 
   const [query, setQuery] = useState('')
@@ -46,9 +45,11 @@ export function LibraryPage() {
   const usageOf = (modelId: string) => warbands.filter((w) => w.entries.some((e) => e.modelId === modelId)).length
 
   return (
-    <main className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4">
+    <main className="mx-auto flex max-w-4xl flex-col gap-3 px-4 py-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-[1.75rem] leading-none font-bold">Library</h1>
+        <h1 className="font-display text-[1.75rem] leading-none font-bold">
+          Library <span className="text-base text-muted-foreground tabular-nums">{models.length}</span>
+        </h1>
         <Button onClick={startNew}>
           <Plus /> New model
         </Button>
@@ -85,18 +86,21 @@ export function LibraryPage() {
       ) : filtered.length === 0 ? (
         <p className="text-muted-foreground">No models match “{query}”. Try another name or rule.</p>
       ) : (
-        <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6" aria-label="Library models">
-          {filtered.map((model) => (
-            <li key={model.id}>
-              <ModelCard
-                variant="library"
+        <ul className="overflow-hidden rounded-sm border bg-card" aria-label="Library models">
+          {filtered.map((model) => {
+            const usage = usageOf(model.id)
+            return (
+              <ModelRow
+                key={model.id}
                 model={model}
                 rules={rules}
                 cost={modelCost(model, rules)}
                 imageUrl={model.imageId ? imageUrls.get(model.imageId) : undefined}
+                note={usage > 0 ? `In ${usage} ${usage === 1 ? 'warband' : 'warbands'}` : 'Not in a warband'}
                 onOpen={() => setEditing(model.id)}
-                footer={
-                  <div className="flex justify-end">
+                className="last:border-b-0"
+                actions={
+                  <>
                     <Button
                       variant="ghost"
                       size="icon"
@@ -108,14 +112,20 @@ export function LibraryPage() {
                     >
                       <Copy />
                     </Button>
-                    <Button variant="ghost" size="icon" aria-label={`Delete ${model.name}`} onClick={() => setDeleting(model)}>
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      className="hover:text-destructive"
+                      aria-label={`Delete ${model.name}`}
+                      onClick={() => setDeleting(model)}
+                    >
                       <Trash2 />
                     </Button>
-                  </div>
+                  </>
                 }
               />
-            </li>
-          ))}
+            )
+          })}
         </ul>
       )}
 
@@ -145,7 +155,6 @@ export function LibraryPage() {
         onConfirm={() => {
           if (!deleting) return
           deleteModel(deleting.id)
-          if (deleting.imageId) void deleteImage(deleting.imageId)
           setDeleting(undefined)
           toast.success('Model deleted')
         }}
