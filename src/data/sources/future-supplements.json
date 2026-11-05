@@ -1,0 +1,81 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "future-supplements",
+  "name": "Future supplements",
+  "shortName": "Future supplements",
+  "kind": "supplement",
+  "game": "asobh",
+  "description": "Rules listed in the online calculator for supplements not yet published.",
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "rules": [
+   {
+    "id": "spell-energy-storing",
+    "name": "Energy Storing",
+    "cost": 7,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-guardian-aura",
+    "name": "Guardian Aura",
+    "cost": 7,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-sand-jet",
+    "name": "Sand Jet",
+    "cost": 4,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "shadowstab",
+    "name": "Shadowstab",
+    "cost": 9,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "rare": 1
+   },
+   {
+    "id": "tailsmash",
+    "name": "Tailsmash",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "tailstrike",
+    "name": "Tailstrike",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "tailwhip",
+    "name": "Tailwhip",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

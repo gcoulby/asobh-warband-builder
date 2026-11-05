@@ -1,0 +1,687 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "hammer-and-forge",
+  "name": "Hammer & Forge",
+  "shortName": "Hammer & Forge",
+  "kind": "supplement",
+  "game": "asobh",
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "rules": [
+   {
+    "id": "arbalest",
+    "name": "Arbalest",
+    "cost": 9,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "arquebus",
+    "name": "Arquebus",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "artillerist",
+    "name": "Artillerist",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "axe-of-kings",
+    "name": "Axe of Kings",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P",
+     "W"
+    ]
+   },
+   {
+    "id": "ball-and-chain",
+    "name": "Ball-and-Chain",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "bard",
+    "name": "Bard",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "battle-giant",
+    "name": "Battle Giant",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "battle-tankard",
+    "name": "Battle Tankard",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "runestone-blast",
+    "name": "Blast",
+    "cost": 4,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "spell-blessing-of-keen-eyes",
+    "name": "Blessing of Keen Eyes",
+    "cost": 7,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "bonded",
+    "name": "Bonded",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "brewer",
+    "name": "Brewer",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "claw-of-the-lich-king",
+    "name": "Claw of the Lich King",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P"
+    ]
+   },
+   {
+    "id": "composite-bow",
+    "name": "Composite Bow",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "runestone-cowardice",
+    "name": "Cowardice",
+    "cost": 2,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "dead-shot",
+    "name": "Dead Shot",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "deathshriek",
+    "name": "Deathshriek",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "deathwail",
+    "name": "Deathwail",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-destroy-undead",
+    "name": "Destroy Undead",
+    "cost": 10,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "runestone-discord",
+    "name": "Discord",
+    "cost": 2,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "runestone-distrust",
+    "name": "Distrust",
+    "cost": 1,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "dogged",
+    "name": "Dogged",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "spell-dome-of-silence",
+    "name": "Dome of Silence",
+    "cost": 12,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-dome-of-warning-against-thieves",
+    "name": "Dome of Warning Against Thieves",
+    "cost": 5,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "dragon-ale-flamethrower",
+    "name": "Dragon Ale Flamethrower",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "dragon-armor",
+    "name": "Dragon Armor",
+    "cost": 9,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P"
+    ]
+   },
+   {
+    "id": "dragon-fire",
+    "name": "Dragon Fire",
+    "cost": 16,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "runestone-dragonfire-blast",
+    "name": "Dragonfire Blast",
+    "cost": 5,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "dragonslayer",
+    "name": "Dragonslayer",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "drunkard",
+    "name": "Drunkard",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "dry-powder",
+    "name": "Dry Powder",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "duck-s-foot-gun",
+    "name": "Duck's Foot Gun",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "rare": 3
+   },
+   {
+    "id": "earthquake-maul",
+    "name": "Earthquake Maul",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P",
+     "W"
+    ]
+   },
+   {
+    "id": "expert-dragonslayer",
+    "name": "Expert Dragonslayer",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "flail",
+    "name": "Flail",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "flying-hammer",
+    "name": "Flying Hammer",
+    "cost": 18,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P",
+     "W"
+    ]
+   },
+   {
+    "id": "gang",
+    "name": "Gang",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "gargantuan",
+    "name": "Gargantuan",
+    "cost": 9,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "giantslayer",
+    "name": "Giantslayer",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "feral-trait-gift-of-the-badger",
+    "name": "Gift of the Badger",
+    "cost": 4,
+    "summary": "",
+    "category": "Feral Trait"
+   },
+   {
+    "id": "feral-trait-gift-of-the-bear",
+    "name": "Gift of the Bear",
+    "cost": 7,
+    "summary": "",
+    "category": "Feral Trait"
+   },
+   {
+    "id": "feral-trait-gift-of-the-bearwolf",
+    "name": "Gift of the BearWolf",
+    "cost": 8,
+    "summary": "",
+    "category": "Feral Trait"
+   },
+   {
+    "id": "feral-trait-gift-of-the-dragon",
+    "name": "Gift of the Dragon",
+    "cost": 8,
+    "summary": "",
+    "category": "Feral Trait"
+   },
+   {
+    "id": "feral-trait-gift-of-the-giant-raven",
+    "name": "Gift of the Giant Raven",
+    "cost": 6,
+    "summary": "",
+    "category": "Feral Trait"
+   },
+   {
+    "id": "feral-trait-gift-of-the-giant-wolverine",
+    "name": "Gift of the Giant Wolverine",
+    "cost": 4,
+    "summary": "",
+    "category": "Feral Trait"
+   },
+   {
+    "id": "feral-trait-gift-of-the-mountain-lion",
+    "name": "Gift of the Mountain Lion",
+    "cost": 3,
+    "summary": "",
+    "category": "Feral Trait"
+   },
+   {
+    "id": "feral-trait-gift-of-the-sabertooth-tiger",
+    "name": "Gift of the Sabertooth Tiger",
+    "cost": 6,
+    "summary": "",
+    "category": "Feral Trait"
+   },
+   {
+    "id": "hand-grenade",
+    "name": "Hand Grenade",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "handgun",
+    "name": "Handgun",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "impenetrable",
+    "name": "Impenetrable",
+    "cost": 16,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "inspiring-presence",
+    "name": "Inspiring Presence",
+    "cost": 13,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "L",
+     "P"
+    ]
+   },
+   {
+    "id": "legendary-dragonslayer",
+    "name": "Legendary Dragonslayer",
+    "cost": 9,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-magic-boulder",
+    "name": "Magic Boulder",
+    "cost": 18,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "master-duelist",
+    "name": "Master Duelist",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "master-gunner",
+    "name": "Master Gunner",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "orb-of-winterheart",
+    "name": "Orb of Winterheart",
+    "cost": 12,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P"
+    ]
+   },
+   {
+    "id": "overloader",
+    "name": "Overloader",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "runestone-panic",
+    "name": "Panic",
+    "cost": 7,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "runestone-rain-of-fire",
+    "name": "Rain of Fire",
+    "cost": 3,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "repeating-crossbow",
+    "name": "Repeating Crossbow",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "runemaster",
+    "name": "Runemaster",
+    "cost": 17,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "runestone-grenadier",
+    "name": "Runestone Grenadier",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "runic-dagger",
+    "name": "Runic Dagger",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "runic-weapon-of-maiming",
+    "name": "Runic Weapon of Maiming",
+    "cost": 20,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P",
+     "W"
+    ]
+   },
+   {
+    "id": "savage-mount",
+    "name": "Savage Mount",
+    "cost": 12,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sceptre-of-the-lich-king",
+    "name": "Sceptre of the Lich King",
+    "cost": 18,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P"
+    ]
+   },
+   {
+    "id": "runestone-smoke-curtain",
+    "name": "Smoke Curtain",
+    "cost": 3,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "tower-shield",
+    "name": "Tower Shield",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "tunnel-fighter",
+    "name": "Tunnel Fighter",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "variable-power-strike",
+    "name": "Variable Power Strike",
+    "cost": 16,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "runestone-venomous-blast",
+    "name": "Venomous Blast",
+    "cost": 8,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "runestone-wall-of-iron",
+    "name": "Wall of Iron",
+    "cost": 4,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "spell-wall-of-iron",
+    "name": "Wall of Iron",
+    "cost": 11,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "runestone-wall-of-stone",
+    "name": "Wall of Stone",
+    "cost": 3,
+    "summary": "",
+    "category": "Runestone"
+   },
+   {
+    "id": "spell-wall-of-stone",
+    "name": "Wall of Stone",
+    "cost": 9,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "wingblast",
+    "name": "Wingblast",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait"
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

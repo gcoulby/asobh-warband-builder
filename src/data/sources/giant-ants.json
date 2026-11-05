@@ -1,0 +1,72 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "giant-ants",
+  "name": "Norindaal Bestiary: Giant Ants",
+  "shortName": "Giant Ants",
+  "kind": "supplement",
+  "game": "asobh",
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "rules": [
+   {
+    "id": "acid-spray",
+    "name": "Acid Spray",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "enslaved",
+    "name": "Enslaved",
+    "cost": -3,
+    "summary": "",
+    "category": "Trait",
+    "rare": 8
+   },
+   {
+    "id": "fire-ant-venom",
+    "name": "Fire Ant Venom",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "formic-acid",
+    "name": "Formic Acid",
+    "cost": 1,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "hive-mind",
+    "name": "Hive Mind",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "hive-queen",
+    "name": "Hive Queen",
+    "cost": 14,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "rare": 1
+   },
+   {
+    "id": "tree-cutter",
+    "name": "Tree Cutter",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

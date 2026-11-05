@@ -10,11 +10,11 @@ export interface BundledSource {
 }
 
 /**
- * Source files in .temp/sources are offered in the source manager. That folder
- * is not committed, so a build without it offers none, and sources are added
- * from files instead.
+ * Cost tables for the books the builder knows: rule names, costs and markers,
+ * with no rule text and no profiles. Profiles and text come from your own copy
+ * of each book, read by the PDF importer.
  */
-const bundledFiles = import.meta.glob<unknown>('../../.temp/sources/*.json', { eager: true, import: 'default' })
+const bundledFiles = import.meta.glob<unknown>('../data/sources/*.json', { eager: true, import: 'default' })
 
 let cache: BundledSource[] | undefined
 

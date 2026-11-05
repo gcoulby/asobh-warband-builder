@@ -1,11 +1,12 @@
 import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router'
-import { FileJson, Library, Plus } from 'lucide-react'
+import { FileJson, FolderOpen, Library, Plus } from 'lucide-react'
 import { toast } from 'sonner'
 import { BundledSourcesDialog } from '@/components/BundledSourcesDialog'
 import { CreditsFooter } from '@/components/CreditsFooter'
 import { EmptyState } from '@/components/EmptyState'
 import { NewSourceDialog } from '@/components/NewSourceDialog'
+import { SourceFolderImportDialog } from '@/components/SourceFolderImportDialog'
 import { SourceImportDialog } from '@/components/SourceImportDialog'
 import { SourceListItem } from '@/components/SourceListItem'
 import { Button } from '@/components/ui/button'
@@ -24,6 +25,7 @@ export function SourcesPage() {
   const [catalogueOpen, setCatalogueOpen] = useState(false)
   const [importOpen, setImportOpen] = useState(false)
   const [newOpen, setNewOpen] = useState(false)
+  const [folderOpen, setFolderOpen] = useState(false)
 
   const add = (source: Source) => {
     const clashes = idClashes(source, sources)
@@ -55,6 +57,9 @@ export function SourcesPage() {
           </Button>
           <Button variant="outline" onClick={() => setImportOpen(true)}>
             <FileJson /> Import source file
+          </Button>
+          <Button variant="outline" onClick={() => setFolderOpen(true)}>
+            <FolderOpen /> Import folder
           </Button>
           <Button onClick={() => setCatalogueOpen(true)}>
             <Library /> Add included sources
@@ -120,6 +125,16 @@ export function SourcesPage() {
           setImportOpen(false)
           toast.success(`${source.name} imported`)
           void navigate(`/sources/${encodeURIComponent(source.id)}`)
+        }}
+      />
+      <SourceFolderImportDialog
+        open={folderOpen}
+        existing={sources}
+        onOpenChange={setFolderOpen}
+        onImport={(list) => {
+          list.forEach(saveSource)
+          setFolderOpen(false)
+          toast.success(`${list.length} ${list.length === 1 ? 'source' : 'sources'} imported`)
         }}
       />
       <NewSourceDialog

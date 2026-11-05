@@ -1,0 +1,171 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "sdg",
+  "name": "Song of Deeds and Glory",
+  "shortName": "Deeds and Glory",
+  "kind": "supplement",
+  "game": "sbh",
+  "usableIn": [
+   "asobh"
+  ],
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "description": "Trait names, costs and links from the Online Warband Calculator by Christoph Zager.",
+  "rules": [
+   {
+    "id": "sbh-blacksmith",
+    "name": "Blacksmith",
+    "cost": 1,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-blast",
+    "name": "Blast",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-brewmaster",
+    "name": "Brewmaster",
+    "cost": 1,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-champion",
+    "name": "Champion",
+    "cost": 9,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-diplomat",
+    "name": "Diplomat",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-enchanter",
+    "name": "Enchanter",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-elementalist",
+     "sbh-illusionist",
+     "sbh-magic-resistance",
+     "sbh-magic-user",
+     "sbh-necromancer",
+     "sbh-shield-mage",
+     "sbh-sorcerer",
+     "sbh-summoner"
+    ]
+   },
+   {
+    "id": "sbh-illusionist",
+    "name": "Illusionist",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-elementalist",
+     "sbh-enchanter",
+     "sbh-magic-resistance",
+     "sbh-magic-user",
+     "sbh-necromancer",
+     "sbh-shield-mage",
+     "sbh-sorcerer",
+     "sbh-summoner"
+    ]
+   },
+   {
+    "id": "sbh-immortal",
+    "name": "Immortal",
+    "cost": 20,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-laborer",
+    "name": "Laborer",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-noble",
+    "name": "Noble",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-outrider",
+    "name": "Outrider",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-reckless",
+    "name": "Reckless",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-reflect",
+    "name": "Reflect",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-shield-mage",
+    "name": "Shield-Mage",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-elementalist",
+     "sbh-enchanter",
+     "sbh-illusionist",
+     "sbh-magic-resistance",
+     "sbh-magic-user",
+     "sbh-necromancer",
+     "sbh-sorcerer",
+     "sbh-summoner"
+    ]
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

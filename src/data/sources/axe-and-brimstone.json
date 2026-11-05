@@ -1,0 +1,554 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "axe-and-brimstone",
+  "name": "Axe & Brimstone",
+  "shortName": "Axe & Brimstone",
+  "kind": "supplement",
+  "game": "asobh",
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "rules": [
+   {
+    "id": "arcane-cook",
+    "name": "Arcane Cook",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "axe-and-sword-technique",
+    "name": "Axe and Sword Technique",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "body-of-stone",
+    "name": "Body of Stone",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "charm-against-missiles",
+    "name": "Charm Against Missiles",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P"
+    ]
+   },
+   {
+    "id": "child-of-fury",
+    "name": "Child of Fury",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "creature-of-the-marshes",
+    "name": "Creature of the Marshes",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "spell-curse",
+    "name": "Curse",
+    "cost": 6,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "death-curse-weapon",
+    "name": "Death Curse Weapon",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P",
+     "W"
+    ]
+   },
+   {
+    "id": "demon",
+    "name": "Demon",
+    "cost": -1,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "demonic-armor",
+    "name": "Demonic Armor",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-demonic-harpoon",
+    "name": "Demonic Harpoon",
+    "cost": 9,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "diabolic-charisma",
+    "name": "Diabolic Charisma",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "L",
+     "P"
+    ]
+   },
+   {
+    "id": "double-stab",
+    "name": "Double Stab",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "elven-plate-armor",
+    "name": "Elven Plate Armor",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "encourage",
+    "name": "Encourage",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "L",
+     "P"
+    ]
+   },
+   {
+    "id": "ensnare",
+    "name": "Ensnare",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "exorcism",
+    "name": "Exorcism",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "fast-reload",
+    "name": "Fast Reload",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "fear-aura",
+    "name": "Fear Aura",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "fungus-trident",
+    "name": "Fungus Trident",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "halfling-wisewoman",
+    "name": "Halfling Wisewoman",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "helldisc",
+    "name": "Helldisc",
+    "cost": 19,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P"
+    ]
+   },
+   {
+    "id": "spell-hellfire-ammunition",
+    "name": "Hellfire Ammunition",
+    "cost": 5,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "hellfire-arquebus",
+    "name": "Hellfire Arquebus",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "spell-hellfire-blast",
+    "name": "Hellfire Blast",
+    "cost": 9,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-hellfire-immolation",
+    "name": "Hellfire Immolation",
+    "cost": 7,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "holy",
+    "name": "Holy",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "rare": 1
+   },
+   {
+    "id": "spell-holy-light",
+    "name": "Holy Light",
+    "cost": 5,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "illusionary-clone",
+    "name": "Illusionary Clone",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "inspire",
+    "name": "Inspire",
+    "cost": 12,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "L",
+     "P"
+    ],
+    "rare": 1
+   },
+   {
+    "id": "knapsacks",
+    "name": "Knapsacks",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "mark-of-the-demon",
+    "name": "Mark of the Demon",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "medicine-bag",
+    "name": "Medicine Bag",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "spell-mindwipe",
+    "name": "Mindwipe",
+    "cost": 11,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-netherworld-gate",
+    "name": "Netherworld Gate",
+    "cost": 11,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "outdoor-specialist",
+    "name": "Outdoor Specialist",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "paincarver",
+    "name": "Paincarver",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "spell-pentagram",
+    "name": "Pentagram",
+    "cost": 10,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "possession",
+    "name": "Possession",
+    "cost": 14,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "powerful-jaws",
+    "name": "Powerful Jaws",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "quick-with-a-blade",
+    "name": "Quick with a Blade",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P",
+     "W"
+    ]
+   },
+   {
+    "id": "rock-punch",
+    "name": "Rock Punch",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "runesword",
+    "name": "Runesword",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "W"
+    ]
+   },
+   {
+    "id": "skull-battleaxe",
+    "name": "Skull Battleaxe",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P",
+     "W"
+    ]
+   },
+   {
+    "id": "slayer",
+    "name": "Slayer",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "snares",
+    "name": "Snares",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "stiltfighter",
+    "name": "Stiltfighter",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "stoneslumber",
+    "name": "Stoneslumber",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "spell-summon-hell-frog",
+    "name": "Summon Hell Frog",
+    "cost": 15,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-summon-imp",
+    "name": "Summon Imp",
+    "cost": 18,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-summon-minor-demon",
+    "name": "Summon Minor Demon",
+    "cost": 28,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "throw-rock",
+    "name": "Throw Rock",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "trick-shot",
+    "name": "Trick Shot",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "twin-dagger-technique",
+    "name": "Twin Dagger Technique",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "unholy-symbol",
+    "name": "Unholy Symbol",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MI",
+     "P"
+    ]
+   },
+   {
+    "id": "vorpal-blade",
+    "name": "Vorpal Blade",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ]
+   },
+   {
+    "id": "spell-wall-of-hellfire",
+    "name": "Wall of Hellfire",
+    "cost": 14,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-wall-of-holy-light",
+    "name": "Wall of Holy Light",
+    "cost": 10,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

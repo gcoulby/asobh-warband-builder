@@ -1,0 +1,430 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "sbh",
+  "name": "Song of Blades and Heroes",
+  "shortName": "SBH",
+  "kind": "core",
+  "game": "sbh",
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "description": "Trait names, costs and links from the Online Warband Calculator by Christoph Zager.",
+  "rules": [
+   {
+    "id": "sbh-amphibious",
+    "name": "Amphibious",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-animal",
+    "name": "Animal",
+    "cost": -3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-beastmaster"
+    ]
+   },
+   {
+    "id": "sbh-artificial",
+    "name": "Artificial",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-mutant"
+    ]
+   },
+   {
+    "id": "sbh-assassin",
+    "name": "Assassin",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-big",
+    "name": "Big",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-gargantuan",
+     "sbh-huge"
+    ]
+   },
+   {
+    "id": "sbh-cleric",
+    "name": "Cleric",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-clinging",
+    "name": "Clinging",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-combat-master",
+    "name": "Combat Master",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-danger-sense",
+    "name": "Danger Sense",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-dashing",
+    "name": "Dashing",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-berserk"
+    ]
+   },
+   {
+    "id": "sbh-desert-walk",
+    "name": "Desert Walk",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-entangle",
+    "name": "Entangle",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-fearless",
+    "name": "Fearless",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-coward"
+    ]
+   },
+   {
+    "id": "sbh-flying",
+    "name": "Flying",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-forester",
+    "name": "Forester",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-free-disengage",
+    "name": "Free Disengage",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-gargantuan",
+    "name": "Gargantuan",
+    "cost": 9,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-big",
+     "sbh-huge"
+    ]
+   },
+   {
+    "id": "sbh-good-shot",
+    "name": "Good shot",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-greedy",
+    "name": "Greedy",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-gregarious",
+    "name": "Gregarious",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-heavy-armor",
+    "name": "Heavy Armor",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-stealth"
+    ]
+   },
+   {
+    "id": "sbh-hero",
+    "name": "Hero",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-coward"
+    ]
+   },
+   {
+    "id": "sbh-huge",
+    "name": "Huge",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-big",
+     "sbh-gargantuan",
+     "sbh-giant-slayer"
+    ]
+   },
+   {
+    "id": "sbh-leader",
+    "name": "Leader",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "L",
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-legendary-archer",
+    "name": "Legendary Archer",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-lethal",
+    "name": "Lethal",
+    "cost": 3,
+    "summary": "Name what it applies to in the model's notes.",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-long-move",
+    "name": "Long Move",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-short-move"
+    ]
+   },
+   {
+    "id": "sbh-magic-user",
+    "name": "Magic-User",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-elementalist",
+     "sbh-enchanter",
+     "sbh-illusionist",
+     "sbh-magic-resistance",
+     "sbh-necromancer",
+     "sbh-shield-mage",
+     "sbh-sorcerer",
+     "sbh-summoner"
+    ]
+   },
+   {
+    "id": "sbh-mounted",
+    "name": "Mounted",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-poison",
+    "name": "Poison",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-rabble",
+    "name": "Rabble",
+    "cost": -5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-savage",
+    "name": "Savage",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-shooter-long",
+    "name": "Shooter (long)",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-shooter-medium",
+     "sbh-shooter-short"
+    ]
+   },
+   {
+    "id": "sbh-shooter-medium",
+    "name": "Shooter (medium)",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-shooter-long",
+     "sbh-shooter-short"
+    ]
+   },
+   {
+    "id": "sbh-shooter-short",
+    "name": "Shooter (short)",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-shooter-long",
+     "sbh-shooter-medium"
+    ]
+   },
+   {
+    "id": "sbh-short-move",
+    "name": "Short Move",
+    "cost": -3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-long-move"
+    ]
+   },
+   {
+    "id": "sbh-slow",
+    "name": "Slow",
+    "cost": -5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-steadfast",
+    "name": "Steadfast",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-coward"
+    ]
+   },
+   {
+    "id": "sbh-stealth",
+    "name": "Stealth",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-heavy-armor"
+    ]
+   },
+   {
+    "id": "sbh-swarm",
+    "name": "Swarm",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-tailslap",
+    "name": "Tailslap",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-terror",
+    "name": "Terror",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-tough",
+    "name": "Tough",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-undead",
+    "name": "Undead",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-mutant"
+    ]
+   },
+   {
+    "id": "sbh-unerring-aim",
+    "name": "Unerring aim",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

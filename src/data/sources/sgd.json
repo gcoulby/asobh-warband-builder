@@ -1,0 +1,188 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "sgd",
+  "name": "Song of Gold and Darkness",
+  "shortName": "Gold and Darkness",
+  "kind": "supplement",
+  "game": "sbh",
+  "usableIn": [
+   "asobh"
+  ],
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "description": "Trait names, costs and links from the Online Warband Calculator by Christoph Zager.",
+  "rules": [
+   {
+    "id": "sbh-acrobat",
+    "name": "Acrobat",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-coward",
+    "name": "Coward",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-fearless",
+     "sbh-hero",
+     "sbh-steadfast"
+    ]
+   },
+   {
+    "id": "sbh-distract",
+    "name": "Distract",
+    "cost": 12,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-evil",
+    "name": "Evil",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-ghost-blade",
+    "name": "Ghost Blade",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-magic-resistance",
+    "name": "Magic Resistance",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-elementalist",
+     "sbh-enchanter",
+     "sbh-illusionist",
+     "sbh-magic-user",
+     "sbh-necromancer",
+     "sbh-shield-mage",
+     "sbh-sorcerer",
+     "sbh-summoner"
+    ]
+   },
+   {
+    "id": "sbh-mutant",
+    "name": "Mutant",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-artificial",
+     "sbh-undead"
+    ]
+   },
+   {
+    "id": "sbh-necromancer",
+    "name": "Necromancer",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-elementalist",
+     "sbh-enchanter",
+     "sbh-illusionist",
+     "sbh-magic-resistance",
+     "sbh-magic-user",
+     "sbh-shield-mage",
+     "sbh-sorcerer",
+     "sbh-summoner"
+    ]
+   },
+   {
+    "id": "sbh-opportunistic",
+    "name": "Opportunistic",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-paladin",
+    "name": "Paladin",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-sorcerer",
+    "name": "Sorcerer",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-elementalist",
+     "sbh-enchanter",
+     "sbh-illusionist",
+     "sbh-magic-resistance",
+     "sbh-magic-user",
+     "sbh-necromancer",
+     "sbh-shield-mage",
+     "sbh-summoner"
+    ]
+   },
+   {
+    "id": "sbh-summoner",
+    "name": "Summoner",
+    "cost": 15,
+    "summary": "Summoned figures come from a separate points pool, which this builder does not track.",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-elementalist",
+     "sbh-enchanter",
+     "sbh-illusionist",
+     "sbh-magic-resistance",
+     "sbh-magic-user",
+     "sbh-necromancer",
+     "sbh-shield-mage",
+     "sbh-sorcerer"
+    ]
+   },
+   {
+    "id": "sbh-teleport",
+    "name": "Teleport",
+    "cost": 12,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-traps",
+    "name": "Traps",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-were",
+    "name": "Were",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait"
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

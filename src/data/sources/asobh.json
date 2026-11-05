@@ -1,0 +1,1535 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "asobh",
+  "name": "Advanced Song of Blades and Heroes",
+  "shortName": "ASOBH",
+  "kind": "core",
+  "game": "asobh",
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "rules": [
+   {
+    "id": "acrobat",
+    "name": "Acrobat",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "46"
+   },
+   {
+    "id": "agile",
+    "name": "Agile",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "46"
+   },
+   {
+    "id": "aim-for-the-head",
+    "name": "Aim for the Head",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "47"
+   },
+   {
+    "id": "spell-alter-terrain",
+    "name": "Alter Terrain",
+    "cost": 12,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "31"
+   },
+   {
+    "id": "amphibious",
+    "name": "Amphibious",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "47"
+   },
+   {
+    "id": "animal",
+    "name": "Animal",
+    "cost": -3,
+    "summary": "",
+    "category": "Trait",
+    "page": "47"
+   },
+   {
+    "id": "spell-animate-wall",
+    "name": "Animate Wall",
+    "cost": 10,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "31"
+   },
+   {
+    "id": "spell-anti-magic-shell",
+    "name": "Anti-magic Shell",
+    "cost": 25,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "31"
+   },
+   {
+    "id": "artificial",
+    "name": "Artificial",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "47"
+   },
+   {
+    "id": "assassin",
+    "name": "Assassin",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "47"
+   },
+   {
+    "id": "spell-aura-of-terror",
+    "name": "Aura of Terror",
+    "cost": 8,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "31"
+   },
+   {
+    "id": "backstab",
+    "name": "Backstab",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "47"
+   },
+   {
+    "id": "battle-hunger",
+    "name": "Battle Hunger",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "page": "47"
+   },
+   {
+    "id": "beastmaster",
+    "name": "Beastmaster",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "47"
+   },
+   {
+    "id": "berserk",
+    "name": "Berserk",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "big",
+    "name": "Big",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "48"
+   },
+   {
+    "id": "spell-blast",
+    "name": "Blast",
+    "cost": 5,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "31"
+   },
+   {
+    "id": "block",
+    "name": "Block",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "page": "48"
+   },
+   {
+    "id": "bludgeon",
+    "name": "Bludgeon",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "page": "48"
+   },
+   {
+    "id": "spell-break-enchantment",
+    "name": "Break Enchantment",
+    "cost": 5,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "32"
+   },
+   {
+    "id": "burrowing",
+    "name": "Burrowing",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "page": "48"
+   },
+   {
+    "id": "clinging",
+    "name": "Clinging",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "49"
+   },
+   {
+    "id": "clumsy",
+    "name": "Clumsy",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait",
+    "page": "49"
+   },
+   {
+    "id": "combat-master",
+    "name": "Combat Master",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-counter-spell",
+    "name": "Counter-spell",
+    "cost": 14,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "32"
+   },
+   {
+    "id": "spell-courage",
+    "name": "Courage",
+    "cost": 7,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "32"
+   },
+   {
+    "id": "coward",
+    "name": "Coward",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait",
+    "page": "50"
+   },
+   {
+    "id": "crossbow",
+    "name": "Crossbow",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "page": "50"
+   },
+   {
+    "id": "danger-sense",
+    "name": "Danger Sense",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "50"
+   },
+   {
+    "id": "dashing",
+    "name": "Dashing",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "50"
+   },
+   {
+    "id": "desert-walk",
+    "name": "Desert-Walk",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "page": "51"
+   },
+   {
+    "id": "difficult-target",
+    "name": "Difficult Target",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "51"
+   },
+   {
+    "id": "dim-witted",
+    "name": "Dim-Witted",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait",
+    "page": "51"
+   },
+   {
+    "id": "disarming-block",
+    "name": "Disarming Block",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA"
+    ],
+    "page": "51"
+   },
+   {
+    "id": "discipline-master",
+    "name": "Discipline Master",
+    "cost": 14,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "L",
+     "P"
+    ],
+    "page": "51"
+   },
+   {
+    "id": "double-strike",
+    "name": "Double Strike",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P",
+     "W"
+    ],
+    "page": "51"
+   },
+   {
+    "id": "drain",
+    "name": "Drain",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "page": "51"
+   },
+   {
+    "id": "drilled",
+    "name": "Drilled",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "page": "52"
+   },
+   {
+    "id": "easy-target",
+    "name": "Easy Target",
+    "cost": -3,
+    "summary": "",
+    "category": "Trait",
+    "page": "52"
+   },
+   {
+    "id": "entangle",
+    "name": "Entangle",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "page": "52"
+   },
+   {
+    "id": "evade-and-counter",
+    "name": "Evade and Counter",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA"
+    ],
+    "page": "52"
+   },
+   {
+    "id": "expert-block",
+    "name": "Expert Block",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "page": "52"
+   },
+   {
+    "id": "expert-parry",
+    "name": "Expert Parry",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "52"
+   },
+   {
+    "id": "spell-fear",
+    "name": "Fear",
+    "cost": 5,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "32"
+   },
+   {
+    "id": "fearless",
+    "name": "Fearless",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "52"
+   },
+   {
+    "id": "fire-into-melee",
+    "name": "Fire into Melee",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "spell-fireball",
+    "name": "Fireball",
+    "cost": 14,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "32"
+   },
+   {
+    "id": "spell-flame-jet",
+    "name": "Flame Jet",
+    "cost": 9,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "32"
+   },
+   {
+    "id": "spell-flaming-touch",
+    "name": "Flaming Touch",
+    "cost": 5,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "32"
+   },
+   {
+    "id": "flying",
+    "name": "Flying",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "page": "52"
+   },
+   {
+    "id": "forester",
+    "name": "Forester",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "53"
+   },
+   {
+    "id": "fragile",
+    "name": "Fragile",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait",
+    "page": "53"
+   },
+   {
+    "id": "free-disengage",
+    "name": "Free Disengage",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "53"
+   },
+   {
+    "id": "good-shot",
+    "name": "Good Shot",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "53"
+   },
+   {
+    "id": "greedy",
+    "name": "Greedy",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait",
+    "page": "53"
+   },
+   {
+    "id": "gregarious",
+    "name": "Gregarious",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "54"
+   },
+   {
+    "id": "group-fighter",
+    "name": "Group Fighter",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "54"
+   },
+   {
+    "id": "spell-hailstorm",
+    "name": "Hailstorm",
+    "cost": 10,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "33"
+   },
+   {
+    "id": "hammering-blow",
+    "name": "Hammering Blow",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "page": "54"
+   },
+   {
+    "id": "hard-hide",
+    "name": "Hard Hide",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "page": "54"
+   },
+   {
+    "id": "headbutt",
+    "name": "Headbutt",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "healer",
+    "name": "Healer",
+    "cost": 11,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "54"
+   },
+   {
+    "id": "heavily-armored",
+    "name": "Heavily Armored",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "page": "54"
+   },
+   {
+    "id": "heavy-weapon",
+    "name": "Heavy Weapon",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "hero",
+    "name": "Hero",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "55"
+   },
+   {
+    "id": "huge",
+    "name": "Huge",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "page": "55"
+   },
+   {
+    "id": "huge-weapon",
+    "name": "Huge Weapon",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "page": "55"
+   },
+   {
+    "id": "hunter-of-the-dead",
+    "name": "Hunter of the Dead",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "55"
+   },
+   {
+    "id": "incorporeal",
+    "name": "Incorporeal",
+    "cost": 14,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "55"
+   },
+   {
+    "id": "increased-spell-memory",
+    "name": "Increased Spell Memory",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "55"
+   },
+   {
+    "id": "irrelevant",
+    "name": "Irrelevant",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "javelin",
+    "name": "Javelin",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "page": "55"
+   },
+   {
+    "id": "lead-from-the-front",
+    "name": "Lead from the Front",
+    "cost": 14,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "L",
+     "P"
+    ],
+    "page": "56"
+   },
+   {
+    "id": "leader",
+    "name": "Leader",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "L",
+     "P"
+    ],
+    "page": "56"
+   },
+   {
+    "id": "leafsight",
+    "name": "Leafsight",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "page": "56"
+   },
+   {
+    "id": "leafwalk",
+    "name": "Leafwalk",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "page": "57"
+   },
+   {
+    "id": "legendary-shot",
+    "name": "Legendary Shot",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "57"
+   },
+   {
+    "id": "lethal",
+    "name": "Lethal",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "57"
+   },
+   {
+    "id": "spell-lightning",
+    "name": "Lightning",
+    "cost": 14,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "33"
+   },
+   {
+    "id": "long-move",
+    "name": "Long Move",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "page": "57"
+   },
+   {
+    "id": "long-reach",
+    "name": "Long Reach",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "58"
+   },
+   {
+    "id": "longbow",
+    "name": "Longbow",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "page": "57"
+   },
+   {
+    "id": "lucky",
+    "name": "Lucky",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "58"
+   },
+   {
+    "id": "lumbering",
+    "name": "Lumbering",
+    "cost": -1,
+    "summary": "",
+    "category": "Trait",
+    "page": "58"
+   },
+   {
+    "id": "magic-block",
+    "name": "Magic Block",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "59"
+   },
+   {
+    "id": "magic-resistance",
+    "name": "Magic Resistance",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "page": "59"
+   },
+   {
+    "id": "melee-block",
+    "name": "Melee Block",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "59"
+   },
+   {
+    "id": "spell-mind-control",
+    "name": "Mind Control",
+    "cost": 30,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "33"
+   },
+   {
+    "id": "spell-mist",
+    "name": "Mist",
+    "cost": 10,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "33"
+   },
+   {
+    "id": "mountaineer",
+    "name": "Mountaineer",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "page": "59"
+   },
+   {
+    "id": "mounted",
+    "name": "Mounted",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "page": "59"
+   },
+   {
+    "id": "music",
+    "name": "Music",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait",
+    "page": "59"
+   },
+   {
+    "id": "oblivious",
+    "name": "Oblivious",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "59"
+   },
+   {
+    "id": "oblivious-to-danger",
+    "name": "Oblivious to Danger",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait",
+    "page": "59"
+   },
+   {
+    "id": "opportunistic",
+    "name": "Opportunistic",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "page": "59"
+   },
+   {
+    "id": "opportunity-flail-strike",
+    "name": "Opportunity Flail Strike",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P",
+     "W"
+    ],
+    "page": "59"
+   },
+   {
+    "id": "parry",
+    "name": "Parry",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "page": "59"
+   },
+   {
+    "id": "piercing-weapon",
+    "name": "Piercing Weapon",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "page": "60"
+   },
+   {
+    "id": "poison",
+    "name": "Poison",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "60"
+   },
+   {
+    "id": "potion-of-healing",
+    "name": "Potion of Healing",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "A",
+     "P"
+    ],
+    "rare": 1,
+    "page": "60"
+   },
+   {
+    "id": "spell-protection-from-arrows",
+    "name": "Protection From Arrows",
+    "cost": 3,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "33"
+   },
+   {
+    "id": "puny",
+    "name": "Puny",
+    "cost": -3,
+    "summary": "",
+    "category": "Trait",
+    "page": "61"
+   },
+   {
+    "id": "quick",
+    "name": "Quick",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "61"
+   },
+   {
+    "id": "rabble",
+    "name": "Rabble",
+    "cost": -5,
+    "summary": "",
+    "category": "Trait",
+    "page": "61"
+   },
+   {
+    "id": "spell-rain",
+    "name": "Rain",
+    "cost": 10,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "33"
+   },
+   {
+    "id": "rare",
+    "name": "Rare",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait",
+    "page": "61"
+   },
+   {
+    "id": "reactive",
+    "name": "Reactive",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "61"
+   },
+   {
+    "id": "reckless",
+    "name": "Reckless",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "page": "61"
+   },
+   {
+    "id": "regeneration",
+    "name": "Regeneration",
+    "cost": 12,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "61"
+   },
+   {
+    "id": "savage",
+    "name": "Savage",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "62"
+   },
+   {
+    "id": "shieldbreaker",
+    "name": "Shieldbreaker",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "page": "62"
+   },
+   {
+    "id": "shieldwall",
+    "name": "Shieldwall",
+    "cost": 1,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "short-bow",
+    "name": "Short Bow",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "page": "62"
+   },
+   {
+    "id": "short-move",
+    "name": "Short Move",
+    "cost": -3,
+    "summary": "",
+    "category": "Trait",
+    "page": "62"
+   },
+   {
+    "id": "skeletal",
+    "name": "Skeletal",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "page": "62"
+   },
+   {
+    "id": "spell-sleep",
+    "name": "Sleep",
+    "cost": 15,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "33"
+   },
+   {
+    "id": "sling",
+    "name": "Sling",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "W"
+    ],
+    "page": "62"
+   },
+   {
+    "id": "slow",
+    "name": "Slow",
+    "cost": -5,
+    "summary": "",
+    "category": "Trait",
+    "page": "62"
+   },
+   {
+    "id": "slow-reflexes",
+    "name": "Slow Reflexes",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait",
+    "page": "62"
+   },
+   {
+    "id": "spell-slowdown",
+    "name": "Slowdown",
+    "cost": 9,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "33"
+   },
+   {
+    "id": "snow-walk",
+    "name": "Snow-Walk",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "62"
+   },
+   {
+    "id": "spell-snowstorm",
+    "name": "Snowstorm",
+    "cost": 11,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "34"
+   },
+   {
+    "id": "spell-caster",
+    "name": "Spell-caster",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "62"
+   },
+   {
+    "id": "standard-bearer",
+    "name": "Standard Bearer",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait",
+    "page": "62"
+   },
+   {
+    "id": "steadfast",
+    "name": "Steadfast",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "62"
+   },
+   {
+    "id": "stealth",
+    "name": "Stealth",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "63"
+   },
+   {
+    "id": "stubborn",
+    "name": "Stubborn",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait",
+    "page": "63"
+   },
+   {
+    "id": "subcommander",
+    "name": "Subcommander",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "L",
+     "P"
+    ],
+    "page": "63"
+   },
+   {
+    "id": "spell-summon-warrior",
+    "name": "Summon Warrior",
+    "cost": 25,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "34"
+   },
+   {
+    "id": "swamp-walk",
+    "name": "Swamp Walk",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "63"
+   },
+   {
+    "id": "swarm",
+    "name": "Swarm",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "63"
+   },
+   {
+    "id": "spell-switcheroo",
+    "name": "Switcheroo",
+    "cost": 12,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "34"
+   },
+   {
+    "id": "tailslap",
+    "name": "Tailslap",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "64"
+   },
+   {
+    "id": "terror",
+    "name": "Terror",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "64"
+   },
+   {
+    "id": "thief",
+    "name": "Thief",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "page": "64"
+   },
+   {
+    "id": "tight-grip",
+    "name": "Tight Grip",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "page": "64"
+   },
+   {
+    "id": "tiny",
+    "name": "Tiny",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "tough",
+    "name": "Tough",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "65"
+   },
+   {
+    "id": "trample",
+    "name": "Trample",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "65"
+   },
+   {
+    "id": "spell-transfix",
+    "name": "Transfix",
+    "cost": 10,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "34"
+   },
+   {
+    "id": "traps",
+    "name": "Traps",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "65"
+   },
+   {
+    "id": "spell-tremor",
+    "name": "Tremor",
+    "cost": 15,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "34"
+   },
+   {
+    "id": "spell-trip",
+    "name": "Trip",
+    "cost": 12,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "34"
+   },
+   {
+    "id": "spell-turn-to-stone",
+    "name": "Turn to Stone",
+    "cost": 14,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "35"
+   },
+   {
+    "id": "undead",
+    "name": "Undead",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "unerring-aim",
+    "name": "Unerring Aim",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "page": "66"
+   },
+   {
+    "id": "unique",
+    "name": "Unique",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait",
+    "page": "66"
+   },
+   {
+    "id": "unreactive",
+    "name": "Unreactive",
+    "cost": -3,
+    "summary": "",
+    "category": "Trait",
+    "page": "66"
+   },
+   {
+    "id": "unruly",
+    "name": "Unruly",
+    "cost": -1,
+    "summary": "",
+    "category": "Trait",
+    "page": "66"
+   },
+   {
+    "id": "spell-unsummon",
+    "name": "Unsummon",
+    "cost": 5,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "35"
+   },
+   {
+    "id": "venomous-strike",
+    "name": "Venomous Strike",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "page": "66"
+   },
+   {
+    "id": "veteran-group-fighter",
+    "name": "Veteran Group Fighter",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "page": "66"
+   },
+   {
+    "id": "spell-wall-of-bedazzlement",
+    "name": "Wall of Bedazzlement",
+    "cost": 20,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "35"
+   },
+   {
+    "id": "spell-wall-of-bones",
+    "name": "Wall of Bones",
+    "cost": 20,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "35"
+   },
+   {
+    "id": "spell-wall-of-fear",
+    "name": "Wall of Fear",
+    "cost": 12,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "35"
+   },
+   {
+    "id": "spell-wall-of-fire",
+    "name": "Wall of Fire",
+    "cost": 12,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "35"
+   },
+   {
+    "id": "spell-wall-of-ice",
+    "name": "Wall of Ice",
+    "cost": 6,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "36"
+   },
+   {
+    "id": "spell-wall-of-water",
+    "name": "Wall of Water",
+    "cost": 10,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "36"
+   },
+   {
+    "id": "spell-wall-of-wood",
+    "name": "Wall of Wood",
+    "cost": 6,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "36"
+   },
+   {
+    "id": "will-of-iron",
+    "name": "Will of Iron",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "page": "66"
+   },
+   {
+    "id": "will-of-the-gods",
+    "name": "Will of the Gods",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "page": "66"
+   },
+   {
+    "id": "spell-windstorm",
+    "name": "Windstorm",
+    "cost": 11,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ],
+    "page": "36"
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

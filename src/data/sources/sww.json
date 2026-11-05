@@ -1,0 +1,155 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "sww",
+  "name": "Song of Wind and Water",
+  "shortName": "Wind and Water",
+  "kind": "supplement",
+  "game": "sbh",
+  "usableIn": [
+   "asobh"
+  ],
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "description": "Trait names, costs and links from the Online Warband Calculator by Christoph Zager.",
+  "rules": [
+   {
+    "id": "sbh-beastmaster",
+    "name": "Beastmaster",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-animal"
+    ]
+   },
+   {
+    "id": "sbh-berserk",
+    "name": "Berserk",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-dashing"
+    ]
+   },
+   {
+    "id": "sbh-burrowing",
+    "name": "Burrowing",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-drain",
+    "name": "Drain",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-elementalist",
+    "name": "Elementalist",
+    "cost": 15,
+    "summary": "Summoned figures come from a separate points pool, which this builder does not track.",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ],
+    "excludes": [
+     "sbh-enchanter",
+     "sbh-illusionist",
+     "sbh-magic-resistance",
+     "sbh-magic-user",
+     "sbh-necromancer",
+     "sbh-shield-mage",
+     "sbh-sorcerer",
+     "sbh-summoner"
+    ]
+   },
+   {
+    "id": "sbh-giant-slayer",
+    "name": "Giant Slayer",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "excludes": [
+     "sbh-huge"
+    ]
+   },
+   {
+    "id": "sbh-group-fighter",
+    "name": "Group Fighter",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-hatred",
+    "name": "Hatred",
+    "cost": 3,
+    "summary": "Name what it applies to in the model's notes.",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-mountaineer",
+    "name": "Mountaineer",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-running-blow",
+    "name": "Running Blow",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-sharpshooter",
+    "name": "Sharpshooter",
+    "cost": 4,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-shieldwall",
+    "name": "Shieldwall",
+    "cost": 1,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-snow-walk",
+    "name": "Snow Walk",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-standard-bearer",
+    "name": "Standard Bearer",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-swamp-walk",
+    "name": "Swamp Walk",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

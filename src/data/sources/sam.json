@@ -1,0 +1,115 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "sam",
+  "name": "Song of Arthur and Merlin",
+  "shortName": "Arthur and Merlin",
+  "kind": "supplement",
+  "game": "sbh",
+  "usableIn": [
+   "asobh"
+  ],
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "description": "Trait names, costs and links from the Online Warband Calculator by Christoph Zager.",
+  "rules": [
+   {
+    "id": "sbh-bard",
+    "name": "Bard",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-chivalry",
+    "name": "Chivalry",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-dogged",
+    "name": "Dogged",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-heros-horse",
+    "name": "Hero's Horse",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-inconvenient",
+    "name": "Inconvenient",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-jouster",
+    "name": "Jouster",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-knight",
+    "name": "Knight",
+    "cost": 1,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-legendary-wizard",
+    "name": "Legendary Wizard",
+    "cost": 99,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sbh-protect",
+    "name": "Protect",
+    "cost": -2,
+    "summary": "Name what it applies to in the model's notes.",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-solar-force",
+    "name": "Solar Force",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-stubborn",
+    "name": "Stubborn",
+    "cost": -2,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sbh-unique",
+    "name": "Unique",
+    "cost": 0,
+    "summary": "",
+    "category": "Trait"
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

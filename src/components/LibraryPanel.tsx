@@ -43,6 +43,11 @@ interface LibraryPanelProps {
   hiddenNotes?: readonly string[]
   /** Book profiles of the chosen roster. Empty when no roster file is bundled. */
   bookItems: readonly BookItem[]
+  /** Sources in use that have rosters. */
+  bookSources: readonly Roster[]
+  bookSource?: string
+  onBookSourceChange: (sourceId: string) => void
+  /** Rosters of the chosen source. */
   bookRosters: readonly Roster[]
   bookRoster?: string
   onBookRosterChange: (roster: string) => void
@@ -68,6 +73,9 @@ export function LibraryPanel({
   onShowNoncombatantsChange,
   hiddenNotes = [],
   bookItems,
+  bookSources,
+  bookSource,
+  onBookSourceChange,
   bookRosters,
   bookRoster,
   onBookRosterChange,
@@ -77,7 +85,7 @@ export function LibraryPanel({
 }: LibraryPanelProps) {
   const [source, setSource] = useState<Source>('mine')
   const [query, setQuery] = useState('')
-  const hasBook = bookRosters.length > 0
+  const hasBook = bookSources.length > 0
   const showBook = hasBook && source === 'book'
   const q = query.trim().toLowerCase()
   const shown = q
@@ -172,12 +180,27 @@ export function LibraryPanel({
             </Button>
           </div>
           {showBook && (
-            <div className="flex items-center gap-2">
+            <div className="grid grid-cols-[3.25rem_1fr] items-center gap-2">
+              <Label htmlFor="book-source" className="text-xs text-muted-foreground">
+                Source
+              </Label>
+              <Select value={bookSource} onValueChange={onBookSourceChange} disabled={bookRosterLocked}>
+                <SelectTrigger id="book-source" size="sm" className="w-full">
+                  <SelectValue placeholder="Choose a source" />
+                </SelectTrigger>
+                <SelectContent>
+                  {bookSources.map((x) => (
+                    <SelectItem key={x.id} value={x.id}>
+                      {x.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
               <Label htmlFor="book-roster" className="text-xs text-muted-foreground">
                 Roster
               </Label>
               <Select value={bookRoster} onValueChange={onBookRosterChange} disabled={bookRosterLocked}>
-                <SelectTrigger id="book-roster" size="sm" className="flex-1">
+                <SelectTrigger id="book-roster" size="sm" className="w-full">
                   <SelectValue placeholder="Choose a roster" />
                 </SelectTrigger>
                 <SelectContent>

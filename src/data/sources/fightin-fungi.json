@@ -1,0 +1,281 @@
+{
+ "format": "warband-source",
+ "version": 1,
+ "source": {
+  "id": "fightin-fungi",
+  "name": "Fightin' Fungi",
+  "shortName": "Fightin' Fungi",
+  "kind": "supplement",
+  "game": "asobh",
+  "author": "Andrea Sfiligoi",
+  "publisher": "Ganesha Games",
+  "url": "http://www.ganeshagames.net/",
+  "rules": [
+   {
+    "id": "aggressive-tumble",
+    "name": "Aggressive Tumble",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA"
+    ]
+   },
+   {
+    "id": "arrowcatcher",
+    "name": "Arrowcatcher",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA",
+     "P"
+    ]
+   },
+   {
+    "id": "boiling-blood",
+    "name": "Boiling Blood",
+    "cost": 12,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "butterfly-parry",
+    "name": "Butterfly Parry",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA",
+     "P"
+    ]
+   },
+   {
+    "id": "conglobation",
+    "name": "Conglobation",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "crane-balance",
+    "name": "Crane Balance",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA",
+     "P"
+    ]
+   },
+   {
+    "id": "doppelganger",
+    "name": "Doppelganger",
+    "cost": 12,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "drunken-fighting",
+    "name": "Drunken Fighting",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA"
+    ]
+   },
+   {
+    "id": "explosive",
+    "name": "Explosive",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "flurry-of-blows",
+    "name": "Flurry of Blows",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA",
+     "P"
+    ]
+   },
+   {
+    "id": "immovable-stance",
+    "name": "Immovable Stance",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA",
+     "P"
+    ]
+   },
+   {
+    "id": "insignificant",
+    "name": "Insignificant",
+    "cost": -1,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "low-kick",
+    "name": "Low Kick",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA"
+    ]
+   },
+   {
+    "id": "spell-mosquito-swarm",
+    "name": "Mosquito Swarm",
+    "cost": 7,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "spell-noxious-cloud",
+    "name": "Noxious Cloud",
+    "cost": 8,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "respawn",
+    "name": "Respawn",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "roll-with-the-punch",
+    "name": "Roll with the Punch",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA"
+    ]
+   },
+   {
+    "id": "rotting-touch",
+    "name": "Rotting Touch",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "shield-rush",
+    "name": "Shield Rush",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "spore-artillery",
+    "name": "Spore Artillery",
+    "cost": 12,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "spore-colony",
+    "name": "Spore Colony",
+    "cost": 5,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "sporemaster",
+    "name": "Sporemaster",
+    "cost": 15,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "sporeslinger",
+    "name": "Sporeslinger",
+    "cost": 6,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "squishy",
+    "name": "Squishy",
+    "cost": 8,
+    "summary": "",
+    "category": "Trait"
+   },
+   {
+    "id": "twirling-arrow-defense",
+    "name": "Twirling Arrow Defense",
+    "cost": 2,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA"
+    ]
+   },
+   {
+    "id": "spell-wall-of-worms",
+    "name": "Wall of Worms",
+    "cost": 8,
+    "summary": "",
+    "category": "Spell",
+    "tags": [
+     "P"
+    ]
+   },
+   {
+    "id": "way-of-the-intercepting-fist",
+    "name": "Way of the Intercepting Fist",
+    "cost": 7,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA"
+    ]
+   },
+   {
+    "id": "way-of-the-quivering-stool",
+    "name": "Way of the Quivering Stool",
+    "cost": 10,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA",
+     "P"
+    ]
+   },
+   {
+    "id": "zen-archery",
+    "name": "Zen Archery",
+    "cost": 3,
+    "summary": "",
+    "category": "Trait",
+    "tags": [
+     "MA"
+    ]
+   }
+  ],
+  "rosters": [],
+  "profiles": []
+ }
+}

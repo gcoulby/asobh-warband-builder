@@ -71,17 +71,27 @@ export function WarbandPage() {
   )
   const book = useMemo(
     () => ({
-      rosters: rosters
-        .filter((r) => inUse.has(r.sourceId))
-        .map((r) => ({ id: r.id, label: `${sourceLabel(sources.find((x) => x.id === r.sourceId) ?? { name: r.sourceId })}: ${r.label}` })),
+      rosters: rosters.filter((r) => inUse.has(r.sourceId)),
+      sources: sources
+        .filter((x) => inUse.has(x.id) && x.rosters.length > 0)
+        .map((x) => ({ id: x.id, label: sourceLabel(x) })),
       profiles: profiles.filter((p) => inUse.has(p.sourceId)),
     }),
     [rosters, profiles, sources, inUse],
   )
   const strict = warband ? isStrictRoster(warband) : false
   const warbandRoster = warband?.roster && warband.roster !== MIXED_ROSTER ? warband.roster : undefined
+  // The book view picks a source, then one of its rosters. Strict roster fixes both to the warband's roster.
+  const [chosenBookSource, setChosenBookSource] = useState<string>()
   const [chosenBookRoster, setChosenBookRoster] = useState<string>()
-  const bookRoster = strict ? warbandRoster : (chosenBookRoster ?? warbandRoster ?? book.rosters[0]?.id)
+  const sourceOfRoster = (rosterId?: string) => book.rosters.find((r) => r.id === rosterId)?.sourceId
+  const bookSource = strict
+    ? sourceOfRoster(warbandRoster)
+    : (chosenBookSource ?? sourceOfRoster(chosenBookRoster) ?? sourceOfRoster(warbandRoster) ?? book.sources[0]?.id)
+  const sourceRosters = book.rosters.filter((r) => r.sourceId === bookSource)
+  const bookRoster = strict
+    ? warbandRoster
+    : [chosenBookRoster, warbandRoster].find((id) => sourceRosters.some((r) => r.id === id)) ?? sourceRosters[0]?.id
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [shareOpen, setShareOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
@@ -211,7 +221,13 @@ export function WarbandPage() {
       onShowNoncombatantsChange={(shown) => setPrefs({ showNoncombatants: shown })}
       hiddenNotes={hiddenNotes}
       bookItems={bookItems}
-      bookRosters={book.rosters}
+      bookSources={book.sources}
+      bookSource={bookSource}
+      onBookSourceChange={(id) => {
+        setChosenBookSource(id)
+        setChosenBookRoster(undefined)
+      }}
+      bookRosters={sourceRosters}
       bookRoster={bookRoster}
       onBookRosterChange={setChosenBookRoster}
       bookRosterLocked={strict}
