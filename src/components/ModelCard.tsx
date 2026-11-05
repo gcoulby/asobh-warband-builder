@@ -42,17 +42,25 @@ export function ModelCard({
 }: ModelCardProps) {
   const isPrint = variant === 'print'
   const isLibrary = variant === 'library'
+  const isRoster = variant === 'roster'
   const isLeader = hasLeadership(model, rules)
   const personality = isPersonality(model, rules)
 
   const title = (
-    <span className="font-display text-[1.375rem] leading-tight font-semibold wrap-break-word">{model.name}</span>
+    <span
+      className={cn(
+        'font-display leading-tight font-semibold wrap-break-word',
+        isPrint ? 'text-lg' : 'text-[1.1875rem]',
+      )}
+    >
+      {model.name}
+    </span>
   )
 
   const heading = (
     <div className="flex min-w-0 items-start justify-between gap-2">
-      <div className="min-w-0">
-        <h3 className={cn(isPrint && 'text-lg')}>
+      <div className="flex min-w-0 flex-wrap items-baseline gap-x-2 gap-y-0.5">
+        <h3>
           {onOpen ? (
             <button
               type="button"
@@ -66,66 +74,82 @@ export function ModelCard({
             title
           )}
         </h3>
+        {quantity > 1 && (
+          <span className="font-display text-lg font-bold text-muted-foreground tabular-nums print:text-black" aria-label={`${quantity} models`}>
+            ×{quantity}
+          </span>
+        )}
         {(isLeader || personality) && (
-          <p className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm font-bold text-brass print:text-black">
+          <p className="flex flex-wrap items-center gap-x-2 text-xs font-bold text-brass print:text-black">
             {isLeader && (
-              <span className="flex items-center gap-1">
-                <Crown className="size-4" aria-hidden="true" />
+              <span className="flex items-center gap-0.5">
+                <Crown className="size-3.5" aria-hidden="true" />
                 Leader
               </span>
             )}
             {personality && (
-              <span className="flex items-center gap-1">
-                <Star className="size-4" aria-hidden="true" />
+              <span className="flex items-center gap-0.5">
+                <Star className="size-3.5" aria-hidden="true" />
                 Personality
               </span>
             )}
           </p>
         )}
       </div>
-      {quantity > 1 && (
-        <span className="shrink-0 font-display text-2xl font-bold tabular-nums" aria-label={`${quantity} models`}>
-          ×{quantity}
-        </span>
-      )}
+      <CostLabel cost={cost} quantity={quantity} className="shrink-0" />
     </div>
   )
 
   const stats = (
-    <div className="flex flex-wrap items-end justify-between gap-x-2 gap-y-1">
-      <div className="flex gap-1.5">
-        <StatToken label="Quality" value={formatQuality(model.quality)} size={isPrint ? 'sm' : 'lg'} />
-        <StatToken label="Combat" value={String(model.combat)} size={isPrint ? 'sm' : 'lg'} />
+    <div className="flex flex-wrap items-start gap-x-2 gap-y-1.5">
+      <div className="flex shrink-0 gap-1">
+        <StatToken label="Quality" value={formatQuality(model.quality)} size={isPrint ? 'sm' : 'md'} />
+        <StatToken label="Combat" value={String(model.combat)} size={isPrint ? 'sm' : 'md'} />
       </div>
-      <CostLabel cost={cost} quantity={quantity} />
+      <div className="min-w-[8rem] flex-1 pt-0.5">
+        <RuleChips ruleIds={model.ruleIds} rules={rules} compact={isPrint} />
+      </div>
     </div>
   )
 
   return (
     <article
       className={cn(
-        'relative overflow-hidden rounded-sm border bg-card text-card-foreground',
-        'border-b-[6px]',
+        '@container/card relative overflow-hidden rounded-sm border bg-card text-card-foreground',
+        'border-b-4 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.04)]',
         isLeader ? 'border-b-brass-fill' : 'border-b-base-edge',
-        isPrint && 'break-inside-avoid border-black/40 border-b-4 bg-white text-black print:border-b-black',
+        isPrint && 'break-inside-avoid border-black/40 bg-white text-black shadow-none print:border-b-black',
         className,
       )}
       aria-label={model.name}
     >
-      <div className={cn('flex', isLibrary && 'flex-col')}>
-        <ModelImage
-          name={model.name}
-          imageUrl={imageUrl}
-          className={cn('shrink-0', isLibrary ? 'w-full' : isPrint ? 'w-20' : 'w-24 min-[400px]:w-28')}
-        />
-        <div className={cn('flex min-w-0 flex-1 flex-col gap-2 p-2.5', isPrint && 'gap-1 p-2')}>
-          {heading}
-          {stats}
-          <RuleChips ruleIds={model.ruleIds} rules={rules} compact={isPrint} />
-          {isPrint && model.notes && <p className="text-xs">{model.notes}</p>}
+      <div className={cn('flex flex-col', isRoster && footer && '@[36rem]/card:flex-row')}>
+        <div className={cn('flex min-w-0 flex-1', isLibrary && 'flex-col')}>
+          <ModelImage
+            name={model.name}
+            imageUrl={imageUrl}
+            className={cn(
+              'shrink-0',
+              isLibrary ? 'w-full' : isPrint ? 'w-16' : 'w-16 self-start @[36rem]/card:w-20',
+            )}
+          />
+          <div className={cn('flex min-w-0 flex-1 flex-col gap-1.5 px-2.5 py-2', isPrint && 'gap-1 p-2')}>
+            {heading}
+            {stats}
+            {isPrint && model.notes && <p className="text-xs">{model.notes}</p>}
+          </div>
         </div>
+        {footer && (
+          <div
+            className={cn(
+              'relative z-10 flex items-center border-t bg-muted/40 px-1 py-0.5',
+              isRoster && '@[36rem]/card:border-t-0 @[36rem]/card:border-l @[36rem]/card:bg-transparent',
+            )}
+          >
+            {footer}
+          </div>
+        )}
       </div>
-      {footer && <div className="relative z-10 border-t bg-card px-1.5 py-1">{footer}</div>}
     </article>
   )
 }

@@ -15,6 +15,7 @@
     --font-display: 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
     --color-brass: var(--brass);
     --color-warning: var(--warning);
+    --color-gore: var(--gore);
     --color-brass-fill: var(--brass-fill);
     --color-base-edge: var(--base-edge);
     --color-placeholder: var(--placeholder);
@@ -76,6 +77,8 @@
     --accent: #c9d3cd;
     --accent-foreground: #1e2733;
     --destructive: #a23040;
+    --gore: #a23040;
+    --grain-opacity: 0.05;
     --warning: #8a4a12;
     --border: #aebbb3;
     --input: #6f7f76;
@@ -101,43 +104,46 @@
     --sidebar-ring: #7a5f1e;
 }
 
+/* Dark: lamp-lit table. Near-black slate, worn bone text, brass points, gore for danger. */
 .dark {
-    --background: #161c1a;
-    --foreground: #ece8df;
-    --card: #1f2a27;
-    --card-foreground: #ece8df;
-    --popover: #1f2a27;
-    --popover-foreground: #ece8df;
-    --primary: #b4913f;
-    --primary-foreground: #161c1a;
-    --secondary: #2a3734;
-    --secondary-foreground: #ece8df;
-    --muted: #25302d;
-    --muted-foreground: #a9b4ae;
-    --accent: #2c3a36;
-    --accent-foreground: #ece8df;
-    --destructive: #ea7f90;
+    --background: #0d1110;
+    --foreground: #e4ddcd;
+    --card: #161c1a;
+    --card-foreground: #e4ddcd;
+    --popover: #141a18;
+    --popover-foreground: #e4ddcd;
+    --primary: #b8923c;
+    --primary-foreground: #0d1110;
+    --secondary: #222b28;
+    --secondary-foreground: #e4ddcd;
+    --muted: #1b2220;
+    --muted-foreground: #9da69f;
+    --accent: #26302c;
+    --accent-foreground: #e4ddcd;
+    --destructive: #e0707f;
     --warning: #e39a52;
-    --border: #34433f;
-    --input: #6d8278;
+    --border: #2c3632;
+    --input: #62746b;
     --ring: #c9a54e;
-    --brass: #c9a54e;
-    --brass-fill: #b4913f;
-    --base-edge: #5a8270;
-    --placeholder: #2a3d35;
-    --placeholder-foreground: #d8d2c4;
+    --brass: #cfa94f;
+    --brass-fill: #b8923c;
+    --base-edge: #47695a;
+    --gore: #7d2230;
+    --placeholder: #1d2a25;
+    --placeholder-foreground: #cfc7b5;
+    --grain-opacity: 0.07;
     --chart-1: #3d5a4c;
     --chart-2: #b4913f;
     --chart-3: #ece8df;
     --chart-4: #ea7f90;
     --chart-5: #a9b4ae;
-    --sidebar: #1f2a27;
-    --sidebar-foreground: #ece8df;
-    --sidebar-primary: #b4913f;
-    --sidebar-primary-foreground: #161c1a;
-    --sidebar-accent: #2c3a36;
-    --sidebar-accent-foreground: #ece8df;
-    --sidebar-border: #34433f;
+    --sidebar: #161c1a;
+    --sidebar-foreground: #e4ddcd;
+    --sidebar-primary: #b8923c;
+    --sidebar-primary-foreground: #0d1110;
+    --sidebar-accent: #26302c;
+    --sidebar-accent-foreground: #e4ddcd;
+    --sidebar-border: #2c3632;
     --sidebar-ring: #c9a54e;
 }
 
@@ -165,7 +171,21 @@ html[data-paper="letter"] {
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-[0.9375rem] text-foreground;
+  }
+  /* Fine grain over the page, like worn card stock under lamplight. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: var(--grain-opacity);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 0 0.5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  #root {
+    position: relative;
+    z-index: 1;
   }
   html {
     @apply font-sans;
@@ -177,6 +197,9 @@ html[data-paper="letter"] {
   @media print {
     body {
       @apply bg-white text-black;
+    }
+    body::before {
+      display: none;
     }
   }
   @media (prefers-reduced-motion: reduce) {

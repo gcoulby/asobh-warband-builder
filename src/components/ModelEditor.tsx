@@ -5,8 +5,11 @@ import { z } from 'zod'
 import { CostLabel } from '@/components/CostLabel'
 import { ImageField, type ImageChange } from '@/components/ImageField'
 import { ProfilePicker } from '@/components/ProfilePicker'
-import { RulePicker } from '@/components/RulePicker'
+import { ChosenRules } from '@/components/ChosenRules'
+import { RuleBrowser } from '@/components/RuleBrowser'
+import { RuleBrowserSheet } from '@/components/RuleBrowserSheet'
 import { Button } from '@/components/ui/button'
+import { Plus } from 'lucide-react'
 import { Field, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
@@ -45,6 +48,7 @@ export function ModelEditor({
   onCancel,
 }: ModelEditorProps) {
   const [image, setImage] = useState<ImageChange>({ kind: 'keep' })
+  const [browserOpen, setBrowserOpen] = useState(false)
   const form = useForm<ModelEditorValues>({
     resolver: zodResolver(editorSchema),
     defaultValues: {
@@ -61,6 +65,8 @@ export function ModelEditor({
     name: ['quality', 'combat', 'ruleIds', 'name'],
   })
   const cost = modelCost({ quality, combat, ruleIds }, rules)
+  const setRuleIds = (ids: string[]) => form.setValue('ruleIds', ids, { shouldDirty: true })
+  const hasRules = rules.length > 0
   const costNode = (
     <span className="flex items-center gap-2">
       <span className="text-muted-foreground">Model cost</span>
@@ -74,80 +80,97 @@ export function ModelEditor({
       onSubmit={form.handleSubmit((values) => onSubmit(values, image))}
       noValidate
     >
-      <div className="min-h-0 flex-1 overflow-y-auto px-4 pb-6">
-        <FieldGroup className="gap-5">
-          <ImageField name={name} currentUrl={imageUrl} change={image} onChange={setImage} />
+      <div className="@container/editor flex min-h-0 flex-1">
+        <div className="grid min-h-0 flex-1 @[40rem]/editor:grid-cols-[minmax(0,1fr)_minmax(0,1.15fr)]">
+          <div className="min-h-0 overflow-y-auto px-4 pb-6">
+            <FieldGroup className="gap-4">
+              <ImageField name={name} currentUrl={imageUrl} change={image} onChange={setImage} />
 
-          <Controller
-            control={form.control}
-            name="name"
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="model-name">Name</FieldLabel>
-                <Input id="model-name" autoComplete="off" aria-invalid={fieldState.invalid} {...field} />
-                {fieldState.error && <FieldError>{fieldState.error.message}</FieldError>}
-              </Field>
-            )}
-          />
+              <Controller
+                control={form.control}
+                name="name"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="model-name">Name</FieldLabel>
+                    <Input id="model-name" autoComplete="off" aria-invalid={fieldState.invalid} {...field} />
+                    {fieldState.error && <FieldError>{fieldState.error.message}</FieldError>}
+                  </Field>
+                )}
+              />
 
-          <Controller
-            control={form.control}
-            name="quality"
-            render={({ field }) => (
-              <FieldSet>
-                <FieldLegend variant="label">Quality</FieldLegend>
-                <ProfilePicker label="Quality" options={qualityOptions} value={field.value} onChange={field.onChange} />
-              </FieldSet>
-            )}
-          />
+              <Controller
+                control={form.control}
+                name="quality"
+                render={({ field }) => (
+                  <FieldSet>
+                    <FieldLegend variant="label">Quality</FieldLegend>
+                    <ProfilePicker label="Quality" options={qualityOptions} value={field.value} onChange={field.onChange} />
+                  </FieldSet>
+                )}
+              />
 
-          <Controller
-            control={form.control}
-            name="combat"
-            render={({ field }) => (
-              <FieldSet>
-                <FieldLegend variant="label">Combat</FieldLegend>
-                <ProfilePicker label="Combat" options={combatOptions} value={field.value} onChange={field.onChange} />
-              </FieldSet>
-            )}
-          />
+              <Controller
+                control={form.control}
+                name="combat"
+                render={({ field }) => (
+                  <FieldSet>
+                    <FieldLegend variant="label">Combat</FieldLegend>
+                    <ProfilePicker label="Combat" options={combatOptions} value={field.value} onChange={field.onChange} />
+                  </FieldSet>
+                )}
+              />
 
-          <Controller
-            control={form.control}
-            name="ruleIds"
-            render={({ field }) => (
               <FieldSet>
                 <FieldLegend variant="label">Special rules</FieldLegend>
-                <RulePicker
-                  rules={rules}
-                  value={field.value}
-                  onChange={field.onChange}
-                  costLabel={costNode}
-                  emptyState={rulesEmptyState}
-                />
+                <ChosenRules rules={rules} value={ruleIds} onRemove={(id) => setRuleIds(ruleIds.filter((r) => r !== id))} />
+                {hasRules ? (
+                  <div className="@[40rem]/editor:hidden">
+                    <Button type="button" variant="outline" onClick={() => setBrowserOpen(true)}>
+                      <Plus /> Add special rules
+                    </Button>
+                  </div>
+                ) : (
+                  rulesEmptyState
+                )}
               </FieldSet>
-            )}
-          />
 
-          <Controller
-            control={form.control}
-            name="notes"
-            render={({ field, fieldState }) => (
-              <Field data-invalid={fieldState.invalid}>
-                <FieldLabel htmlFor="model-notes">Notes</FieldLabel>
-                <Textarea id="model-notes" rows={3} aria-invalid={fieldState.invalid} {...field} />
-                {fieldState.error && <FieldError>{fieldState.error.message}</FieldError>}
-              </Field>
-            )}
-          />
+              <Controller
+                control={form.control}
+                name="notes"
+                render={({ field, fieldState }) => (
+                  <Field data-invalid={fieldState.invalid}>
+                    <FieldLabel htmlFor="model-notes">Notes</FieldLabel>
+                    <Textarea id="model-notes" rows={3} aria-invalid={fieldState.invalid} {...field} />
+                    {fieldState.error && <FieldError>{fieldState.error.message}</FieldError>}
+                  </Field>
+                )}
+              />
 
-          {usageCount > 1 && (
-            <p className="text-sm text-muted-foreground">
-              This model is in {usageCount} warbands. Changes apply to all of them.
-            </p>
+              {usageCount > 1 && (
+                <p className="text-sm text-muted-foreground">
+                  This model is in {usageCount} warbands. Changes apply to all of them.
+                </p>
+              )}
+            </FieldGroup>
+          </div>
+          {hasRules && (
+            <section aria-label="Special rules" className="hidden min-h-0 border-l bg-card/40 @[40rem]/editor:flex">
+              <RuleBrowser rules={rules} value={ruleIds} onChange={setRuleIds} className="flex-1" />
+            </section>
           )}
-        </FieldGroup>
+        </div>
       </div>
+
+      {hasRules && (
+        <RuleBrowserSheet
+          open={browserOpen}
+          onOpenChange={setBrowserOpen}
+          rules={rules}
+          value={ruleIds}
+          onChange={setRuleIds}
+          costLabel={costNode}
+        />
+      )}
 
       <div className="flex items-center justify-between gap-3 border-t bg-popover px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))]">
         <div aria-live="polite">{costNode}</div>

@@ -35,7 +35,7 @@ export function PointsBar({
     >
       <div className="mx-auto flex max-w-3xl items-end justify-between gap-3">
         <p aria-live="polite" aria-atomic="true" className="flex items-baseline gap-1.5">
-          <span className={cn('font-display text-[2rem] leading-none font-bold tabular-nums', over ? 'text-destructive' : 'text-brass')}>
+          <span className={cn('font-display text-[1.75rem] leading-none font-bold tabular-nums', over ? 'text-destructive' : 'text-brass')}>
             {total}
             {hasUnknown && <span aria-label=" or more">+</span>}
           </span>

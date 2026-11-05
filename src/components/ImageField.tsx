@@ -67,7 +67,7 @@ export function ImageField({ name, currentUrl, change, onChange }: ImageFieldPro
 
   return (
     <div className="flex items-end gap-3">
-      <ModelImage name={name || 'New model'} imageUrl={shownUrl} className="w-28 shrink-0 rounded-sm border" />
+      <ModelImage name={name || 'New model'} imageUrl={shownUrl} className="w-20 shrink-0 rounded-sm border" />
       <div className="flex flex-col gap-2">
         <input
           ref={inputRef}

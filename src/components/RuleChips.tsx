@@ -22,7 +22,7 @@ export function RuleChips({ ruleIds, rules, compact = false }: RuleChipsProps) {
             <Badge
               variant={rule ? 'secondary' : 'destructive'}
               className={cn(
-                'h-auto rounded-sm px-1.5 py-0.5 font-normal whitespace-normal print:border print:border-black print:bg-white print:text-black',
+                'h-auto rounded-sm px-1.5 py-0.5 font-normal whitespace-nowrap print:border print:border-black print:bg-white print:text-black',
                 compact ? 'text-[0.6875rem]' : 'text-[0.8125rem]',
               )}
               title={rule?.summary}

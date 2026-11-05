@@ -37,6 +37,7 @@ test('create a warband, add two models, see the total, and keep it after reload'
   await page.getByRole('radio', { name: 'Combat 4' }).click()
   await page.getByRole('button', { name: 'Add special rules' }).click()
   await page.getByRole('option', { name: /Hops/ }).click()
+  await page.getByRole('tab', { name: /Leadership/ }).click()
   await page.getByRole('option', { name: /Bossy/ }).click()
   await page.getByRole('button', { name: 'Done' }).click()
   await page.getByRole('button', { name: 'Save model' }).click()

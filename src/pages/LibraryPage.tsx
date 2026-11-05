@@ -44,9 +44,9 @@ export function LibraryPage() {
   const usageOf = (modelId: string) => warbands.filter((w) => w.entries.some((e) => e.modelId === modelId)).length
 
   return (
-    <main className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-5">
+    <main className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-[2rem] leading-none font-bold">Library</h1>
+        <h1 className="font-display text-[1.75rem] leading-none font-bold">Library</h1>
         <Button onClick={() => setEditing({ kind: 'new' })}>
           <Plus /> New model
         </Button>
@@ -83,7 +83,7 @@ export function LibraryPage() {
       ) : filtered.length === 0 ? (
         <p className="text-muted-foreground">No models match “{query}”. Try another name or rule.</p>
       ) : (
-        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" aria-label="Library models">
+        <ul className="grid grid-cols-2 gap-2.5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6" aria-label="Library models">
           {filtered.map((model) => (
             <li key={model.id}>
               <ModelCard

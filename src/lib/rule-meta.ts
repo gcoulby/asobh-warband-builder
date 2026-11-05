@@ -23,3 +23,14 @@ export function ruleMeta(rule: SpecialRule): string[] {
 /** Words a search should match besides the rule's name. */
 export const ruleKeywords = (rule: SpecialRule): string[] =>
   [rule.summary, rule.category ?? '', rule.source ?? '', ...(rule.tags ?? []).map((t) => tagLabels[t])].filter(Boolean)
+
+/** True when every word of the query appears in the rule's name or keywords. */
+export function matchesRuleSearch(rule: SpecialRule, query: string): boolean {
+  const words = query.toLowerCase().split(/\s+/).filter(Boolean)
+  if (words.length === 0) return true
+  const haystack = [rule.name, ...ruleKeywords(rule)].join(' ').toLowerCase()
+  return words.every((w) => haystack.includes(w))
+}
+
+/** Signed cost for display: +3, -2, 0. */
+export const formatRuleCost = (cost: number): string => (cost > 0 ? `+${cost}` : String(cost))

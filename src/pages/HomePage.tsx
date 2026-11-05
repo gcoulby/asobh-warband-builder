@@ -59,9 +59,9 @@ export function HomePage() {
   const noRules = rules.length === 0
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-5 px-4 py-5">
+    <main className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-[2rem] leading-none font-bold">Warbands</h1>
+        <h1 className="font-display text-[1.75rem] leading-none font-bold">Warbands</h1>
         <div className="flex gap-2">
           <Button variant="outline" onClick={handleImport}>
             <FileArchive /> Import warband
@@ -96,7 +96,7 @@ export function HomePage() {
           }
         />
       ) : (
-        <ul className="flex flex-col gap-3" aria-label="Saved warbands">
+        <ul className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3" aria-label="Saved warbands">
           {items.map(({ warband, totals, thumbnails }) => (
             <WarbandListItem
               key={warband.id}

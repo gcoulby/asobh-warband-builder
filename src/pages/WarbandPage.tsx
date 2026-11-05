@@ -94,7 +94,7 @@ export function WarbandPage() {
   )
 
   const rosterColumn = (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-4 px-4 pt-4 pb-6">
+    <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 px-3 pt-3 pb-6 sm:px-4">
       <div className="flex items-start gap-1">
         <Button asChild variant="ghost" size="icon" className="-ml-2 shrink-0">
           <Link to="/" aria-label="Back to warbands">
@@ -102,7 +102,7 @@ export function WarbandPage() {
           </Link>
         </Button>
         <div className="min-w-0 flex-1 pt-1">
-          <h1 className="font-display text-[1.75rem] leading-tight font-bold wrap-break-word">{warband.name}</h1>
+          <h1 className="font-display text-[1.5rem] leading-tight font-bold wrap-break-word">{warband.name}</h1>
           <button
             type="button"
             onClick={() => setSettingsOpen(true)}
@@ -195,14 +195,14 @@ export function WarbandPage() {
     <>
       {isDesktop ? (
         <ResizablePanelGroup orientation="horizontal" className="h-[calc(100dvh-3.5rem)]">
-          <ResizablePanel defaultSize="60%" minSize="35%">
+          <ResizablePanel defaultSize="38%" minSize="28%">
             <div className="flex h-full flex-col overflow-y-auto">
               <div className="flex-1">{rosterColumn}</div>
               {pointsBar}
             </div>
           </ResizablePanel>
           <ResizableHandle withHandle aria-label="Resize editor" />
-          <ResizablePanel defaultSize="40%" minSize="28%">
+          <ResizablePanel defaultSize="62%" minSize="35%">
             <aside aria-label={editing ? editTitle : 'Model editor'} className="flex h-full flex-col bg-popover">
               {editing ? (
                 <>

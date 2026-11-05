@@ -71,7 +71,7 @@ export function RosterItem({
         onOpen={() => onEdit(model.id)}
         className={cn(isSelected && 'outline-2 outline-offset-2 outline-ring', isDragging && 'shadow-lg')}
         footer={
-          <div className="flex items-center justify-between gap-1">
+          <div className="flex w-full items-center justify-between gap-0.5">
             <Button
               ref={setActivatorNodeRef}
               variant="ghost"

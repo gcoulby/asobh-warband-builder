@@ -18,7 +18,7 @@ interface WarbandListItemProps {
 export function WarbandListItem({ id, name, theme, roster, total, cap, hasUnknown, modelCount, thumbnails }: WarbandListItemProps) {
   const over = total > cap
   return (
-    <li className="relative rounded-sm border border-b-[6px] border-b-base-edge bg-card p-3 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
+    <li className="relative rounded-sm border border-b-4 border-b-base-edge bg-card p-3 shadow-[inset_0_1px_0_0_rgb(255_255_255/0.04)] focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
       <div className="flex items-start justify-between gap-3">
         <div className="min-w-0">
           <h2 className="font-display text-[1.375rem] leading-tight font-semibold">
@@ -40,6 +40,13 @@ export function WarbandListItem({ id, name, theme, roster, total, cap, hasUnknow
             {modelCount} {modelCount === 1 ? 'model' : 'models'}
           </span>
         </p>
+      </div>
+      <div className="mt-2 h-1 overflow-hidden rounded-full bg-muted" aria-hidden="true">
+        <div
+          className={cn('h-full', over ? 'bg-destructive' : 'bg-brass-fill')}
+          // Fill width is the share of the cap spent, so it is set per warband.
+          style={{ width: `${cap > 0 ? Math.min(100, (total / cap) * 100) : 0}%` }}
+        />
       </div>
       <div className="mt-2">
         <ThumbnailStrip items={thumbnails} />

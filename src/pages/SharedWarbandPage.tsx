@@ -47,7 +47,7 @@ export function SharedWarbandPage() {
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div className="min-w-0">
             <p className="text-sm text-muted-foreground">Shared warband, read only</p>
-            <h1 className="font-display text-[1.75rem] leading-tight font-bold wrap-break-word">{warband.name}</h1>
+            <h1 className="font-display text-[1.5rem] leading-tight font-bold wrap-break-word">{warband.name}</h1>
             {(warband.roster || warband.theme) && (
               <p className="text-muted-foreground">{[rosterLabel(warband.roster), warband.theme].filter(Boolean).join(' · ')}</p>
             )}

@@ -4,7 +4,7 @@ import { z } from 'zod'
 export const PREFS_KEY = 'asobh.prefs'
 
 const prefsSchema = z.object({
-  theme: z.enum(['light', 'dark', 'system']).catch('system'),
+  theme: z.enum(['light', 'dark', 'system']).catch('dark'),
   lastWarbandId: z.string().optional().catch(undefined),
   lastModelId: z.string().optional().catch(undefined),
   paperSize: z.enum(['a4', 'letter']).catch('a4'),
@@ -14,7 +14,8 @@ export type Prefs = z.infer<typeof prefsSchema>
 export type ThemePref = Prefs['theme']
 export type PaperSize = Prefs['paperSize']
 
-const defaults: Prefs = { theme: 'system', paperSize: 'a4' }
+/** Dark by default: games are often played in dim rooms. */
+const defaults: Prefs = { theme: 'dark', paperSize: 'a4' }
 
 const read = (): Prefs => {
   try {

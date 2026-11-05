@@ -8,8 +8,8 @@ interface EmptyStateProps {
 
 export function EmptyState({ title, children, action }: EmptyStateProps) {
   return (
-    <div className="flex flex-col items-start gap-3 rounded-sm border border-dashed border-input p-5">
-      <p className="font-display text-xl font-semibold">{title}</p>
+    <div className="flex flex-col items-start gap-3 rounded-sm border border-dashed border-input p-4">
+      <p className="font-display text-lg font-semibold">{title}</p>
       {children && <div className="text-muted-foreground">{children}</div>}
       {action}
     </div>

@@ -30,7 +30,7 @@ export function ProfilePicker<T extends number>({ options, value, onChange, labe
           key={option.value}
           value={String(option.value)}
           aria-label={`${label} ${option.label}`}
-          className="h-12 flex-1 px-0 font-display text-2xl font-bold tabular-nums data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
+          className="h-11 flex-1 px-0 font-display text-xl pointer-fine:h-10 font-bold tabular-nums data-[state=on]:bg-primary data-[state=on]:text-primary-foreground"
         >
           {option.label}
         </ToggleGroupItem>

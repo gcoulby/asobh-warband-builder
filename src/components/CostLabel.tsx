@@ -18,9 +18,9 @@ export function CostLabel({ cost, quantity = 1, className }: CostLabelProps) {
   }
   return (
     <span className={cn('flex flex-col items-end leading-none text-brass print:text-black', className)}>
-      <span className="font-display text-2xl font-bold tabular-nums">
+      <span className="font-display text-[1.375rem] font-bold tabular-nums">
         {cost.cost * quantity}
-        <span className="ml-0.5 text-base font-semibold">pts</span>
+        <span className="ml-0.5 text-sm font-semibold">pts</span>
       </span>
       {quantity > 1 && <span className="text-xs text-muted-foreground tabular-nums">{cost.cost} each</span>}
     </span>

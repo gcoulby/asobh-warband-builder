@@ -36,9 +36,9 @@ export function RulesPage() {
   }
 
   return (
-    <main className="mx-auto flex max-w-3xl flex-col gap-5 px-4 py-5">
+    <main className="mx-auto flex max-w-5xl flex-col gap-4 px-4 py-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
-        <h1 className="font-display text-[2rem] leading-none font-bold">Rules</h1>
+        <h1 className="font-display text-[1.75rem] leading-none font-bold">Rules</h1>
         <div className="flex flex-wrap gap-2">
           <Button variant="outline" onClick={downloadTemplate}>
             <Download /> Download template
