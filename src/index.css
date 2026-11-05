@@ -1,0 +1,189 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource/barlow-condensed/500.css";
+@import "@fontsource/barlow-condensed/600.css";
+@import "@fontsource/barlow-condensed/700.css";
+@import "@fontsource/atkinson-hyperlegible-next/400.css";
+@import "@fontsource/atkinson-hyperlegible-next/700.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans: 'Atkinson Hyperlegible Next', ui-sans-serif, system-ui, sans-serif;
+    --font-heading: 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
+    --color-brass: var(--brass);
+    --color-brass-fill: var(--brass-fill);
+    --color-base-edge: var(--base-edge);
+    --color-placeholder: var(--placeholder);
+    --color-placeholder-foreground: var(--placeholder-foreground);
+    --color-sidebar-ring: var(--sidebar-ring);
+    --color-sidebar-border: var(--sidebar-border);
+    --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+    --color-sidebar-accent: var(--sidebar-accent);
+    --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+    --color-sidebar-primary: var(--sidebar-primary);
+    --color-sidebar-foreground: var(--sidebar-foreground);
+    --color-sidebar: var(--sidebar);
+    --color-chart-5: var(--chart-5);
+    --color-chart-4: var(--chart-4);
+    --color-chart-3: var(--chart-3);
+    --color-chart-2: var(--chart-2);
+    --color-chart-1: var(--chart-1);
+    --color-ring: var(--ring);
+    --color-input: var(--input);
+    --color-border: var(--border);
+    --color-destructive: var(--destructive);
+    --color-accent-foreground: var(--accent-foreground);
+    --color-accent: var(--accent);
+    --color-muted-foreground: var(--muted-foreground);
+    --color-muted: var(--muted);
+    --color-secondary-foreground: var(--secondary-foreground);
+    --color-secondary: var(--secondary);
+    --color-primary-foreground: var(--primary-foreground);
+    --color-primary: var(--primary);
+    --color-popover-foreground: var(--popover-foreground);
+    --color-popover: var(--popover);
+    --color-card-foreground: var(--card-foreground);
+    --color-card: var(--card);
+    --color-foreground: var(--foreground);
+    --color-background: var(--background);
+    --radius-sm: calc(var(--radius) * 0.6);
+    --radius-md: calc(var(--radius) * 0.8);
+    --radius-lg: var(--radius);
+    --radius-xl: calc(var(--radius) * 1.4);
+    --radius-2xl: calc(var(--radius) * 1.8);
+    --radius-3xl: calc(var(--radius) * 2.2);
+    --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Palette: Baize #3D5A4C, Slate #161C1A, Bone #ECE8DF, Ink #1E2733, Brass #B4913F, Gore #A23040. */
+:root {
+    --background: #dce3de;
+    --foreground: #1e2733;
+    --card: #ece8df;
+    --card-foreground: #1e2733;
+    --popover: #f3f0ea;
+    --popover-foreground: #1e2733;
+    --primary: #3d5a4c;
+    --primary-foreground: #ece8df;
+    --secondary: #c9d3cd;
+    --secondary-foreground: #1e2733;
+    --muted: #d0d9d3;
+    --muted-foreground: #46525c;
+    --accent: #c9d3cd;
+    --accent-foreground: #1e2733;
+    --destructive: #a23040;
+    --border: #aebbb3;
+    --input: #6f7f76;
+    --ring: #7a5f1e;
+    --brass: #7a5f1e;
+    --brass-fill: #b4913f;
+    --base-edge: #3d5a4c;
+    --placeholder: #3d5a4c;
+    --placeholder-foreground: #ece8df;
+    --chart-1: #3d5a4c;
+    --chart-2: #b4913f;
+    --chart-3: #1e2733;
+    --chart-4: #a23040;
+    --chart-5: #46525c;
+    --radius: 0.25rem;
+    --sidebar: #ece8df;
+    --sidebar-foreground: #1e2733;
+    --sidebar-primary: #3d5a4c;
+    --sidebar-primary-foreground: #ece8df;
+    --sidebar-accent: #c9d3cd;
+    --sidebar-accent-foreground: #1e2733;
+    --sidebar-border: #aebbb3;
+    --sidebar-ring: #7a5f1e;
+}
+
+.dark {
+    --background: #161c1a;
+    --foreground: #ece8df;
+    --card: #1f2a27;
+    --card-foreground: #ece8df;
+    --popover: #1f2a27;
+    --popover-foreground: #ece8df;
+    --primary: #b4913f;
+    --primary-foreground: #161c1a;
+    --secondary: #2a3734;
+    --secondary-foreground: #ece8df;
+    --muted: #25302d;
+    --muted-foreground: #a9b4ae;
+    --accent: #2c3a36;
+    --accent-foreground: #ece8df;
+    --destructive: #ea7f90;
+    --border: #34433f;
+    --input: #6d8278;
+    --ring: #c9a54e;
+    --brass: #c9a54e;
+    --brass-fill: #b4913f;
+    --base-edge: #5a8270;
+    --placeholder: #2a3d35;
+    --placeholder-foreground: #d8d2c4;
+    --chart-1: #3d5a4c;
+    --chart-2: #b4913f;
+    --chart-3: #ece8df;
+    --chart-4: #ea7f90;
+    --chart-5: #a9b4ae;
+    --sidebar: #1f2a27;
+    --sidebar-foreground: #ece8df;
+    --sidebar-primary: #b4913f;
+    --sidebar-primary-foreground: #161c1a;
+    --sidebar-accent: #2c3a36;
+    --sidebar-accent-foreground: #ece8df;
+    --sidebar-border: #34433f;
+    --sidebar-ring: #c9a54e;
+}
+
+/* Named pages: the print screen sets data-paper on the root element to pick the paper size. */
+@page {
+    margin: 10mm;
+}
+@page a4 {
+    size: A4;
+    margin: 10mm;
+}
+@page letter {
+    size: letter;
+    margin: 0.4in;
+}
+html[data-paper="a4"] {
+    page: a4;
+}
+html[data-paper="letter"] {
+    page: letter;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ring;
+  }
+  @media print {
+    body {
+      @apply bg-white text-black;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}

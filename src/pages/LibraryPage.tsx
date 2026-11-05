@@ -1,0 +1,155 @@
+import { useMemo, useState } from 'react'
+import { Copy, Plus, Search, Trash2 } from 'lucide-react'
+import { toast } from 'sonner'
+import { ConfirmDialog } from '@/components/ConfirmDialog'
+import { EditorSheet } from '@/components/EditorSheet'
+import { EmptyState } from '@/components/EmptyState'
+import { ModelCard } from '@/components/ModelCard'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { ModelEditorContainer, type EditTarget } from '@/containers/ModelEditorContainer'
+import { usePersistenceContext } from '@/hooks/persistence-context'
+import { useImageUrls } from '@/hooks/use-image-urls'
+import { DESKTOP_QUERY, useMediaQuery } from '@/hooks/use-media-query'
+import { modelCost } from '@/lib/cost'
+import type { Model } from '@/lib/schema'
+import { useDataStore } from '@/stores/data-store'
+
+export function LibraryPage() {
+  const isDesktop = useMediaQuery(DESKTOP_QUERY)
+  const models = useDataStore((s) => s.models)
+  const rules = useDataStore((s) => s.rules)
+  const warbands = useDataStore((s) => s.warbands)
+  const duplicateModel = useDataStore((s) => s.duplicateModel)
+  const deleteModel = useDataStore((s) => s.deleteModel)
+  const { deleteImage } = usePersistenceContext()
+  const imageUrls = useImageUrls(useMemo(() => models.map((m) => m.imageId), [models]))
+
+  const [query, setQuery] = useState('')
+  const [editing, setEditing] = useState<EditTarget>()
+  const [deleting, setDeleting] = useState<Model>()
+
+  const filtered = useMemo(() => {
+    const q = query.trim().toLowerCase()
+    const sorted = [...models].sort((a, b) => a.name.localeCompare(b.name))
+    if (!q) return sorted
+    return sorted.filter(
+      (m) =>
+        m.name.toLowerCase().includes(q) ||
+        m.ruleIds.some((id) => (rules.find((r) => r.id === id)?.name ?? id).toLowerCase().includes(q)),
+    )
+  }, [models, rules, query])
+
+  const usageOf = (modelId: string) => warbands.filter((w) => w.entries.some((e) => e.modelId === modelId)).length
+
+  return (
+    <main className="mx-auto flex max-w-6xl flex-col gap-5 px-4 py-5">
+      <div className="flex flex-wrap items-end justify-between gap-3">
+        <h1 className="font-display text-[2rem] leading-none font-bold">Library</h1>
+        <Button onClick={() => setEditing({ kind: 'new' })}>
+          <Plus /> New model
+        </Button>
+      </div>
+
+      {models.length > 0 && (
+        <div className="relative max-w-md">
+          <Label htmlFor="library-search" className="sr-only">
+            Search models
+          </Label>
+          <Search className="pointer-events-none absolute top-1/2 left-3 size-4 -translate-y-1/2 text-muted-foreground" aria-hidden="true" />
+          <Input
+            id="library-search"
+            type="search"
+            placeholder="Search by name or special rule"
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            className="pl-9"
+          />
+        </div>
+      )}
+
+      {models.length === 0 ? (
+        <EmptyState
+          title="No models yet. Add your first model."
+          action={
+            <Button onClick={() => setEditing({ kind: 'new' })}>
+              <Plus /> New model
+            </Button>
+          }
+        >
+          Every model you make goes here, ready to add to any warband.
+        </EmptyState>
+      ) : filtered.length === 0 ? (
+        <p className="text-muted-foreground">No models match “{query}”. Try another name or rule.</p>
+      ) : (
+        <ul className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" aria-label="Library models">
+          {filtered.map((model) => (
+            <li key={model.id}>
+              <ModelCard
+                variant="library"
+                model={model}
+                rules={rules}
+                cost={modelCost(model, rules)}
+                imageUrl={model.imageId ? imageUrls.get(model.imageId) : undefined}
+                onOpen={() => setEditing({ kind: 'existing', modelId: model.id })}
+                footer={
+                  <div className="flex justify-end">
+                    <Button
+                      variant="ghost"
+                      size="icon"
+                      aria-label={`Duplicate ${model.name}`}
+                      onClick={() => {
+                        duplicateModel(model.id)
+                        toast.success('Model duplicated')
+                      }}
+                    >
+                      <Copy />
+                    </Button>
+                    <Button variant="ghost" size="icon" aria-label={`Delete ${model.name}`} onClick={() => setDeleting(model)}>
+                      <Trash2 />
+                    </Button>
+                  </div>
+                }
+              />
+            </li>
+          ))}
+        </ul>
+      )}
+
+      <EditorSheet
+        open={Boolean(editing)}
+        title={editing?.kind === 'new' ? 'New model' : 'Edit model'}
+        side={isDesktop ? 'right' : 'bottom'}
+        onOpenChange={(open) => !open && setEditing(undefined)}
+      >
+        {editing && (
+          <ModelEditorContainer
+            key={editing.kind === 'existing' ? editing.modelId : 'new'}
+            target={editing}
+            onDone={() => setEditing(undefined)}
+          />
+        )}
+      </EditorSheet>
+
+      <ConfirmDialog
+        open={Boolean(deleting)}
+        onOpenChange={(open) => !open && setDeleting(undefined)}
+        title={`Delete ${deleting?.name ?? 'model'}?`}
+        description={
+          deleting && usageOf(deleting.id) > 0
+            ? `It is used in ${usageOf(deleting.id)} ${usageOf(deleting.id) === 1 ? 'warband' : 'warbands'} and will be removed from them. This cannot be undone.`
+            : 'This cannot be undone.'
+        }
+        confirmLabel="Delete model"
+        onConfirm={() => {
+          if (!deleting) return
+          deleteModel(deleting.id)
+          if (deleting.imageId) void deleteImage(deleting.imageId)
+          setDeleting(undefined)
+          toast.success('Model deleted')
+        }}
+      />
+    </main>
+  )
+}

@@ -1,0 +1,7 @@
+{
+  "name": "Fake test rules",
+  "rules": [
+    { "id": "fake-hop", "name": "Hops", "cost": 7, "summary": "Test rule." },
+    { "id": "fake-chief", "name": "Bossy", "cost": 10, "summary": "Test rule.", "tags": ["L", "P"] }
+  ]
+}
