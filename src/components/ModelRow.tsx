@@ -3,7 +3,8 @@ import { Crown, Star } from 'lucide-react'
 import { CostLabel } from '@/components/CostLabel'
 import { ModelImage } from '@/components/ModelImage'
 import { ModelStats } from '@/components/ModelStats'
-import { isLeader, isPersonality, type CostResult } from '@/lib/cost'
+import { NoncombatantBadge } from '@/components/NoncombatantBadge'
+import { isLeader, isNoncombatant, isPersonality, type CostResult } from '@/lib/cost'
 import type { Model, SpecialRule } from '@/lib/schema'
 import { cn } from '@/lib/utils'
 
@@ -62,6 +63,7 @@ export function ModelRow({ model, rules, cost, imageUrl, prefix, note, selected 
               <span className="sr-only">Personality</span>
             </span>
           )}
+          {isNoncombatant(cost) && <NoncombatantBadge />}
         </p>
         <ModelStats model={model} />
         <p className="truncate text-xs text-muted-foreground">{ruleNames.length > 0 ? ruleNames.join(', ') : 'No special rules'}</p>

@@ -7,13 +7,16 @@ import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { useImageUrls } from '@/hooks/use-image-urls'
-import { usePrefs, type PaperSize } from '@/hooks/use-prefs'
+import { printNoncombatantOptions } from '@/data/warband-options'
+import { usePrefs, type PaperSize, type PrintNoncombatants } from '@/hooks/use-prefs'
 import { useRoster } from '@/hooks/use-roster'
 import { useWarbandFiles } from '@/hooks/use-warband-files'
 import { useDataStore } from '@/stores/data-store'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 
 const isPaperSize = (value: string): value is PaperSize => value === 'a4' || value === 'letter'
+const isPrintNoncombatants = (value: string): value is PrintNoncombatants =>
+  printNoncombatantOptions.some((o) => o.value === value)
 
 export function PrintPage() {
   const { id = '' } = useParams()
@@ -64,6 +67,28 @@ export function PrintPage() {
                 <SelectItem value="letter">US Letter</SelectItem>
               </SelectContent>
             </Select>
+            {view.totals.noncombatantCount > 0 && (
+              <>
+                <Label htmlFor="print-noncombatants" className="sr-only">
+                  Noncombatants on the sheet
+                </Label>
+                <Select
+                  value={prefs.printNoncombatants}
+                  onValueChange={(v) => isPrintNoncombatants(v) && setPrefs({ printNoncombatants: v })}
+                >
+                  <SelectTrigger id="print-noncombatants" className="w-60">
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {printNoncombatantOptions.map((o) => (
+                      <SelectItem key={o.value} value={o.value}>
+                        {o.label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </>
+            )}
             <Button variant="outline" onClick={() => sheetRef.current && exportNode(sheetRef.current, warband.name)}>
               <ImageDown /> Export roster as PNG
             </Button>
@@ -82,6 +107,7 @@ export function PrintPage() {
           paperSize={prefs.paperSize}
           sheetRef={sheetRef}
           onExportCard={exportNode}
+          noncombatantMode={prefs.printNoncombatants}
         />
       </main>
     </div>

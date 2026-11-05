@@ -14,6 +14,9 @@ export const fakeRules: SpecialRule[] = [
   { id: 'fake-chief', name: 'Bossy', cost: 10, summary: 'Test rule.', tags: ['L', 'P'] },
   { id: 'fake-captain', name: 'Shouty', cost: 8, summary: 'Test rule.', tags: ['L'] },
   { id: 'fake-rare', name: 'Rare hat', cost: 2, summary: 'Test rule.', rare: 2 },
+  // Named after the rulebook terms the builder checks by name. Costs are made up.
+  { id: 'fake-leader', name: 'Leader', cost: 9, summary: 'Test rule.', tags: ['L', 'P'] },
+  { id: 'fake-unique', name: 'Unique', cost: 0, summary: 'Test rule.' },
 ]
 
 export const makeModel = (overrides: Partial<Model> = {}): Model => ({

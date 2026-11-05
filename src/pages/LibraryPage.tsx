@@ -5,14 +5,16 @@ import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { EditorSheet } from '@/components/EditorSheet'
 import { EmptyState } from '@/components/EmptyState'
 import { ModelRow } from '@/components/ModelRow'
+import { NoncombatantsHeader } from '@/components/NoncombatantsHeader'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ModelPanelContainer } from '@/containers/ModelPanelContainer'
 import { useDeleteModel } from '@/hooks/use-delete-model'
 import { useImageUrls } from '@/hooks/use-image-urls'
+import { usePrefs } from '@/hooks/use-prefs'
 import { DESKTOP_QUERY, useMediaQuery } from '@/hooks/use-media-query'
-import { modelCost } from '@/lib/cost'
+import { isNoncombatant, modelCost } from '@/lib/cost'
 import type { Model } from '@/lib/schema'
 import { useDataStore } from '@/stores/data-store'
 
@@ -25,6 +27,7 @@ export function LibraryPage() {
   const deleteModel = useDeleteModel()
   const imageUrls = useImageUrls(useMemo(() => models.map((m) => m.imageId), [models]))
 
+  const [prefs, setPrefs] = usePrefs()
   const [query, setQuery] = useState('')
   const [editing, setEditing] = useState<string>()
   const createModel = useDataStore((s) => s.createModel)
@@ -43,6 +46,48 @@ export function LibraryPage() {
   }, [models, rules, query])
 
   const usageOf = (modelId: string) => warbands.filter((w) => w.entries.some((e) => e.modelId === modelId)).length
+
+  const row = (model: Model) => {
+    const usage = usageOf(model.id)
+    return (
+      <ModelRow
+        key={model.id}
+        model={model}
+        rules={rules}
+        cost={modelCost(model, rules)}
+        imageUrl={model.imageId ? imageUrls.get(model.imageId) : undefined}
+        note={usage > 0 ? `In ${usage} ${usage === 1 ? 'warband' : 'warbands'}` : 'Not in a warband'}
+        onOpen={() => setEditing(model.id)}
+        actions={
+          <>
+            <Button
+              variant="ghost"
+              size="icon"
+              aria-label={`Duplicate ${model.name}`}
+              onClick={() => {
+                duplicateModel(model.id)
+                toast.success('Model duplicated')
+              }}
+            >
+              <Copy />
+            </Button>
+            <Button
+              variant="ghost"
+              size="icon"
+              className="hover:text-destructive"
+              aria-label={`Delete ${model.name}`}
+              onClick={() => setDeleting(model)}
+            >
+              <Trash2 />
+            </Button>
+          </>
+        }
+      />
+    )
+  }
+
+  const fighters = filtered.filter((m) => !isNoncombatant(modelCost(m, rules)))
+  const noncombatants = filtered.filter((m) => isNoncombatant(modelCost(m, rules)))
 
   return (
     <main className="mx-auto flex max-w-4xl flex-col gap-3 px-4 py-4">
@@ -86,47 +131,19 @@ export function LibraryPage() {
       ) : filtered.length === 0 ? (
         <p className="text-muted-foreground">No models match “{query}”. Try another name or rule.</p>
       ) : (
-        <ul className="overflow-hidden rounded-sm border bg-card" aria-label="Library models">
-          {filtered.map((model) => {
-            const usage = usageOf(model.id)
-            return (
-              <ModelRow
-                key={model.id}
-                model={model}
-                rules={rules}
-                cost={modelCost(model, rules)}
-                imageUrl={model.imageId ? imageUrls.get(model.imageId) : undefined}
-                note={usage > 0 ? `In ${usage} ${usage === 1 ? 'warband' : 'warbands'}` : 'Not in a warband'}
-                onOpen={() => setEditing(model.id)}
-                className="last:border-b-0"
-                actions={
-                  <>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      aria-label={`Duplicate ${model.name}`}
-                      onClick={() => {
-                        duplicateModel(model.id)
-                        toast.success('Model duplicated')
-                      }}
-                    >
-                      <Copy />
-                    </Button>
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      className="hover:text-destructive"
-                      aria-label={`Delete ${model.name}`}
-                      onClick={() => setDeleting(model)}
-                    >
-                      <Trash2 />
-                    </Button>
-                  </>
-                }
+        <div className="overflow-hidden rounded-sm border bg-card">
+          <ul aria-label="Library models">{fighters.map(row)}</ul>
+          {noncombatants.length > 0 && (
+            <>
+              <NoncombatantsHeader
+                count={noncombatants.length}
+                shown={prefs.showNoncombatants}
+                onShownChange={(shown) => setPrefs({ showNoncombatants: shown })}
               />
-            )
-          })}
-        </ul>
+              {prefs.showNoncombatants && <ul aria-label="Noncombatants">{noncombatants.map(row)}</ul>}
+            </>
+          )}
+        </div>
       )}
 
       <EditorSheet

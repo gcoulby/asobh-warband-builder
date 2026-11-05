@@ -41,3 +41,15 @@ export const rosterOptions: readonly RosterOption[] = [
 /** Label for a stored roster id. Unknown ids are shown as stored. */
 export const rosterLabel = (id: string | undefined): string | undefined =>
   id === undefined ? undefined : (rosterOptions.find((r) => r.id === id)?.label ?? id)
+
+export interface PrintNoncombatantOption {
+  value: 'all' | 'summary' | 'hide'
+  label: string
+}
+
+/** How the print sheet shows noncombatants. */
+export const printNoncombatantOptions: readonly PrintNoncombatantOption[] = [
+  { value: 'summary', label: 'Noncombatants: summary line' },
+  { value: 'all', label: 'Noncombatants: show cards' },
+  { value: 'hide', label: 'Noncombatants: hide' },
+]

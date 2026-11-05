@@ -45,8 +45,8 @@ export function ValidationPanel({ messages }: ValidationPanelProps) {
             </AlertTitle>
             <AlertDescription>
               <ul className="mt-0.5 flex flex-col gap-1">
-                {items.map((m) => (
-                  <li key={m.issue.kind} className="text-foreground">
+                {items.map((m, i) => (
+                  <li key={`${m.issue.kind}-${i}`} className="text-foreground">
                     <span className="font-bold">{m.title}</span> {m.fix}
                   </li>
                 ))}

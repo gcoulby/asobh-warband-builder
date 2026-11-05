@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { formulaCost, isLeader, isPersonality, modelCost, warbandTotals, type CostResult } from '@/lib/cost'
+import { formulaCost, hasRuleNamed, isLeader, isNoncombatant, isPersonality, modelCost, warbandTotals, type CostResult } from '@/lib/cost'
 import { fakeRules, makeModel, makeWarband } from '@/test/fixtures'
 import type { Combat, Quality } from '@/lib/schema'
 
@@ -56,6 +56,7 @@ describe('warbandTotals', () => {
       personalityTotal: 48,
       hasUnknown: false,
       modelCount: 4,
+      noncombatantCount: 0,
       groupCount: 2,
     })
   })
@@ -65,13 +66,40 @@ describe('warbandTotals', () => {
     expect(warbandTotals(warband, models, [])).toMatchObject({ total: 0, hasUnknown: true })
   })
 
+  it('counts noncombatants among the models', () => {
+    // Quality 6+ Combat 1: ((1 × 5) × 1) / 2 = 2.5, rounded to 3 points.
+    const withVillagers = [...models, makeModel({ id: 'v', quality: 6, combat: 1 })]
+    const warband = makeWarband({ entries: [{ modelId: 'a', quantity: 1 }, { modelId: 'v', quantity: 2 }] })
+    expect(warbandTotals(warband, withVillagers, fakeRules)).toMatchObject({ modelCount: 3, noncombatantCount: 2 })
+  })
+
   it('totals an empty warband as zero', () => {
     expect(warbandTotals(makeWarband(), models, fakeRules)).toEqual({
       total: 0,
       personalityTotal: 0,
       hasUnknown: false,
       modelCount: 0,
+      noncombatantCount: 0,
       groupCount: 0,
     })
+  })
+})
+
+describe('isNoncombatant', () => {
+  it.each<[CostResult, boolean]>([
+    [{ known: true, cost: 1 }, true],
+    [{ known: true, cost: 5 }, true],
+    [{ known: true, cost: 6 }, false],
+    [{ known: false, reason: { kind: 'unknown-rule', ruleId: 'x' } }, false],
+  ])('%o is noncombatant: %s', (cost, expected) => {
+    expect(isNoncombatant(cost)).toBe(expected)
+  })
+})
+
+describe('hasRuleNamed', () => {
+  it('matches the rule name ignoring case, not the id', () => {
+    const model = makeModel({ ruleIds: ['fake-leader'] })
+    expect(hasRuleNamed(model, fakeRules, 'leader')).toBe(true)
+    expect(hasRuleNamed(model, fakeRules, 'fake-leader')).toBe(false)
   })
 })

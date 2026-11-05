@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp, Copy, Crown, EllipsisVertical, GripVertical, Star, 
 import { CostLabel } from '@/components/CostLabel'
 import { ModelImage } from '@/components/ModelImage'
 import { ModelStats } from '@/components/ModelStats'
+import { NoncombatantBadge } from '@/components/NoncombatantBadge'
 import type { RosterRow } from '@/components/RosterRow'
 import { Button } from '@/components/ui/button'
 import {
@@ -13,7 +14,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { isLeader, isPersonality } from '@/lib/cost'
+import { isLeader, isNoncombatant, isPersonality } from '@/lib/cost'
 import type { SpecialRule } from '@/lib/schema'
 import { cn } from '@/lib/utils'
 
@@ -107,6 +108,7 @@ export function RosterItem({
               <span className="sr-only">Personality</span>
             </span>
           )}
+          {isNoncombatant(row.cost) && <NoncombatantBadge />}
         </h3>
         <ModelStats model={model} />
         {ruleNames.length > 0 && <p className="text-xs text-muted-foreground">{ruleNames.join(', ')}</p>}

@@ -8,14 +8,19 @@ const prefsSchema = z.object({
   lastWarbandId: z.string().optional().catch(undefined),
   lastModelId: z.string().optional().catch(undefined),
   paperSize: z.enum(['a4', 'letter']).catch('a4'),
+  /** Whether library lists show noncombatants in their group at the bottom. */
+  showNoncombatants: z.boolean().catch(true),
+  /** How the print sheet shows noncombatants: every card, one summary line, or not at all. */
+  printNoncombatants: z.enum(['all', 'summary', 'hide']).catch('summary'),
 })
 
 export type Prefs = z.infer<typeof prefsSchema>
 export type ThemePref = Prefs['theme']
 export type PaperSize = Prefs['paperSize']
+export type PrintNoncombatants = Prefs['printNoncombatants']
 
 /** Dark by default: games are often played in dim rooms. */
-const defaults: Prefs = { theme: 'dark', paperSize: 'a4' }
+const defaults: Prefs = { theme: 'dark', paperSize: 'a4', showNoncombatants: true, printNoncombatants: 'summary' }
 
 const read = (): Prefs => {
   try {

@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { Copy, EllipsisVertical, Pencil, Plus, Search, Trash2 } from 'lucide-react'
 import { BuilderPanel } from '@/components/BuilderPanel'
 import { ModelRow } from '@/components/ModelRow'
+import { NoncombatantsHeader } from '@/components/NoncombatantsHeader'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -12,7 +13,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import type { CostResult } from '@/lib/cost'
+import { isNoncombatant, type CostResult } from '@/lib/cost'
 import type { Model, SpecialRule } from '@/lib/schema'
 
 export interface LibraryItem {
@@ -33,6 +34,8 @@ interface LibraryPanelProps {
   onNew: () => void
   onDuplicate: (modelId: string) => void
   onDelete: (modelId: string) => void
+  showNoncombatants: boolean
+  onShowNoncombatantsChange: (shown: boolean) => void
   className?: string
 }
 
@@ -46,6 +49,8 @@ export function LibraryPanel({
   onNew,
   onDuplicate,
   onDelete,
+  showNoncombatants,
+  onShowNoncombatantsChange,
   className,
 }: LibraryPanelProps) {
   const [query, setQuery] = useState('')
@@ -53,6 +58,53 @@ export function LibraryPanel({
   const shown = q
     ? items.filter((i) => [i.model.name, ...i.ruleNames].some((text) => text.toLowerCase().includes(q)))
     : items
+  const fighters = shown.filter((i) => !isNoncombatant(i.cost))
+  const noncombatants = shown.filter((i) => isNoncombatant(i.cost))
+
+  const row = ({ model, cost, imageUrl, inWarband }: LibraryItem) => (
+    <ModelRow
+      key={model.id}
+      model={model}
+      rules={rules}
+      cost={cost}
+      imageUrl={imageUrl}
+      prefix={inWarband > 0 && <span className="text-primary tabular-nums">{inWarband}× </span>}
+      selected={model.id === selectedModelId}
+      onOpen={() => onSelect(model.id)}
+      actions={
+        <>
+          <Button
+            variant="ghost"
+            size="icon"
+            className="text-primary"
+            onClick={() => onAdd(model.id)}
+            aria-label={`Add ${model.name} to warband`}
+          >
+            <Plus />
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant="ghost" size="icon" className="w-7 pointer-fine:w-7" aria-label={`More actions for ${model.name}`}>
+                <EllipsisVertical />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem onSelect={() => onSelect(model.id)}>
+                <Pencil /> Edit model
+              </DropdownMenuItem>
+              <DropdownMenuItem onSelect={() => onDuplicate(model.id)}>
+                <Copy /> Duplicate
+              </DropdownMenuItem>
+              <DropdownMenuSeparator />
+              <DropdownMenuItem variant="destructive" onSelect={() => onDelete(model.id)}>
+                <Trash2 /> Delete from library
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </>
+      }
+    />
+  )
 
   return (
     <BuilderPanel
@@ -92,52 +144,19 @@ export function LibraryPanel({
       ) : shown.length === 0 ? (
         <p className="p-3 text-sm text-muted-foreground">No models match “{query}”.</p>
       ) : (
-        <ul aria-label="Library models">
-          {shown.map(({ model, cost, imageUrl, inWarband }) => (
-            <ModelRow
-              key={model.id}
-              model={model}
-              rules={rules}
-              cost={cost}
-              imageUrl={imageUrl}
-              prefix={inWarband > 0 && <span className="text-primary tabular-nums">{inWarband}× </span>}
-              selected={model.id === selectedModelId}
-              onOpen={() => onSelect(model.id)}
-              actions={
-                <>
-                  <Button
-                    variant="ghost"
-                    size="icon"
-                    className="text-primary"
-                    onClick={() => onAdd(model.id)}
-                    aria-label={`Add ${model.name} to warband`}
-                  >
-                    <Plus />
-                  </Button>
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button variant="ghost" size="icon" className="w-7 pointer-fine:w-7" aria-label={`More actions for ${model.name}`}>
-                        <EllipsisVertical />
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <DropdownMenuItem onSelect={() => onSelect(model.id)}>
-                        <Pencil /> Edit model
-                      </DropdownMenuItem>
-                      <DropdownMenuItem onSelect={() => onDuplicate(model.id)}>
-                        <Copy /> Duplicate
-                      </DropdownMenuItem>
-                      <DropdownMenuSeparator />
-                      <DropdownMenuItem variant="destructive" onSelect={() => onDelete(model.id)}>
-                        <Trash2 /> Delete from library
-                      </DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </>
-              }
-            />
-          ))}
-        </ul>
+        <>
+          <ul aria-label="Library models">{fighters.map(row)}</ul>
+          {noncombatants.length > 0 && (
+            <>
+              <NoncombatantsHeader
+                count={noncombatants.length}
+                shown={showNoncombatants}
+                onShownChange={onShowNoncombatantsChange}
+              />
+              {showNoncombatants && <ul aria-label="Noncombatants">{noncombatants.map(row)}</ul>}
+            </>
+          )}
+        </>
       )}
     </BuilderPanel>
   )

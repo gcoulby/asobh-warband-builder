@@ -136,6 +136,8 @@ export function WarbandPage() {
         }
       }}
       onDelete={setDeletingModelId}
+      showNoncombatants={prefs.showNoncombatants}
+      onShowNoncombatantsChange={(shown) => setPrefs({ showNoncombatants: shown })}
     />
   )
 

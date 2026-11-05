@@ -3,8 +3,10 @@ import { describeIssue, issueSeverity, validateWarband, type IssueSeverity, type
 import { fakeRules, makeModel, makeWarband } from '@/test/fixtures'
 import type { WarbandEntry } from '@/lib/schema'
 
-// Costs by the formula: grunt 23, boss 38 (Personality, Leader), hero 29
-// (Personality), captain 35 (Leader), overlord 50 (two Leadership rules), hatted 26.
+// Costs by the formula: grunt 23, boss 38 (Personality, Leadership), hero 29
+// (Personality), captain 35 (Leadership), overlord 50 (two Leadership rules), hatted 26,
+// chief 36 (Leader), one-off 23 (Unique), villager 3 (noncombatant).
+// Leadership here means the L marker; only the rule named Leader counts as the Leader.
 const models = [
   makeModel({ id: 'grunt' }),
   makeModel({ id: 'boss', name: 'Boss', ruleIds: ['fake-chief'] }),
@@ -12,6 +14,10 @@ const models = [
   makeModel({ id: 'captain', name: 'Captain', ruleIds: ['fake-captain'] }),
   makeModel({ id: 'overlord', name: 'Overlord', ruleIds: ['fake-chief', 'fake-captain'] }),
   makeModel({ id: 'hatted', name: 'Hatted', ruleIds: ['fake-rare'] }),
+  makeModel({ id: 'chief', name: 'Chief', ruleIds: ['fake-leader'] }),
+  makeModel({ id: 'chief2', name: 'Other chief', ruleIds: ['fake-leader'] }),
+  makeModel({ id: 'oneoff', name: 'One-off', ruleIds: ['fake-unique'] }),
+  makeModel({ id: 'villager', name: 'Villager', quality: 6, combat: 1 }),
 ]
 
 const entry = (modelId: string, quantity = 1): WarbandEntry => ({ modelId, quantity })
@@ -30,8 +36,17 @@ describe('validateWarband', () => {
       [{ kind: 'personalities-over-half', spent: 67, allowed: 60 }],
     ],
     ['Personalities at exactly half the cap', [entry('boss'), entry('grunt')], 76, []],
-    ['two leaders', [entry('boss'), entry('captain')], 400, [{ kind: 'multiple-leaders', count: 2 }]],
-    ['a leader row with two models', [entry('captain', 2)], 400, [{ kind: 'multiple-leaders', count: 2 }]],
+    ['two models with the Leader rule', [entry('chief'), entry('chief2')], 400, [{ kind: 'multiple-leaders', count: 2 }]],
+    ['a Leader row with two models', [entry('chief', 2)], 400, [{ kind: 'multiple-leaders', count: 2 }]],
+    ['a Leader alongside other Leadership rules', [entry('chief'), entry('boss'), entry('captain')], 400, []],
+    ['a Unique model once', [entry('oneoff')], 400, []],
+    [
+      'a Unique model twice',
+      [entry('oneoff', 2)],
+      400,
+      [{ kind: 'unique-exceeded', modelName: 'One-off', count: 2 }],
+    ],
+    ['noncombatants are flagged, not removed', [entry('grunt'), entry('villager', 3)], 400, [{ kind: 'noncombatants', count: 3 }]],
     [
       'two Leadership rules on one model',
       [entry('overlord')],
@@ -76,6 +91,8 @@ describe('describeIssue', () => {
       { kind: 'rare-exceeded', ruleName: 'X', count: 3, limit: 1 },
       { kind: 'unknown-costs' },
       { kind: 'missing-model', modelId: 'x' },
+      { kind: 'unique-exceeded', modelName: 'X', count: 2 },
+      { kind: 'noncombatants', count: 1 },
     ]
     for (const issue of issues) {
       const message = describeIssue(issue)
@@ -94,6 +111,8 @@ describe('issueSeverity', () => {
     [{ kind: 'personalities-over-half', spent: 210, allowed: 200 }, 'warning'],
     [{ kind: 'multiple-leaders', count: 2 }, 'warning'],
     [{ kind: 'unknown-costs' }, 'warning'],
+    [{ kind: 'unique-exceeded', modelName: 'X', count: 2 }, 'error'],
+    [{ kind: 'noncombatants', count: 1 }, 'warning'],
   ])('rates %o as %s', (issue, severity) => {
     expect(issueSeverity(issue)).toBe(severity)
     expect(describeIssue(issue).severity).toBe(severity)

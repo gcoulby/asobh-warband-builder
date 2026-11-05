@@ -1,3 +1,4 @@
+import { NONCOMBATANT_MAX_COST } from '@/data/rule-names'
 import type { Combat, Model, Quality, SpecialRule, Warband } from '@/lib/schema'
 
 /**
@@ -54,6 +55,13 @@ export const isPersonality = (model: Pick<Model, 'ruleIds'>, rules: readonly Spe
 export const isLeader = (model: Pick<Model, 'ruleIds'>, rules: readonly SpecialRule[]): boolean =>
   rulesOf(model, rules).some((r) => r.tags?.includes('L'))
 
+/** True when the model has a rule with this name, ignoring case. */
+export const hasRuleNamed = (model: Pick<Model, 'ruleIds'>, rules: readonly SpecialRule[], name: string): boolean =>
+  rulesOf(model, rules).some((r) => r.name.trim().toLowerCase() === name.toLowerCase())
+
+/** A model costing 5 points or fewer is a noncombatant: a villager, child or hostage for special scenarios. */
+export const isNoncombatant = (cost: CostResult): boolean => cost.known && cost.cost <= NONCOMBATANT_MAX_COST
+
 export interface WarbandTotals {
   /** Sum of every known entry cost times its quantity. */
   total: number
@@ -62,6 +70,8 @@ export interface WarbandTotals {
   /** True when one or more entries could not be costed, so `total` is a floor. */
   hasUnknown: boolean
   modelCount: number
+  /** Models costing 5 points or fewer, counted in `modelCount` too. */
+  noncombatantCount: number
   /** Rows in the roster. Identical models on one row form one group. */
   groupCount: number
 }
@@ -75,6 +85,7 @@ export function warbandTotals(
   let personalityTotal = 0
   let hasUnknown = false
   let modelCount = 0
+  let noncombatantCount = 0
   for (const entry of warband.entries) {
     modelCount += entry.quantity
     const model = models.find((m) => m.id === entry.modelId)
@@ -82,9 +93,10 @@ export function warbandTotals(
     if (model && cost?.known) {
       total += cost.cost * entry.quantity
       if (isPersonality(model, rules)) personalityTotal += cost.cost * entry.quantity
+      if (isNoncombatant(cost)) noncombatantCount += entry.quantity
     } else hasUnknown = true
   }
-  return { total, personalityTotal, hasUnknown, modelCount, groupCount: warband.entries.length }
+  return { total, personalityTotal, hasUnknown, modelCount, noncombatantCount, groupCount: warband.entries.length }
 }
 
 export function describeUnknownCost(reason: CostUnknownReason): string {

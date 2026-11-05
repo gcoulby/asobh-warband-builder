@@ -144,6 +144,29 @@
     --sidebar-ring: #5c9ee6;
 }
 
+/* The print sheet is ink on paper whatever the screen theme, so its preview, PNG and print all match. */
+.paper {
+    --background: #ffffff;
+    --foreground: #000000;
+    --card: #ffffff;
+    --card-foreground: #000000;
+    --muted: #f2f2f2;
+    --muted-foreground: #333333;
+    --secondary: #ececec;
+    --secondary-foreground: #000000;
+    --accent: #ececec;
+    --accent-foreground: #000000;
+    --primary: #000000;
+    --primary-foreground: #ffffff;
+    --border: #8c8c8c;
+    --brass: #000000;
+    --brass-fill: #000000;
+    --base-edge: #8c8c8c;
+    --warning: #000000;
+    --placeholder: #e6e6e6;
+    --placeholder-foreground: #333333;
+}
+
 /* Named pages: the print screen sets data-paper on the root element to pick the paper size. */
 @page {
     margin: 10mm;
