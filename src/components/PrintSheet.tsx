@@ -6,6 +6,7 @@ import { Button } from '@/components/ui/button'
 import type { PaperSize } from '@/hooks/use-prefs'
 import type { WarbandTotals } from '@/lib/cost'
 import type { SpecialRule, Warband } from '@/lib/schema'
+import { rosterLabel } from '@/data/warband-options'
 import { cn } from '@/lib/utils'
 
 interface PrintSheetProps {
@@ -31,7 +32,9 @@ export function PrintSheet({ warband, rows, totals, rules, paperSize, sheetRef, 
       <header className="mb-4 flex items-end justify-between gap-4 border-b-2 border-black pb-2">
         <div>
           <h1 className="font-display text-3xl leading-tight font-bold">{warband.name}</h1>
-          {warband.theme && <p className="text-sm">{warband.theme}</p>}
+          {(warband.roster || warband.theme) && (
+            <p className="text-sm">{[rosterLabel(warband.roster), warband.theme].filter(Boolean).join(' · ')}</p>
+          )}
         </div>
         <div className="text-right">
           <p className="font-display text-3xl leading-none font-bold tabular-nums">

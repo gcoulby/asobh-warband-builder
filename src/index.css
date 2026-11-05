@@ -14,6 +14,7 @@
     --font-heading: 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
     --font-display: 'Barlow Condensed', ui-sans-serif, system-ui, sans-serif;
     --color-brass: var(--brass);
+    --color-warning: var(--warning);
     --color-brass-fill: var(--brass-fill);
     --color-base-edge: var(--base-edge);
     --color-placeholder: var(--placeholder);
@@ -75,6 +76,7 @@
     --accent: #c9d3cd;
     --accent-foreground: #1e2733;
     --destructive: #a23040;
+    --warning: #8a4a12;
     --border: #aebbb3;
     --input: #6f7f76;
     --ring: #7a5f1e;
@@ -115,6 +117,7 @@
     --accent: #2c3a36;
     --accent-foreground: #ece8df;
     --destructive: #ea7f90;
+    --warning: #e39a52;
     --border: #34433f;
     --input: #6d8278;
     --ring: #c9a54e;

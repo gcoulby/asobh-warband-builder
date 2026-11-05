@@ -54,6 +54,8 @@ export const warbandSchema = z.object({
   id: z.string().min(1),
   name: z.string().trim().min(1, 'Give the warband a name.'),
   theme: z.string().optional(),
+  /** Roster the warband is drawn from, or `mixed` for anything goes. */
+  roster: z.string().optional(),
   pointsCap: z.number().int().positive('The points cap must be above zero.'),
   entries: z.array(warbandEntrySchema),
   createdAt: z.number(),

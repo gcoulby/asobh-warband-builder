@@ -7,6 +7,7 @@ import { WarbandListItem } from '@/components/WarbandListItem'
 import { WarbandSettingsDialog } from '@/components/WarbandSettingsDialog'
 import { Button } from '@/components/ui/button'
 import { DEFAULT_POINTS_CAP } from '@/data/profile-options'
+import { rosterLabel } from '@/data/warband-options'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { useWarbandFiles } from '@/hooks/use-warband-files'
 import { warbandTotals } from '@/lib/cost'
@@ -102,6 +103,7 @@ export function HomePage() {
               id={warband.id}
               name={warband.name}
               theme={warband.theme}
+              roster={rosterLabel(warband.roster)}
               total={totals.total}
               cap={warband.pointsCap}
               hasUnknown={totals.hasUnknown}

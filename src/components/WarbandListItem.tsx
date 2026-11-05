@@ -6,6 +6,8 @@ interface WarbandListItemProps {
   id: string
   name: string
   theme?: string
+  /** Roster label, if one is set. */
+  roster?: string
   total: number
   cap: number
   hasUnknown: boolean
@@ -13,7 +15,7 @@ interface WarbandListItemProps {
   thumbnails: readonly Thumbnail[]
 }
 
-export function WarbandListItem({ id, name, theme, total, cap, hasUnknown, modelCount, thumbnails }: WarbandListItemProps) {
+export function WarbandListItem({ id, name, theme, roster, total, cap, hasUnknown, modelCount, thumbnails }: WarbandListItemProps) {
   const over = total > cap
   return (
     <li className="relative rounded-sm border border-b-[6px] border-b-base-edge bg-card p-3 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-ring">
@@ -24,7 +26,9 @@ export function WarbandListItem({ id, name, theme, total, cap, hasUnknown, model
               {name}
             </Link>
           </h2>
-          {theme && <p className="text-sm text-muted-foreground">{theme}</p>}
+          {(roster || theme) && (
+            <p className="text-sm text-muted-foreground">{[roster, theme].filter(Boolean).join(' · ')}</p>
+          )}
         </div>
         <p className="shrink-0 text-right leading-none">
           <span className={cn('font-display text-2xl font-bold tabular-nums', over ? 'text-destructive' : 'text-brass')}>

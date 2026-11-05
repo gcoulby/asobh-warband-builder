@@ -16,7 +16,7 @@ export const newId = (): string => crypto.randomUUID()
 
 export type ModelDraft = Omit<Model, 'id'>
 
-export type WarbandSettings = Pick<Warband, 'name' | 'theme' | 'pointsCap'>
+export type WarbandSettings = Pick<Warband, 'name' | 'theme' | 'roster' | 'pointsCap'>
 
 interface DataState extends StoredData {
   /** True once saved data has been read, so nothing is written before then. */
@@ -75,6 +75,7 @@ export const useDataStore = create<DataStore>()((set, get) => {
         id: newId(),
         name: settings.name ?? 'New warband',
         theme: settings.theme,
+        roster: settings.roster,
         pointsCap: settings.pointsCap ?? DEFAULT_POINTS_CAP,
         entries: [],
         createdAt: now,

@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import { CircleAlert, ImageOff, Save } from 'lucide-react'
 import { toast } from 'sonner'
+import { rosterLabel } from '@/data/warband-options'
 import { ModelCard } from '@/components/ModelCard'
 import { PointsBar } from '@/components/PointsBar'
 import { ValidationPanel } from '@/components/ValidationPanel'
@@ -47,7 +48,9 @@ export function SharedWarbandPage() {
           <div className="min-w-0">
             <p className="text-sm text-muted-foreground">Shared warband, read only</p>
             <h1 className="font-display text-[1.75rem] leading-tight font-bold wrap-break-word">{warband.name}</h1>
-            {warband.theme && <p className="text-muted-foreground">{warband.theme}</p>}
+            {(warband.roster || warband.theme) && (
+              <p className="text-muted-foreground">{[rosterLabel(warband.roster), warband.theme].filter(Boolean).join(' · ')}</p>
+            )}
           </div>
           <Button
             onClick={() => {

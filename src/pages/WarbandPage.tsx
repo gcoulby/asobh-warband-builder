@@ -10,11 +10,13 @@ import { PointsBar } from '@/components/PointsBar'
 import { Roster } from '@/components/Roster'
 import { ShareDialog } from '@/components/ShareDialog'
 import { ValidationPanel } from '@/components/ValidationPanel'
+import { WarbandActions } from '@/components/WarbandActions'
 import { WarbandMenu } from '@/components/WarbandMenu'
 import { WarbandSettingsDialog } from '@/components/WarbandSettingsDialog'
 import { Button } from '@/components/ui/button'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
 import { ModelEditorContainer, type EditTarget } from '@/containers/ModelEditorContainer'
+import { gameSizeOptions, rosterLabel } from '@/data/warband-options'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { DESKTOP_QUERY, useMediaQuery } from '@/hooks/use-media-query'
 import { usePrefs } from '@/hooks/use-prefs'
@@ -101,21 +103,35 @@ export function WarbandPage() {
         </Button>
         <div className="min-w-0 flex-1 pt-1">
           <h1 className="font-display text-[1.75rem] leading-tight font-bold wrap-break-word">{warband.name}</h1>
+          <button
+            type="button"
+            onClick={() => setSettingsOpen(true)}
+            className="text-left text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
+          >
+            {[
+              `${warband.pointsCap} pts`,
+              gameSizeOptions.find((o) => o.points === warband.pointsCap)?.label,
+              rosterLabel(warband.roster),
+            ]
+              .filter(Boolean)
+              .join(' · ')}
+            <span className="sr-only">. Change warband settings</span>
+          </button>
           {warband.theme && <p className="text-muted-foreground">{warband.theme}</p>}
         </div>
-        <WarbandMenu
-          onSettings={() => setSettingsOpen(true)}
-          onShare={() => setShareOpen(true)}
-          onPrint={() => void navigate(`/print/${warband.id}`)}
-          onExportZip={() => {
-            files
-              .exportZip(warband)
-              .then((outcome) => outcome !== 'cancelled' && toast.success('Warband exported'))
-              .catch(() => toast.error('The warband could not be exported. Try again.'))
-          }}
-          onDelete={() => setDeleteOpen(true)}
-        />
+        <WarbandMenu onSettings={() => setSettingsOpen(true)} onDelete={() => setDeleteOpen(true)} />
       </div>
+
+      <WarbandActions
+        onPrint={() => void navigate(`/print/${warband.id}`)}
+        onShare={() => setShareOpen(true)}
+        onExportZip={() => {
+          files
+            .exportZip(warband)
+            .then((outcome) => outcome !== 'cancelled' && toast.success('Warband exported'))
+            .catch(() => toast.error('The warband could not be exported. Try again.'))
+        }}
+      />
 
       <ValidationPanel messages={view.messages.filter((m) => m.issue.kind !== 'empty')} />
 
@@ -165,6 +181,8 @@ export function WarbandPage() {
       hasUnknown={view.totals.hasUnknown}
       modelCount={view.totals.modelCount}
       groupCount={view.totals.groupCount}
+      errorCount={view.messages.filter((m) => m.severity === 'error').length}
+      warningCount={view.messages.filter((m) => m.severity === 'warning' && m.issue.kind !== 'empty').length}
       className={
         isDesktop
           ? 'sticky bottom-0'

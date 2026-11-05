@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { describeIssue, validateWarband, type ValidationIssue } from '@/lib/validate'
+import { describeIssue, issueSeverity, validateWarband, type IssueSeverity, type ValidationIssue } from '@/lib/validate'
 import { fakeRules, makeModel, makeWarband } from '@/test/fixtures'
 import type { WarbandEntry } from '@/lib/schema'
 
@@ -82,5 +82,20 @@ describe('describeIssue', () => {
       expect(message.title.length).toBeGreaterThan(0)
       expect(message.fix.length).toBeGreaterThan(0)
     }
+  })
+})
+
+describe('issueSeverity', () => {
+  it.each<[ValidationIssue, IssueSeverity]>([
+    [{ kind: 'over-cap', over: 1 }, 'error'],
+    [{ kind: 'rare-exceeded', ruleName: 'X', count: 2, limit: 1 }, 'error'],
+    [{ kind: 'multiple-leadership-rules', modelName: 'X' }, 'error'],
+    [{ kind: 'missing-model', modelId: 'x' }, 'error'],
+    [{ kind: 'personalities-over-half', spent: 210, allowed: 200 }, 'warning'],
+    [{ kind: 'multiple-leaders', count: 2 }, 'warning'],
+    [{ kind: 'unknown-costs' }, 'warning'],
+  ])('rates %o as %s', (issue, severity) => {
+    expect(issueSeverity(issue)).toBe(severity)
+    expect(describeIssue(issue).severity).toBe(severity)
   })
 })

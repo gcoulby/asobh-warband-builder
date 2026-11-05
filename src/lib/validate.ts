@@ -11,10 +11,29 @@ export type ValidationIssue =
   | { kind: 'unknown-costs' }
   | { kind: 'missing-model'; modelId: string }
 
+/** Errors break a rule of list building. Warnings flag something to agree with your opponent. */
+export type IssueSeverity = 'error' | 'warning'
+
 export interface ValidationMessage {
   issue: ValidationIssue
+  severity: IssueSeverity
   title: string
   fix: string
+}
+
+export function issueSeverity(issue: ValidationIssue): IssueSeverity {
+  switch (issue.kind) {
+    case 'personalities-over-half':
+    case 'multiple-leaders':
+    case 'unknown-costs':
+    case 'empty':
+      return 'warning'
+    case 'over-cap':
+    case 'multiple-leadership-rules':
+    case 'rare-exceeded':
+    case 'missing-model':
+      return 'error'
+  }
 }
 
 export function validateWarband(
@@ -65,6 +84,10 @@ export function validateWarband(
 const points = (n: number) => `${n} ${n === 1 ? 'point' : 'points'}`
 
 export function describeIssue(issue: ValidationIssue): ValidationMessage {
+  return { ...describeText(issue), severity: issueSeverity(issue) }
+}
+
+function describeText(issue: ValidationIssue): Omit<ValidationMessage, 'severity'> {
   switch (issue.kind) {
     case 'empty':
       return { issue, title: 'The warband is empty.', fix: 'Add a model to start the roster.' }
