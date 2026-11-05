@@ -13,10 +13,9 @@ import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, Sele
 import { Textarea } from '@/components/ui/textarea'
 import { combatOptions, qualityOptions } from '@/data/profile-options'
 import { editions } from '@/data/editions'
-import { modelRosterOptions, rosterLabel } from '@/data/warband-options'
 import { editionOf } from '@/lib/editions'
 import type { CostResult } from '@/lib/cost'
-import type { Model, Profile, SpecialRule } from '@/lib/schema'
+import type { Model, Profile, Roster, SpecialRule } from '@/lib/schema'
 
 export type ModelPatch = Partial<Omit<Model, 'id' | 'imageId'>>
 
@@ -40,6 +39,10 @@ interface ModelPanelProps {
   rulesEmptyState: ReactNode
   /** Book profile the model was made from, if any. */
   profile?: Profile
+  /** Name of that profile's roster. */
+  rosterName?: string
+  /** Rosters the model can belong to, from the sources its game can use. */
+  rosterOptions: readonly Roster[]
   onPatch: (patch: ModelPatch) => void
   onImageChange: (change: ImageChange) => void
   onQuantityChange?: (quantity: number) => void
@@ -60,6 +63,8 @@ export function ModelPanel({
   usageCount,
   rulesEmptyState,
   profile,
+  rosterName,
+  rosterOptions,
   onPatch,
   onImageChange,
   onQuantityChange,
@@ -141,7 +146,7 @@ export function ModelPanel({
           <Select
             value={edition.id}
             onValueChange={(v) =>
-              onPatch(editions.find((e) => e.id === v)?.hasRosters ? { edition: v } : { edition: v, roster: undefined })
+              onPatch({ edition: v })
             }
           >
             <SelectTrigger id={`model-edition-${model.id}`} size="sm" className="w-full">
@@ -155,7 +160,7 @@ export function ModelPanel({
               ))}
             </SelectContent>
           </Select>
-          {edition.hasRosters && (
+          {rosterOptions.length > 0 && (
             <>
               <label htmlFor={`model-roster-${model.id}`} className="text-sm font-bold">
                 Roster
@@ -170,7 +175,7 @@ export function ModelPanel({
                 <SelectContent>
                   <SelectItem value={NO_ROSTER}>No roster</SelectItem>
                   <SelectSeparator />
-                  {modelRosterOptions.map((o) => (
+                  {rosterOptions.map((o) => (
                     <SelectItem key={o.id} value={o.id}>
                       {o.label}
                     </SelectItem>
@@ -183,7 +188,7 @@ export function ModelPanel({
 
         {profile && (
           <p className="text-xs text-muted-foreground">
-            From the book: {profile.name}, {rosterLabel(profile.roster)}.
+            From the book: {profile.name}, {rosterName}.
             {cost.known && cost.formula !== undefined && (
               <> Costs the book's {cost.cost} pts; the formula gives {cost.formula}. Change its stats or rules and the formula applies.</>
             )}

@@ -1,10 +1,13 @@
 import { create } from 'zustand'
 import { DEFAULT_POINTS_CAP, defaultProfile } from '@/data/profile-options'
 import { rekeyBundle } from '@/lib/bundle'
-import { mergeRules } from '@/lib/rules-loader'
+import { flattenSources, placeRules, type Flattened } from '@/lib/sources'
 import {
   emptyStoredData,
   type Model,
+  type Profile,
+  type Roster,
+  type Source,
   type SpecialRule,
   type StoredData,
   type Warband,
@@ -16,9 +19,15 @@ export const newId = (): string => crypto.randomUUID()
 
 export type ModelDraft = Omit<Model, 'id'>
 
-export type WarbandSettings = Pick<Warband, 'name' | 'theme' | 'roster' | 'strictRoster' | 'pointsCap' | 'edition' | 'books'>
+export type WarbandSettings = Pick<
+  Warband,
+  'name' | 'theme' | 'roster' | 'strictRoster' | 'pointsCap' | 'edition' | 'sourceIds'
+>
 
-interface DataState extends StoredData {
+/** Details of a source that can be edited apart from its rules and profiles. */
+export type SourceDetails = Omit<Source, 'id' | 'rules' | 'rosters' | 'profiles' | 'origin'>
+
+interface DataState extends StoredData, Flattened {
   /** True once saved data has been read, so nothing is written before then. */
   hydrated: boolean
 }
@@ -41,10 +50,16 @@ interface DataActions {
   duplicateModel: (id: string) => string | undefined
   deleteModel: (id: string) => void
 
-  importRules: (rules: readonly SpecialRule[]) => void
-  /** Sets a rule's summary, written in your own words. */
-  setRuleSummary: (id: string, summary: string) => void
-  clearRules: () => void
+  /** Adds a source, or replaces the one with the same id. */
+  saveSource: (source: Source) => void
+  updateSourceDetails: (id: string, details: SourceDetails) => void
+  deleteSource: (id: string) => void
+  /** Adds a rule to a source, or replaces the rule with the same id there. */
+  saveRule: (sourceId: string, rule: SpecialRule) => void
+  deleteRule: (sourceId: string, ruleId: string) => void
+  /** Adds a profile to a source, with its roster when that is new to the source. */
+  saveProfile: (sourceId: string, profile: Profile, roster?: Roster) => void
+  deleteProfile: (sourceId: string, profileId: string) => void
 
   importBundle: (bundle: WarbandBundle, imageIdMap?: ReadonlyMap<string, string>) => string
 }
@@ -56,20 +71,33 @@ export const selectStoredData = (state: DataStore): StoredData => ({
   schemaVersion: state.schemaVersion,
   warbands: state.warbands,
   models: state.models,
-  rules: state.rules,
+  sources: state.sources,
 })
 
 const touch = (warband: Warband): Warband => ({ ...warband, updatedAt: Date.now() })
+
+/** Sources with the rules, profiles and rosters worked out from them. */
+const withSources = (sources: Source[]): Pick<DataState, 'sources'> & Flattened => ({
+  sources,
+  ...flattenSources(sources),
+})
+
+/** Rule fields a source fills in. They are not stored on the rule inside a source. */
+const storedRule = ({ edition: _e, book: _b, source: _s, ...rule }: SpecialRule): SpecialRule => rule
 
 export const useDataStore = create<DataStore>()((set, get) => {
   const mapWarband = (id: string, update: (w: Warband) => Warband) =>
     set((s) => ({ warbands: s.warbands.map((w) => (w.id === id ? touch(update(w)) : w)) }))
 
+  const mapSource = (id: string, update: (source: Source) => Source) =>
+    set((s) => withSources(s.sources.map((source) => (source.id === id ? update(source) : source))))
+
   return {
     ...emptyStoredData(),
+    ...flattenSources([]),
     hydrated: false,
 
-    hydrate: (data) => set({ ...data, hydrated: true }),
+    hydrate: (data) => set({ ...data, ...withSources(data.sources), hydrated: true }),
 
     createWarband: (settings = {}) => {
       const now = Date.now()
@@ -80,7 +108,7 @@ export const useDataStore = create<DataStore>()((set, get) => {
         roster: settings.roster,
         strictRoster: settings.strictRoster,
         edition: settings.edition,
-        books: settings.books,
+        sourceIds: settings.sourceIds,
         pointsCap: settings.pointsCap ?? DEFAULT_POINTS_CAP,
         entries: [],
         createdAt: now,
@@ -175,12 +203,50 @@ export const useDataStore = create<DataStore>()((set, get) => {
         ),
       })),
 
-    importRules: (rules) => set((s) => ({ rules: mergeRules(s.rules, rules) })),
+    saveSource: (source) =>
+      set((s) =>
+        withSources(
+          s.sources.some((x) => x.id === source.id)
+            ? s.sources.map((x) => (x.id === source.id ? source : x))
+            : [...s.sources, source],
+        ),
+      ),
 
-    clearRules: () => set({ rules: [] }),
+    updateSourceDetails: (id, details) => mapSource(id, (source) => ({ ...source, ...details })),
 
-    setRuleSummary: (id, summary) =>
-      set((s) => ({ rules: s.rules.map((r) => (r.id === id ? { ...r, summary: summary.trim() } : r)) })),
+    deleteSource: (id) => set((s) => withSources(s.sources.filter((x) => x.id !== id))),
+
+    saveRule: (sourceId, rule) =>
+      mapSource(sourceId, (source) => {
+        const clean = storedRule(rule)
+        return {
+          ...source,
+          rules: source.rules.some((r) => r.id === rule.id)
+            ? source.rules.map((r) => (r.id === rule.id ? clean : r))
+            : [...source.rules, clean],
+        }
+      }),
+
+    deleteRule: (sourceId, ruleId) =>
+      mapSource(sourceId, (source) => ({ ...source, rules: source.rules.filter((r) => r.id !== ruleId) })),
+
+    saveProfile: (sourceId, profile, roster) =>
+      mapSource(sourceId, (source) => ({
+        ...source,
+        rosters: roster && !source.rosters.some((r) => r.id === roster.id) ? [...source.rosters, roster] : source.rosters,
+        profiles: source.profiles.some((p) => p.id === profile.id)
+          ? source.profiles.map((p) => (p.id === profile.id ? profile : p))
+          : [...source.profiles, profile],
+      })),
+
+    deleteProfile: (sourceId, profileId) =>
+      mapSource(sourceId, (source) => {
+        const profiles = source.profiles.filter((p) => p.id !== profileId)
+        // A roster left with no profiles in a custom source goes too.
+        const rosters =
+          source.kind === 'custom' ? source.rosters.filter((r) => profiles.some((p) => p.roster === r.id)) : source.rosters
+        return { ...source, profiles, rosters }
+      }),
 
     importBundle: (bundle, imageIdMap) => {
       const imported = rekeyBundle(bundle, newId, Date.now())
@@ -189,14 +255,11 @@ export const useDataStore = create<DataStore>()((set, get) => {
         const { imageId: _old, ...rest } = m
         return imageId ? { ...rest, imageId } : rest
       })
-      set((s) => {
-        const known = new Set(s.rules.map((r) => r.id))
-        return {
-          warbands: [imported.warband, ...s.warbands],
-          models: [...s.models, ...models],
-          rules: mergeRules(s.rules, bundle.rules.filter((r) => !known.has(r.id))),
-        }
-      })
+      set((s) => ({
+        warbands: [imported.warband, ...s.warbands],
+        models: [...s.models, ...models],
+        ...withSources(placeRules(s.sources, bundle.rules)),
+      }))
       return imported.warband.id
     },
   }

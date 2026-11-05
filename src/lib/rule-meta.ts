@@ -1,6 +1,6 @@
 import type { RuleTag, SpecialRule } from '@/lib/schema'
 
-const tagLabels: Record<RuleTag, string> = {
+export const ruleTagLabels: Record<RuleTag, string> = {
   P: 'Personality only',
   L: 'Leadership',
   W: 'Weapon',
@@ -11,7 +11,7 @@ const tagLabels: Record<RuleTag, string> = {
 
 /** Words a search should match besides the rule's name. */
 export const ruleKeywords = (rule: SpecialRule): string[] =>
-  [rule.summary, rule.category ?? '', rule.source ?? '', ...(rule.tags ?? []).map((t) => tagLabels[t])].filter(Boolean)
+  [rule.summary, rule.category ?? '', rule.source ?? '', ...(rule.tags ?? []).map((t) => ruleTagLabels[t])].filter(Boolean)
 
 /** True when every word of the query appears in the rule's name or keywords. */
 export function matchesRuleSearch(rule: SpecialRule, query: string): boolean {
@@ -38,7 +38,7 @@ export interface RuleMarker {
 
 /** Rulebook markers and limits as short badges with a full label for each. */
 export function ruleMarkers(rule: SpecialRule): RuleMarker[] {
-  const markers: RuleMarker[] = (rule.tags ?? []).map((tag) => ({ short: tag, label: tagLabels[tag] }))
+  const markers: RuleMarker[] = (rule.tags ?? []).map((tag) => ({ short: tag, label: ruleTagLabels[tag] }))
   if (rule.rare !== undefined) markers.push({ short: `Rare ${rule.rare}`, label: `Rare, up to ${rule.rare} per warband` })
   return markers
 }

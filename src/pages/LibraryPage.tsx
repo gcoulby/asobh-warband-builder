@@ -12,7 +12,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ModelPanelContainer } from '@/containers/ModelPanelContainer'
 import { useDeleteModel } from '@/hooks/use-delete-model'
-import { rosterLabel } from '@/data/warband-options'
+import { rosterLabel } from '@/lib/sources'
 import { editionTag } from '@/lib/editions'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { usePrefs } from '@/hooks/use-prefs'
@@ -25,6 +25,8 @@ export function LibraryPage() {
   const isDesktop = useMediaQuery(DESKTOP_QUERY)
   const models = useDataStore((s) => s.models)
   const rules = useDataStore((s) => s.rules)
+  const profiles = useDataStore((s) => s.profiles)
+  const rosters = useDataStore((s) => s.rosters)
   const warbands = useDataStore((s) => s.warbands)
   const duplicateModel = useDataStore((s) => s.duplicateModel)
   const deleteModel = useDeleteModel()
@@ -57,9 +59,9 @@ export function LibraryPage() {
         key={model.id}
         model={model}
         rules={rules}
-        cost={modelCost(model, rules)}
+        cost={modelCost(model, rules, profiles)}
         imageUrl={model.imageId ? imageUrls.get(model.imageId) : undefined}
-        note={[editionTag(model), rosterLabel(model.roster), usage > 0 ? `In ${usage} ${usage === 1 ? 'warband' : 'warbands'}` : 'Not in a warband']
+        note={[editionTag(model), rosterLabel(model.roster, rosters), usage > 0 ? `In ${usage} ${usage === 1 ? 'warband' : 'warbands'}` : 'Not in a warband']
           .filter(Boolean)
           .join(' · ')}
         onOpen={() => setEditing(model.id)}
@@ -91,8 +93,8 @@ export function LibraryPage() {
     )
   }
 
-  const fighters = filtered.filter((m) => !isNoncombatant(modelCost(m, rules)))
-  const noncombatants = filtered.filter((m) => isNoncombatant(modelCost(m, rules)))
+  const fighters = filtered.filter((m) => !isNoncombatant(modelCost(m, rules, profiles)))
+  const noncombatants = filtered.filter((m) => isNoncombatant(modelCost(m, rules, profiles)))
 
   return (
     <main className="mx-auto flex max-w-4xl flex-col gap-3 px-4 py-4">

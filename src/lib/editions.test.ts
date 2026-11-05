@@ -1,23 +1,44 @@
 import { describe, expect, it } from 'vitest'
 import { editions } from '@/data/editions'
-import { booksInUse, editionById, editionIdOf, ruleAllowed, rulesFor, ruleSections } from '@/lib/editions'
-import { loadBundledRules } from '@/lib/rules-loader'
+import { editionIdOf, ruleAllowed, ruleScope, rulesFor, sourcesInUse } from '@/lib/editions'
+import { flattenSources } from '@/lib/sources'
+import { bundledSources, loadBundledSources } from '@/lib/sources-loader'
 import { validateWarband } from '@/lib/validate'
 import { makeModel, makeWarband } from '@/test/fixtures'
-import type { SpecialRule, WarbandEntry } from '@/lib/schema'
+import type { Source, SpecialRule, WarbandEntry } from '@/lib/schema'
 
-// Fake rules. The ids are the ones the SBH Revised checks look for; names and costs are made up.
-const sbhRules: SpecialRule[] = [
-  { id: 'sbh-animal', name: 'Beasty', cost: 0, summary: '', edition: 'sbh', book: 'sbh' },
-  { id: 'sbh-swarm', name: 'Many legs', cost: 0, summary: '', edition: 'sbh', book: 'sbh' },
-  { id: 'sbh-rabble', name: 'Mob', cost: 0, summary: '', edition: 'sbh', book: 'sbh' },
-  { id: 'sbh-paladin', name: 'Shiny', cost: 0, summary: '', edition: 'sbh', book: 'sgd' },
-  { id: 'sbh-evil', name: 'Grim', cost: 0, summary: '', edition: 'sbh', book: 'sgd' },
-  { id: 'sbh-big', name: 'Tall', cost: 0, summary: '', edition: 'sbh', book: 'sbh', excludes: ['sbh-small'] },
-  { id: 'sbh-small', name: 'Short', cost: 0, summary: '', edition: 'sbh', book: 'sbh', excludes: ['sbh-big'] },
-  { id: 'sbh-boss', name: 'Bossy', cost: 10, summary: '', edition: 'sbh', book: 'sbh', tags: ['P'] },
-  { id: 'asobh-glow', name: 'Glows', cost: 0, summary: '' },
+// Fake sources. The rule ids are the ones the SBH Revised checks look for; names and costs are made up.
+const rule = (id: string, name: string, extra: Partial<SpecialRule> = {}): SpecialRule => ({ id, name, cost: 0, summary: '', ...extra })
+const fakeSources: Source[] = [
+  {
+    id: 'fake-sbh-core',
+    name: 'Fake SBH core',
+    kind: 'core',
+    game: 'sbh',
+    rules: [
+      rule('sbh-animal', 'Beasty'),
+      rule('sbh-swarm', 'Many legs'),
+      rule('sbh-rabble', 'Mob'),
+      rule('sbh-big', 'Tall', { excludes: ['sbh-small'] }),
+      rule('sbh-small', 'Short', { excludes: ['sbh-big'] }),
+      rule('sbh-boss', 'Bossy', { cost: 10, tags: ['P'] }),
+    ],
+    rosters: [],
+    profiles: [],
+  },
+  {
+    id: 'fake-supplement',
+    name: 'Fake supplement',
+    kind: 'supplement',
+    game: 'sbh',
+    usableIn: ['asobh'],
+    rules: [rule('sbh-paladin', 'Shiny'), rule('sbh-evil', 'Grim')],
+    rosters: [],
+    profiles: [],
+  },
+  { id: 'fake-asobh-core', name: 'Fake ASOBH core', kind: 'core', game: 'asobh', rules: [rule('asobh-glow', 'Glows')], rosters: [], profiles: [] },
 ]
+const sbhRules = flattenSources(fakeSources).rules
 
 const sbh = (overrides = {}) => makeWarband({ edition: 'sbh', pointsCap: 300, ...overrides })
 const entry = (modelId: string, quantity = 1): WarbandEntry => ({ modelId, quantity })
@@ -30,38 +51,31 @@ describe('edition helpers', () => {
     expect(editionIdOf({ edition: 'sbh' })).toBe('sbh')
   })
 
-  it('always uses the core book, and every book when none are chosen', () => {
-    const edition = editionById('sbh')
-    expect(booksInUse(edition, []).map((b) => b.id)).toEqual(['sbh'])
-    expect(booksInUse(edition, ['sgd']).map((b) => b.id)).toEqual(['sbh', 'sgd'])
-    expect(booksInUse(edition, undefined)).toHaveLength(edition.books.length)
+  it('always uses the core source, and every source when none are chosen', () => {
+    const ids = (chosen?: string[]) => sourcesInUse(fakeSources, 'sbh', chosen).map((x) => x.id)
+    expect(ids([])).toEqual(['fake-sbh-core'])
+    expect(ids(['fake-supplement'])).toEqual(['fake-sbh-core', 'fake-supplement'])
+    expect(ids()).toEqual(['fake-sbh-core', 'fake-supplement'])
   })
 
-  it('offers only rules of the edition and its books', () => {
-    const books = booksInUse(editionById('sbh'), [])
-    expect(rulesFor(sbhRules, 'sbh', books).map((r) => r.id)).not.toContain('sbh-paladin')
-    expect(ruleAllowed(sbhRules[3], 'sbh')).toBe(true)
+  it('offers only rules of the game and its sources in use', () => {
+    expect(rulesFor(sbhRules, ruleScope(fakeSources, 'sbh', [])).map((r) => r.id)).not.toContain('sbh-paladin')
+    expect(ruleAllowed(sbhRules.find((r) => r.id === 'sbh-paladin')!, ruleScope(fakeSources, 'sbh'))).toBe(true)
   })
 
-  it('lets Advanced SBH borrow supplement rules, but not SBH core rules', () => {
-    const ids = (books?: string[]) =>
-      rulesFor(sbhRules, 'asobh', books && booksInUse(editionById('asobh'), books)).map((r) => r.id)
-    expect(ids()).toEqual(['sbh-paladin', 'sbh-evil', 'asobh-glow'])
+  it('lets Advanced SBH borrow supplements that say so, but not SBH core rules', () => {
+    const ids = (chosen?: string[]) => rulesFor(sbhRules, ruleScope(fakeSources, 'asobh', chosen)).map((r) => r.id)
+    expect(ids()).toEqual(['asobh-glow', 'sbh-evil', 'sbh-paladin'])
     expect(ids([])).toEqual(['asobh-glow'])
-    expect(ids(['sgd'])).toContain('sbh-paladin')
+    expect(ids(['fake-supplement'])).toContain('sbh-paladin')
   })
 
-  it('prefers the edition\'s own rule over a borrowed one of the same name', () => {
-    const rules = [...sbhRules, { id: 'asobh-shiny', name: 'S-hiny', cost: 1, summary: '' }]
-    const ids = rulesFor(rules, 'asobh').map((r) => r.id)
+  it("prefers the game's own rule over a borrowed one of the same name", () => {
+    const own: Source = { ...fakeSources[2]!, rules: [rule('asobh-shiny', 'S-hiny')] }
+    const sources = [fakeSources[0]!, fakeSources[1]!, own]
+    const ids = rulesFor(flattenSources(sources).rules, ruleScope(sources, 'asobh')).map((r) => r.id)
     expect(ids).toContain('asobh-shiny')
     expect(ids).not.toContain('sbh-paladin')
-  })
-
-  it('splits rules into sections by game and book, never repeating a rule', () => {
-    const sections = ruleSections(sbhRules)
-    expect(sections.map((s) => s.id)).toEqual(['asobh', 'sbh-sbh', 'sbh-sgd'])
-    expect(sections.flatMap((s) => s.rules)).toHaveLength(sbhRules.length)
   })
 })
 
@@ -78,7 +92,8 @@ describe('SBH Revised checks', () => {
     makeModel({ id: 'elf', name: 'Elf' }),
     makeModel({ id: 'glowy', name: 'Glowy', ruleIds: ['asobh-glow'], edition: 'sbh' }),
   ]
-  const check = (entries: WarbandEntry[], warband = sbh()) => kinds(validateWarband({ ...warband, entries }, models, sbhRules))
+  const check = (entries: WarbandEntry[], warband = sbh()) =>
+    kinds(validateWarband({ ...warband, entries }, models, sbhRules, [], fakeSources))
 
   it('caps Personalities at a third', () => {
     // Boss costs ((15 + 10) × 4) / 2 = 50. A third of 120 is 40.
@@ -113,13 +128,13 @@ describe('SBH Revised checks', () => {
   it('flags models and rules from another game or an unused book', () => {
     expect(check([entry('elf')])).toContain('wrong-edition')
     expect(check([entry('glowy')])).toContain('rule-not-in-use')
-    expect(check([entry('knight')], sbh({ books: [] }))).toContain('rule-not-in-use')
-    expect(check([entry('knight')], sbh({ books: ['sgd'] }))).not.toContain('rule-not-in-use')
+    expect(check([entry('knight')], sbh({ sourceIds: [] }))).toContain('rule-not-in-use')
+    expect(check([entry('knight')], sbh({ sourceIds: ['fake-supplement'] }))).not.toContain('rule-not-in-use')
   })
 
   it('leaves Advanced SBH warbands to their own checks', () => {
     const asobh = makeWarband({ pointsCap: 120 })
-    expect(kinds(validateWarband({ ...asobh, entries: [entry('elf')] }, models, sbhRules))).toEqual([])
+    expect(kinds(validateWarband({ ...asobh, entries: [entry('elf')] }, models, sbhRules, [], fakeSources))).toEqual([])
   })
 
   it('lets Advanced SBH models use supplements the warband has on', () => {
@@ -128,8 +143,8 @@ describe('SBH Revised checks', () => {
       makeModel({ id: 'villain', name: 'Villain', ruleIds: ['sbh-evil'] }),
       makeModel({ id: 'tall', name: 'Tall', ruleIds: ['sbh-big'] }),
     ]
-    const run = (entries: WarbandEntry[], books?: string[]) =>
-      kinds(validateWarband(makeWarband({ books, entries }), asobhModels, sbhRules))
+    const run = (entries: WarbandEntry[], sourceIds?: string[]) =>
+      kinds(validateWarband(makeWarband({ sourceIds, entries }), asobhModels, sbhRules, [], fakeSources))
     expect(run([entry('knight')])).toEqual([])
     expect(run([entry('knight')], [])).toEqual(['rule-not-in-use'])
     expect(run([entry('knight'), entry('villain')])).toContain('incompatible-rules')
@@ -144,29 +159,50 @@ describe('SBH Revised checks', () => {
   })
 })
 
-describe('bundled SBH Revised rules', () => {
-  const file = loadBundledRules().find((f) => f.fileName === 'sbh-revised-rules.json')
-  const rules = file?.result.ok ? file.result.rules : []
+// The included sources live outside the repo, so these checks run only where they are present.
+describe.skipIf(loadBundledSources().length === 0)('bundled sources', () => {
+  const sources = bundledSources()
+  const { rules, profiles } = flattenSources(sources)
   const ids = new Set(rules.map((r) => r.id))
 
-  it('loads every entry', () => {
-    expect(file?.result.ok && file.result.errors).toEqual([])
-    expect(rules.length).toBeGreaterThan(0)
+  it('load without skipped entries', () => {
+    for (const file of loadBundledSources()) {
+      expect(file.error, file.fileName).toBeUndefined()
+      expect(file.errors, file.fileName).toEqual([])
+    }
+    expect(sources.length).toBeGreaterThan(0)
   })
 
-  it('uses only known books, and excludes rules that exist both ways', () => {
-    const books = new Set(editionById('sbh').books.map((b) => b.id))
-    for (const rule of rules) {
-      expect(rule.edition).toBe('sbh')
-      expect(books.has(rule.book ?? '')).toBe(true)
-      for (const other of rule.excludes ?? []) {
-        expect(ids.has(other)).toBe(true)
-        expect(rules.find((r) => r.id === other)?.excludes).toContain(rule.id)
+  it('use rule and roster ids no other source uses', () => {
+    expect(ids.size).toBe(rules.length)
+    const rosterIds = sources.flatMap((s) => s.rosters.map((r) => r.id))
+    expect(new Set(rosterIds).size).toBe(rosterIds.length)
+  })
+
+  it('give each profile known rules', () => {
+    const missing = profiles.flatMap((p) => p.ruleIds.filter((id) => !ids.has(id)).map((id) => `${p.id}: ${id}`))
+    expect(missing).toEqual([])
+  })
+
+  it('exclude rules both ways', () => {
+    for (const r of rules) {
+      for (const other of r.excludes ?? []) {
+        expect(ids.has(other), other).toBe(true)
+        expect(rules.find((x) => x.id === other)?.excludes).toContain(r.id)
       }
     }
   })
 
-  it('has every rule the edition checks look for', () => {
+  it('price every unedited profile at its book points', async () => {
+    const { modelCost } = await import('@/lib/cost')
+    const wrong = profiles.filter((p) => {
+      const cost = modelCost({ ...p, profileId: p.id }, rules, profiles)
+      return p.bookPoints !== undefined && (!cost.known || cost.cost !== p.bookPoints)
+    })
+    expect(wrong.map((p) => p.id)).toEqual([])
+  })
+
+  it('have every rule the edition checks look for', () => {
     for (const edition of editions) {
       const { animalRuleIds = [], swarm, qualityFloor, incompatible = [] } = edition.checks
       for (const id of [...animalRuleIds, swarm?.ruleId, qualityFloor?.ruleId, ...incompatible.flat()]) {

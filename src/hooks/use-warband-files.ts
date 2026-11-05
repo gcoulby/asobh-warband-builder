@@ -5,7 +5,7 @@ import { buildArchive, readArchive, type ArchiveImage } from '@/lib/archive'
 import { bundleWarband } from '@/lib/bundle'
 import { fileNameFor, openFile, pngFileType, saveFile, zipFileType, type SaveOutcome } from '@/lib/file-access'
 import type { Result, Warband } from '@/lib/schema'
-import { selectStoredData, useDataStore } from '@/stores/data-store'
+import { useDataStore } from '@/stores/data-store'
 
 /** Export and import warband archives and PNG pictures of the roster. */
 export function useWarbandFiles() {
@@ -14,7 +14,7 @@ export function useWarbandFiles() {
 
   const exportZip = useCallback(
     async (warband: Warband): Promise<SaveOutcome> => {
-      const bundle = bundleWarband(warband, selectStoredData(useDataStore.getState()))
+      const bundle = bundleWarband(warband, useDataStore.getState())
       const images: ArchiveImage[] = []
       for (const model of bundle.models) {
         if (!model.imageId) continue

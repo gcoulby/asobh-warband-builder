@@ -35,9 +35,9 @@ export const specialRuleSchema = z.object({
   tags: z.array(ruleTagSchema).optional(),
   /** Most figures in a warband that may have this rule. */
   rare: z.number().int().positive().optional(),
-  /** Game edition, such as `sbh`. Without one the rule is Advanced SBH. */
+  /** Game the rule's source is written for, such as `sbh`. Filled in from the source. */
   edition: z.string().optional(),
-  /** Book within the edition, such as `sgd`, so a warband can leave supplements out. */
+  /** Id of the source the rule belongs to. Filled in from the source. */
   book: z.string().optional(),
   /** Rules a model cannot have alongside this one. */
   excludes: z.array(z.string()).optional(),
@@ -84,10 +84,56 @@ export type Profile = z.infer<typeof profileSchema>
 export const rosterSchema = z.object({ id: z.string().min(1), label: z.string().min(1) })
 export type Roster = z.infer<typeof rosterSchema>
 
-export const profilesFileSchema = z.object({
-  name: z.string().optional(),
+/** A roster together with the source it comes from. */
+export interface SourcedRoster extends Roster {
+  sourceId: string
+}
+
+/** A profile together with the source it comes from. */
+export interface SourcedProfile extends Profile {
+  sourceId: string
+}
+
+/**
+ * What a source is: core rulebook, supplement or your own. Every rule and
+ * profile belongs to exactly one source.
+ */
+export const SOURCE_KINDS = ['core', 'supplement', 'custom'] as const
+export const sourceKindSchema = z.enum(SOURCE_KINDS)
+export type SourceKind = z.infer<typeof sourceKindSchema>
+
+const optionalText = z.string().trim().optional()
+
+/** A book, supplement or custom collection, with its own rules, rosters and profiles. */
+export const sourceSchema = z.object({
+  id: z.string().trim().min(1, 'id is required'),
+  name: z.string().trim().min(1, 'Give the source a name.'),
+  /** Short label for lists, such as ASOBH. */
+  shortName: optionalText,
+  kind: sourceKindSchema,
+  /** Game the source is written for, such as `asobh`. */
+  game: z.string().min(1),
+  /** Other games that can use this source's rules. */
+  usableIn: z.array(z.string()).optional(),
+  author: optionalText,
+  publisher: optionalText,
+  url: optionalText,
+  version: optionalText,
+  description: optionalText,
+  /** Id of the bundled source this one was added from. */
+  origin: z.string().optional(),
+  rules: z.array(specialRuleSchema),
   rosters: z.array(rosterSchema),
-  profiles: z.array(z.unknown()),
+  profiles: z.array(profileSchema),
+})
+export type Source = z.infer<typeof sourceSchema>
+
+/** A source as saved to a file. Entries are checked one by one when read. */
+export const SOURCE_FILE_FORMAT = 'warband-source'
+export const sourceFileSchema = z.object({
+  format: z.literal(SOURCE_FILE_FORMAT),
+  version: z.literal(1),
+  source: z.record(z.string(), z.unknown()),
 })
 
 export const warbandEntrySchema = z.object({
@@ -106,8 +152,8 @@ export const warbandSchema = z.object({
   strictRoster: z.boolean().optional(),
   /** Game edition, such as `sbh`. Without one the warband is Advanced SBH. */
   edition: z.string().optional(),
-  /** Supplements in use, by book id. The core book is always in use. */
-  books: z.array(z.string()).optional(),
+  /** Sources in use, by id. Core sources of the warband's game are always in use. Without a choice, every source is. */
+  sourceIds: z.array(z.string()).optional(),
   pointsCap: z.number().int().positive('The points cap must be above zero.'),
   entries: z.array(warbandEntrySchema),
   createdAt: z.number(),
@@ -115,13 +161,13 @@ export const warbandSchema = z.object({
 })
 export type Warband = z.infer<typeof warbandSchema>
 
-export const CURRENT_SCHEMA_VERSION = 1
+export const CURRENT_SCHEMA_VERSION = 2
 
 export const storedDataSchema = z.object({
   schemaVersion: z.literal(CURRENT_SCHEMA_VERSION),
   warbands: z.array(warbandSchema),
   models: z.array(modelSchema),
-  rules: z.array(specialRuleSchema),
+  sources: z.array(sourceSchema),
 })
 export type StoredData = z.infer<typeof storedDataSchema>
 
@@ -129,7 +175,7 @@ export const emptyStoredData = (): StoredData => ({
   schemaVersion: CURRENT_SCHEMA_VERSION,
   warbands: [],
   models: [],
-  rules: [],
+  sources: [],
 })
 
 /** Shape of a rules file the user imports. */

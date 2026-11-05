@@ -6,10 +6,10 @@ import type { RosterRow } from '@/components/RosterRow'
 import { Button } from '@/components/ui/button'
 import type { PaperSize, PrintNoncombatants } from '@/hooks/use-prefs'
 import { isNoncombatant, rulesOf, type WarbandTotals } from '@/lib/cost'
-import type { SpecialRule, Warband } from '@/lib/schema'
+import type { Roster, SpecialRule, Warband } from '@/lib/schema'
 import { builderCredit, gameCredit } from '@/data/credits'
-import { rosterLabel } from '@/data/warband-options'
 import { editionOf } from '@/lib/editions'
+import { rosterLabel } from '@/lib/sources'
 import { cn } from '@/lib/utils'
 
 interface PrintSheetProps {
@@ -17,6 +17,8 @@ interface PrintSheetProps {
   rows: readonly RosterRow[]
   totals: WarbandTotals
   rules: readonly SpecialRule[]
+  /** For the warband's roster name. */
+  rosters: readonly Roster[]
   paperSize: PaperSize
   sheetRef: Ref<HTMLDivElement>
   onExportCard: (node: HTMLElement, name: string) => void
@@ -32,6 +34,7 @@ export function PrintSheet({
   rows,
   totals,
   rules,
+  rosters,
   paperSize,
   sheetRef,
   onExportCard,
@@ -89,7 +92,7 @@ export function PrintSheet({
         <div>
           <h1 className="font-display text-3xl leading-tight font-bold">{warband.name}</h1>
           <p className="text-sm">
-            {[editionOf(warband).shortLabel, rosterLabel(warband.roster), warband.theme].filter(Boolean).join(' · ')}
+            {[editionOf(warband).shortLabel, rosterLabel(warband.roster, rosters), warband.theme].filter(Boolean).join(' · ')}
           </p>
         </div>
         <div className="text-right">

@@ -6,9 +6,9 @@ import { RulesEmptyHint } from '@/components/RulesEmptyHint'
 import { usePersistenceContext } from '@/hooks/persistence-context'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { modelCost } from '@/lib/cost'
-import { booksInUse, editionIdOf, editionOf, rulesFor } from '@/lib/editions'
-import { loadBundledProfiles } from '@/lib/profiles-loader'
+import { editionIdOf, editionOf, ruleScope, rulesFor, sourcesFor } from '@/lib/editions'
 import type { Model } from '@/lib/schema'
+import { rosterLabel } from '@/lib/sources'
 import { useDataStore } from '@/stores/data-store'
 
 interface ModelPanelContainerProps {
@@ -21,6 +21,9 @@ interface ModelPanelContainerProps {
 export function ModelPanelContainer({ modelId, warbandId }: ModelPanelContainerProps) {
   const model = useDataStore((s) => s.models.find((m) => m.id === modelId))
   const rules = useDataStore((s) => s.rules)
+  const profiles = useDataStore((s) => s.profiles)
+  const rosters = useDataStore((s) => s.rosters)
+  const sources = useDataStore((s) => s.sources)
   const warbands = useDataStore((s) => s.warbands)
   const saveModel = useDataStore((s) => s.saveModel)
   const addEntry = useDataStore((s) => s.addEntry)
@@ -71,9 +74,17 @@ export function ModelPanelContainer({ modelId, warbandId }: ModelPanelContainerP
   const entry = warband?.entries.find((e) => e.modelId === model.id)
   const usageCount = warbands.filter((w) => w.entries.some((e) => e.modelId === model.id)).length
   const edition = editionOf(model)
-  // Inside a warband of the same game, only its books are offered. Elsewhere, every book is.
-  const books = warband && editionIdOf(warband) === edition.id ? booksInUse(edition, warband.books) : undefined
-  const pickable = rulesFor(rules, edition.id, books)
+  // Inside a warband of the same game, only its sources are offered. Elsewhere, every usable source is.
+  const chosen = warband && editionIdOf(warband) === edition.id ? warband.sourceIds : undefined
+  const pickable = rulesFor(rules, ruleScope(sources, edition.id, chosen))
+  const usableSources = new Set(sourcesFor(sources, edition.id).map((x) => x.id))
+  const usable = rosters.filter((r) => usableSources.has(r.sourceId) || r.id === model.roster)
+  // Rosters that share a name, such as Dwarves in two books, are told apart by their source.
+  const rosterChoices = usable.map((r) =>
+    usable.some((o) => o.id !== r.id && o.label === r.label)
+      ? { id: r.id, label: `${r.label} (${sources.find((x) => x.id === r.sourceId)?.shortName ?? r.sourceId})` }
+      : r,
+  )
 
   return (
     <ModelPanel
@@ -81,12 +92,14 @@ export function ModelPanelContainer({ modelId, warbandId }: ModelPanelContainerP
       model={model}
       rules={rules}
       pickableRules={pickable}
-      cost={modelCost(model, rules)}
+      rosterOptions={rosterChoices}
+      cost={modelCost(model, rules, profiles)}
       imageUrl={model.imageId ? imageUrls.get(model.imageId) : undefined}
       quantity={entry?.quantity}
       usageCount={usageCount}
       rulesEmptyState={<RulesEmptyHint edition={rules.length > 0 ? edition.shortLabel : undefined} />}
-      profile={model.profileId ? loadBundledProfiles().profiles.find((p) => p.id === model.profileId) : undefined}
+      profile={model.profileId ? profiles.find((p) => p.id === model.profileId) : undefined}
+      rosterName={rosterLabel(model.profileId ? profiles.find((p) => p.id === model.profileId)?.roster : undefined, rosters)}
       onPatch={handlePatch}
       onImageChange={handleImage}
       onQuantityChange={warband && entry ? (quantity) => updateEntry(warband.id, model.id, { quantity }) : undefined}

@@ -15,17 +15,28 @@ import { Checkbox } from '@/components/ui/checkbox'
 import { Field, FieldDescription, FieldError, FieldGroup, FieldLabel, FieldLegend, FieldSet } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { Switch } from '@/components/ui/switch'
-import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { DEFAULT_EDITION, editions, supplements as allSupplements } from '@/data/editions'
-import { gameSizeOptions, isGameSize, MIXED_ROSTER, rosterOptions } from '@/data/warband-options'
-import { editionById, editionIdOf, isEditionId } from '@/lib/editions'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
+import { DEFAULT_EDITION, editions } from '@/data/editions'
+import { gameSizeOptions, isGameSize, MIXED_ROSTER } from '@/data/warband-options'
+import { editionById, editionIdOf, isAlwaysInUse, isEditionId, sourcesFor } from '@/lib/editions'
+import { sourceLabel } from '@/lib/sources'
+import type { Source, SourcedRoster } from '@/lib/schema'
 import type { WarbandSettings } from '@/stores/data-store'
 
 const settingsSchema = z.object({
   name: z.string().trim().min(1, 'Give the warband a name.').max(80, 'Keep the name under 80 characters.'),
   theme: z.string().max(120, 'Keep the theme under 120 characters.'),
   edition: z.string(),
-  books: z.array(z.string()),
+  sourceIds: z.array(z.string()),
   roster: z.string(),
   strictRoster: z.boolean(),
   pointsCap: z
@@ -37,14 +48,14 @@ const settingsSchema = z.object({
 
 type SettingsValues = z.infer<typeof settingsSchema>
 
-/** Without a saved choice every supplement is ticked, whichever game is picked. */
-const allSupplementIds = allSupplements.map((b) => b.id)
-
 /** Select values that stand for "no roster" and "a points cap not in the list". */
 const NO_ROSTER = 'none'
 const CUSTOM_SIZE = 'custom'
 
 interface WarbandSettingsDialogProps {
+  /** Your sources, to choose from and to list rosters. */
+  sources: readonly Source[]
+  rosters: readonly SourcedRoster[]
   open: boolean
   title: string
   submitLabel: string
@@ -53,13 +64,23 @@ interface WarbandSettingsDialogProps {
   onSubmit: (settings: WarbandSettings) => void
 }
 
-export function WarbandSettingsDialog({ open, title, submitLabel, initial, onOpenChange, onSubmit }: WarbandSettingsDialogProps) {
+export function WarbandSettingsDialog({
+  sources,
+  rosters,
+  open,
+  title,
+  submitLabel,
+  initial,
+  onOpenChange,
+  onSubmit,
+}: WarbandSettingsDialogProps) {
   const form = useForm<SettingsValues>({
     resolver: zodResolver(settingsSchema),
     values: {
       name: initial.name,
       edition: editionIdOf(initial),
-      books: initial.books ?? allSupplementIds,
+      // Without a saved choice every source is ticked, whichever game is picked.
+      sourceIds: initial.sourceIds ?? sources.map((x) => x.id),
       theme: initial.theme ?? '',
       roster: initial.roster ?? '',
       strictRoster: initial.strictRoster ?? false,
@@ -70,8 +91,13 @@ export function WarbandSettingsDialog({ open, title, submitLabel, initial, onOpe
   const roster = useWatch({ control: form.control, name: 'roster' })
   const editionId = useWatch({ control: form.control, name: 'edition' })
   const edition = editionById(isEditionId(editionId) ? editionId : DEFAULT_EDITION)
-  const supplements = edition.books.filter((b) => !b.core)
-  const canBeStrict = edition.hasRosters && Boolean(roster) && roster !== MIXED_ROSTER
+  const usable = sourcesFor(sources, edition.id)
+  const coreSources = usable.filter((x) => isAlwaysInUse(x, edition.id))
+  const optional = usable.filter((x) => !isAlwaysInUse(x, edition.id))
+  const usableIds = new Set(usable.map((x) => x.id))
+  const rosterChoices = rosters.filter((r) => usableIds.has(r.sourceId))
+  const hasRosters = rosterChoices.length > 0
+  const canBeStrict = hasRosters && Boolean(roster) && roster !== MIXED_ROSTER
 
   const handleOpenChange = (next: boolean) => {
     if (!next) setCustomChosen(false)
@@ -95,8 +121,8 @@ export function WarbandSettingsDialog({ open, title, submitLabel, initial, onOpe
               name: v.name,
               theme: v.theme.trim() || undefined,
               edition: edition.id,
-              books: supplements.length > 0 ? supplements.filter((b) => v.books.includes(b.id)).map((b) => b.id) : undefined,
-              roster: edition.hasRosters ? v.roster || undefined : undefined,
+              sourceIds: optional.filter((x) => v.sourceIds.includes(x.id)).map((x) => x.id),
+              roster: hasRosters ? v.roster || undefined : undefined,
               strictRoster: canBeStrict && v.strictRoster ? true : undefined,
               pointsCap: v.pointsCap,
             })
@@ -136,20 +162,21 @@ export function WarbandSettingsDialog({ open, title, submitLabel, initial, onOpe
                 </Field>
               )}
             />
-            {supplements.length > 0 && (
+            {optional.length > 0 && (
               <Controller
                 control={form.control}
-                name="books"
+                name="sourceIds"
                 render={({ field }) => (
                   <FieldSet>
-                    <FieldLegend variant="label">Supplements</FieldLegend>
+                    <FieldLegend variant="label">Sources</FieldLegend>
                     <FieldDescription>
-                      {edition.books.some((b) => b.core)
-                        ? 'The core book is always in use. Rules from books left out are flagged.'
-                        : `Adds their rules. Where ${edition.shortLabel} has a rule of the same name, its own version is used.`}
+                      {coreSources.length > 0
+                        ? `${coreSources.map(sourceLabel).join(' and ')} always in use. `
+                        : ''}
+                      Rules and profiles from sources left out are not offered, and models using them are flagged.
                     </FieldDescription>
                     <div className="grid gap-2 sm:grid-cols-2">
-                      {supplements.map((b) => (
+                      {optional.map((b) => (
                         <Field key={b.id} orientation="horizontal">
                           <Checkbox
                             id={`warband-book-${b.id}`}
@@ -161,7 +188,7 @@ export function WarbandSettingsDialog({ open, title, submitLabel, initial, onOpe
                             }
                           />
                           <FieldLabel htmlFor={`warband-book-${b.id}`} className="font-normal">
-                            {b.label}
+                            {sourceLabel(b)}
                           </FieldLabel>
                         </Field>
                       ))}
@@ -229,7 +256,7 @@ export function WarbandSettingsDialog({ open, title, submitLabel, initial, onOpe
                 )
               }}
             />
-            {edition.hasRosters && (
+            {hasRosters && (
               <>
                 <Controller
                   control={form.control}
@@ -244,11 +271,21 @@ export function WarbandSettingsDialog({ open, title, submitLabel, initial, onOpe
                         <SelectContent>
                           <SelectItem value={NO_ROSTER}>Not set</SelectItem>
                           <SelectSeparator />
-                          {rosterOptions.map((o) => (
-                            <SelectItem key={o.id} value={o.id}>
-                              {o.label}
-                            </SelectItem>
-                          ))}
+                          <SelectItem value={MIXED_ROSTER}>Anything goes</SelectItem>
+                          {usable
+                            .filter((x) => rosterChoices.some((r) => r.sourceId === x.id))
+                            .map((x) => (
+                              <SelectGroup key={x.id}>
+                                <SelectLabel>{sourceLabel(x)}</SelectLabel>
+                                {rosterChoices
+                                  .filter((r) => r.sourceId === x.id)
+                                  .map((o) => (
+                                    <SelectItem key={o.id} value={o.id}>
+                                      {o.label}
+                                    </SelectItem>
+                                  ))}
+                              </SelectGroup>
+                            ))}
                         </SelectContent>
                       </Select>
                       <FieldDescription>Stick to one roster, or pick Anything goes for a mixed warband.</FieldDescription>

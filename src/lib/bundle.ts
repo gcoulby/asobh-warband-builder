@@ -1,7 +1,10 @@
-import type { StoredData, Warband, WarbandBundle } from '@/lib/schema'
+import type { Model, SpecialRule, Warband, WarbandBundle } from '@/lib/schema'
 
 /** Collects a warband with the models and rules it uses. */
-export function bundleWarband(warband: Warband, data: Pick<StoredData, 'models' | 'rules'>): WarbandBundle {
+export function bundleWarband(
+  warband: Warband,
+  data: { models: readonly Model[]; rules: readonly SpecialRule[] },
+): WarbandBundle {
   const modelIds = new Set(warband.entries.map((e) => e.modelId))
   const models = data.models.filter((m) => modelIds.has(m.id))
   const ruleIds = new Set(models.flatMap((m) => m.ruleIds))

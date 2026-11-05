@@ -1,5 +1,6 @@
-import { DEFAULT_EDITION, editions, type Book, type Edition, type EditionId } from '@/data/editions'
-import type { SpecialRule } from '@/lib/schema'
+import { DEFAULT_EDITION, editions, type Edition, type EditionId } from '@/data/editions'
+import { sourceLabel } from '@/lib/sources'
+import type { Source, SpecialRule } from '@/lib/schema'
 
 export const isEditionId = (id: string | undefined): id is EditionId => editions.some((e) => e.id === id)
 
@@ -11,76 +12,66 @@ export const editionById = (id: EditionId): Edition => editions.find((e) => e.id
 
 export const editionOf = (item: { edition?: string }): Edition => editionById(editionIdOf(item))
 
-/** Books in use: the core book plus any chosen supplements. Without a choice, every book is in use. */
-export function booksInUse(edition: Edition, chosen: readonly string[] | undefined): Book[] {
-  if (chosen === undefined) return [...edition.books]
-  return edition.books.filter((b) => b.core || chosen.includes(b.id))
+type SourceMeta = Pick<Source, 'id' | 'kind' | 'game' | 'usableIn' | 'name' | 'shortName'>
+
+/** Sources a game can use: those written for it, and supplements that say they work with it. */
+export const sourcesFor = <S extends SourceMeta>(sources: readonly S[], edition: EditionId): S[] =>
+  sources.filter((s) => s.game === edition || s.usableIn?.includes(edition))
+
+/** True for a source that is always in use in this game: its own core book. */
+export const isAlwaysInUse = (source: SourceMeta, edition: EditionId): boolean =>
+  source.kind === 'core' && source.game === edition
+
+/** Sources a warband uses: its game's core sources, plus the chosen ones. Without a choice, every source is in use. */
+export function sourcesInUse<S extends SourceMeta>(sources: readonly S[], edition: EditionId, chosen?: readonly string[]): S[] {
+  return sourcesFor(sources, edition).filter((s) => chosen === undefined || isAlwaysInUse(s, edition) || chosen.includes(s.id))
 }
 
-export const bookLabel = (edition: Edition, id: string | undefined): string | undefined =>
-  id === undefined ? undefined : (edition.books.find((b) => b.id === id)?.label ?? id)
+/** What a model or warband may draw rules from: a game, the sources it can use, and those in use. */
+export interface RuleScope {
+  edition: EditionId
+  /** Sources the game can use. */
+  allowed: ReadonlySet<string>
+  /** Sources the warband has on. Unset means every allowed source. */
+  inUse?: ReadonlySet<string>
+  /** Labels of known sources, for messages. */
+  labels: ReadonlyMap<string, string>
+}
 
-/** True when a rule from another edition comes from a supplement this edition can use. */
-const isBorrowed = (rule: SpecialRule, edition: Edition): boolean =>
-  editionIdOf(rule) !== edition.id && edition.books.some((b) => !b.core && b.id === rule.book)
+export function ruleScope(sources: readonly SourceMeta[], edition: EditionId, chosen?: readonly string[]): RuleScope {
+  return {
+    edition,
+    allowed: new Set(sourcesFor(sources, edition).map((s) => s.id)),
+    inUse: chosen === undefined ? undefined : new Set(sourcesInUse(sources, edition, chosen).map((s) => s.id)),
+    labels: new Map(sources.map((s) => [s.id, sourceLabel(s)])),
+  }
+}
 
-/**
- * True when a rule can be used under this edition and, if given, these books:
- * the edition's own rules, plus rules from the supplements it can use.
- */
-export function ruleAllowed(rule: SpecialRule, edition: EditionId, books?: readonly Book[]): boolean {
-  const own = editionIdOf(rule) === edition
-  if (!own && !isBorrowed(rule, editionById(edition))) return false
-  if (books === undefined || rule.book === undefined) return true
-  return books.some((b) => b.id === rule.book)
+/** True when a rule can be used within this scope. A rule without a known source counts only for its own game. */
+export function ruleAllowed(rule: SpecialRule, scope: RuleScope): boolean {
+  if (rule.book === undefined || !scope.labels.has(rule.book)) return editionIdOf(rule) === scope.edition
+  if (!scope.allowed.has(rule.book)) return false
+  return scope.inUse === undefined || scope.inUse.has(rule.book)
 }
 
 /** Rule names compared without case, spaces or punctuation, so "Snow-Walk" matches "Snow Walk". */
 export const ruleNameKey = (name: string): string => name.toLowerCase().replace(/[^a-z0-9]/g, '')
 
-const nameKey = (rule: SpecialRule) => ruleNameKey(rule.name)
-
 /**
- * Rules offered under an edition and its books. A supplement rule borrowed
- * from another edition is left out when the edition has its own rule of that name.
+ * Rules offered within a scope. A rule borrowed from another game's supplement
+ * is left out when the game has its own rule of that name.
  */
-export function rulesFor(rules: readonly SpecialRule[], edition: EditionId, books?: readonly Book[]): SpecialRule[] {
-  const own = new Set(rules.filter((r) => editionIdOf(r) === edition).map(nameKey))
+export function rulesFor(rules: readonly SpecialRule[], scope: RuleScope): SpecialRule[] {
+  const own = new Set(rules.filter((r) => editionIdOf(r) === scope.edition).map((r) => ruleNameKey(r.name)))
   return rules.filter(
-    (r) => ruleAllowed(r, edition, books) && (editionIdOf(r) === edition || !own.has(nameKey(r))),
+    (r) => ruleAllowed(r, scope) && (editionIdOf(r) === scope.edition || !own.has(ruleNameKey(r.name))),
   )
 }
 
-/** Where a rule comes from, as a warband of this edition would name it: a book, or another game. */
-export const ruleOrigin = (rule: SpecialRule, edition: Edition): string =>
-  (edition.books.some((b) => b.id === rule.book) ? bookLabel(edition, rule.book) : undefined) ?? editionOf(rule).shortLabel
+/** Where a rule comes from, for messages: its source, else its game. */
+export const ruleOrigin = (rule: SpecialRule, scope: RuleScope): string =>
+  (rule.book && scope.labels.get(rule.book)) || editionOf(rule).shortLabel
 
 /** The edition's short label, or nothing for Advanced SBH, so lists only call out the other games. */
 export const editionTag = (item: { edition?: string }): string | undefined =>
   editionIdOf(item) === DEFAULT_EDITION ? undefined : editionOf(item).shortLabel
-
-export interface RuleSection {
-  id: string
-  label: string
-  rules: SpecialRule[]
-}
-
-/**
- * Rules split by where they come from: each edition's own rules, then each of
- * its books, so the same name never shows twice in one section.
- */
-export function ruleSections(rules: readonly SpecialRule[]): RuleSection[] {
-  const sections: RuleSection[] = []
-  for (const edition of editions) {
-    const ofEdition = rules.filter((r) => editionIdOf(r) === edition.id)
-    const unbooked = ofEdition.filter((r) => !edition.books.some((b) => b.id === r.book))
-    if (unbooked.length > 0) sections.push({ id: edition.id, label: edition.label, rules: unbooked })
-    for (const book of edition.books) {
-      const inBook = ofEdition.filter((r) => r.book === book.id)
-      if (inBook.length === 0) continue
-      const label = book.core ? `${edition.shortLabel}: ${book.label}` : `Supplement: ${book.label}`
-      sections.push({ id: `${edition.id}-${book.id}`, label, rules: inBook })
-    }
-  }
-  return sections
-}

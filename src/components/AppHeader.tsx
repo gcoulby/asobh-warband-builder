@@ -16,7 +16,7 @@ interface AppHeaderProps {
 const links = [
   { to: '/', label: 'Warbands', end: true },
   { to: '/library', label: 'Library', end: false },
-  { to: '/rules', label: 'Rules', end: false },
+  { to: '/sources', label: 'Sources', end: false },
 ] as const
 
 export function AppHeader({ status, theme, resolvedTheme, onThemeChange }: AppHeaderProps) {

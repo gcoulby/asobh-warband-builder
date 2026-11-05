@@ -17,7 +17,7 @@ import { Button } from '@/components/ui/button'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { ModelPanelContainer } from '@/containers/ModelPanelContainer'
-import { gameSizeOptions, isStrictRoster, MIXED_ROSTER, rosterLabel } from '@/data/warband-options'
+import { gameSizeOptions, isStrictRoster, MIXED_ROSTER } from '@/data/warband-options'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { DESKTOP_QUERY, useMediaQuery } from '@/hooks/use-media-query'
 import { usePrefs } from '@/hooks/use-prefs'
@@ -26,10 +26,10 @@ import { useDeleteModel } from '@/hooks/use-delete-model'
 import { useWarbandFiles } from '@/hooks/use-warband-files'
 import { bundleWarband } from '@/lib/bundle'
 import { modelCost } from '@/lib/cost'
-import { editionIdOf, editionOf } from '@/lib/editions'
-import { loadBundledProfiles } from '@/lib/profiles-loader'
+import { editionIdOf, editionOf, sourcesInUse } from '@/lib/editions'
+import { profileDraft, rosterLabel, sourceLabel } from '@/lib/sources'
 import { shareUrl } from '@/lib/share'
-import { selectStoredData, useDataStore } from '@/stores/data-store'
+import { useDataStore } from '@/stores/data-store'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 
 type MobileView = 'library' | 'warband' | 'model'
@@ -49,10 +49,13 @@ export function WarbandPage() {
   const warband = useDataStore((s) => s.warbands.find((w) => w.id === id))
   const models = useDataStore((s) => s.models)
   const rules = useDataStore((s) => s.rules)
+  const profiles = useDataStore((s) => s.profiles)
+  const rosters = useDataStore((s) => s.rosters)
+  const sources = useDataStore((s) => s.sources)
   const actions = useDataStore.getState()
 
   const imageUrls = useImageUrls(useMemo(() => models.map((m) => m.imageId), [models]))
-  const view = useRoster(warband, models, rules, imageUrls)
+  const view = useRoster(warband, models, rules, imageUrls, profiles, sources)
   const files = useWarbandFiles()
 
   const [selectedId, setSelectedId] = useState<string | undefined>(() =>
@@ -60,8 +63,21 @@ export function WarbandPage() {
   )
   const [newModelId, setNewModelId] = useState<string>()
   const [mobileView, setMobileView] = useState<MobileView>('warband')
-  const book = loadBundledProfiles()
   const edition = editionOf(warband ?? {})
+  // Profiles and rosters from the sources this warband uses.
+  const inUse = useMemo(
+    () => new Set(sourcesInUse(sources, edition.id, warband?.sourceIds).map((x) => x.id)),
+    [sources, edition.id, warband?.sourceIds],
+  )
+  const book = useMemo(
+    () => ({
+      rosters: rosters
+        .filter((r) => inUse.has(r.sourceId))
+        .map((r) => ({ id: r.id, label: `${sourceLabel(sources.find((x) => x.id === r.sourceId) ?? { name: r.sourceId })}: ${r.label}` })),
+      profiles: profiles.filter((p) => inUse.has(p.sourceId)),
+    }),
+    [rosters, profiles, sources, inUse],
+  )
   const strict = warband ? isStrictRoster(warband) : false
   const warbandRoster = warband?.roster && warband.roster !== MIXED_ROSTER ? warband.roster : undefined
   const [chosenBookRoster, setChosenBookRoster] = useState<string>()
@@ -85,12 +101,12 @@ export function WarbandPage() {
         .sort((a, b) => a.name.localeCompare(b.name))
         .map((model) => ({
           model,
-          cost: modelCost(model, rules),
+          cost: modelCost(model, rules, profiles),
           imageUrl: model.imageId ? imageUrls.get(model.imageId) : undefined,
           ruleNames: model.ruleIds.map((rid) => rules.find((r) => r.id === rid)?.name ?? rid),
           inWarband: warband?.entries.find((e) => e.modelId === model.id)?.quantity ?? 0,
         })),
-    [models, rules, imageUrls, warband, strict, warbandRoster, edition.id],
+    [models, rules, profiles, imageUrls, warband, strict, warbandRoster, edition.id],
   )
   const sameEdition = models.filter((m) => editionIdOf(m) === edition.id)
   const hiddenByEdition = models.length - sameEdition.length
@@ -107,12 +123,12 @@ export function WarbandPage() {
         .filter((profile) => profile.roster === bookRoster)
         .map((profile) => ({
           profile,
-          cost: modelCost({ ...profile, profileId: profile.id }, rules),
+          cost: modelCost({ ...profile, profileId: profile.id }, rules, profiles),
           inWarband: (warband?.entries ?? [])
             .filter((e) => models.find((m) => m.id === e.modelId)?.profileId === profile.id)
             .reduce((sum, e) => sum + e.quantity, 0),
         })),
-    [book.profiles, bookRoster, rules, warband, models],
+    [book.profiles, bookRoster, rules, profiles, warband, models],
   )
 
   if (!warband || !view) return <NotFoundPage what="warband" />
@@ -151,16 +167,7 @@ export function WarbandPage() {
     )
     const modelId =
       existing?.id ??
-      actions.createModel({
-        name: profile.name,
-        quality: profile.quality,
-        combat: profile.combat,
-        ruleIds: [...profile.ruleIds],
-        roster: profile.roster,
-        profileId: profile.id,
-        edition: edition.id,
-        ...(profile.choices ? { notes: `Book options: ${profile.choices.join('; ')}` } : {}),
-      })
+      actions.createModel({ ...profileDraft(profile), edition: edition.id })
     addToWarband(modelId, profile.name)
   }
 
@@ -176,11 +183,11 @@ export function WarbandPage() {
   }
 
   const share = shareOpen
-    ? shareUrl(bundleWarband(warband, selectStoredData(useDataStore.getState())), window.location.origin, import.meta.env.BASE_URL)
+    ? shareUrl(bundleWarband(warband, useDataStore.getState()), window.location.origin, import.meta.env.BASE_URL)
     : ''
 
   const sizeLabel = gameSizeOptions.find((o) => o.points === warband.pointsCap)?.label
-  const meta = [edition.shortLabel, sizeLabel, rosterLabel(warband.roster), warband.theme].filter(Boolean).join(' · ')
+  const meta = [edition.shortLabel, sizeLabel, rosterLabel(warband.roster, rosters), warband.theme].filter(Boolean).join(' · ')
   const errorCount = view.messages.filter((m) => m.severity === 'error').length
   const warningCount = view.messages.filter((m) => m.severity === 'warning' && m.issue.kind !== 'empty').length
 
@@ -204,7 +211,7 @@ export function WarbandPage() {
       onShowNoncombatantsChange={(shown) => setPrefs({ showNoncombatants: shown })}
       hiddenNotes={hiddenNotes}
       bookItems={bookItems}
-      bookRosters={edition.hasRosters ? book.rosters : []}
+      bookRosters={book.rosters}
       bookRoster={bookRoster}
       onBookRosterChange={setChosenBookRoster}
       bookRosterLocked={strict}
@@ -365,6 +372,8 @@ export function WarbandPage() {
       )}
 
       <WarbandSettingsDialog
+        sources={sources}
+        rosters={rosters}
         open={settingsOpen}
         title="Warband settings"
         submitLabel="Save warband"

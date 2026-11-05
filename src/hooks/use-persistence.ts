@@ -78,7 +78,7 @@ export function usePersistence(): Persistence {
       if (
         state.warbands === previous.warbands &&
         state.models === previous.models &&
-        state.rules === previous.rules
+        state.sources === previous.sources
       ) {
         return
       }

@@ -45,10 +45,36 @@ describe('data store', () => {
     expect(warband(w)?.entries).toEqual([])
   })
 
-  it('merges imported rules by id', () => {
-    store().importRules(fakeRules)
-    store().importRules([{ id: 'x', name: 'X', cost: 1, summary: '' }, { ...fakeRules[0]!, cost: 99 }])
-    expect(store().rules).toHaveLength(fakeRules.length + 1)
-    expect(store().rules.find((r) => r.id === fakeRules[0]!.id)?.cost).toBe(99)
+  it('works rules, profiles and rosters out from sources', () => {
+    store().saveSource({
+      id: 'fake',
+      name: 'Fake book',
+      shortName: 'Fake',
+      kind: 'supplement',
+      game: 'asobh',
+      rules: fakeRules,
+      rosters: [{ id: 'fake-roster', label: 'Fakes' }],
+      profiles: [{ id: 'fake-p', roster: 'fake-roster', name: 'Fake', quality: 4, combat: 2, ruleIds: [] }],
+    })
+    expect(store().rules).toHaveLength(fakeRules.length)
+    expect(store().rules[0]).toMatchObject({ book: 'fake', source: 'Fake', edition: 'asobh' })
+    expect(store().profiles[0]).toMatchObject({ id: 'fake-p', sourceId: 'fake' })
+    expect(store().rosters).toEqual([{ id: 'fake-roster', label: 'Fakes', sourceId: 'fake' }])
+  })
+
+  it('edits rules and profiles inside their source', () => {
+    store().saveSource({ id: 'mine', name: 'Mine', kind: 'custom', game: 'asobh', rules: [], rosters: [], profiles: [] })
+    store().saveRule('mine', { id: 'r1', name: 'Rule', cost: 2, summary: '', book: 'other', source: 'Other' })
+    expect(store().sources[0]?.rules[0]).toEqual({ id: 'r1', name: 'Rule', cost: 2, summary: '' })
+    store().saveRule('mine', { id: 'r1', name: 'Rule', cost: 3, summary: 'Changed.' })
+    expect(store().rules.find((r) => r.id === 'r1')?.cost).toBe(3)
+    store().saveProfile('mine', { id: 'p1', roster: 'ros', name: 'P', quality: 4, combat: 2, ruleIds: ['r1'] }, { id: 'ros', label: 'Ros' })
+    expect(store().rosters.map((r) => r.id)).toEqual(['ros'])
+    store().deleteProfile('mine', 'p1')
+    expect(store().rosters).toEqual([])
+    store().deleteRule('mine', 'r1')
+    expect(store().rules).toEqual([])
+    store().deleteSource('mine')
+    expect(store().sources).toEqual([])
   })
 })

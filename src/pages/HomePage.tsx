@@ -8,8 +8,8 @@ import { WarbandListItem } from '@/components/WarbandListItem'
 import { WarbandSettingsDialog } from '@/components/WarbandSettingsDialog'
 import { Button } from '@/components/ui/button'
 import { DEFAULT_POINTS_CAP } from '@/data/profile-options'
-import { rosterLabel } from '@/data/warband-options'
 import { editionTag } from '@/lib/editions'
+import { rosterLabel } from '@/lib/sources'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { useWarbandFiles } from '@/hooks/use-warband-files'
 import { warbandTotals } from '@/lib/cost'
@@ -20,6 +20,9 @@ export function HomePage() {
   const warbands = useDataStore((s) => s.warbands)
   const models = useDataStore((s) => s.models)
   const rules = useDataStore((s) => s.rules)
+  const profiles = useDataStore((s) => s.profiles)
+  const rosters = useDataStore((s) => s.rosters)
+  const sources = useDataStore((s) => s.sources)
   const createWarband = useDataStore((s) => s.createWarband)
   const files = useWarbandFiles()
   const [createOpen, setCreateOpen] = useState(false)
@@ -32,7 +35,7 @@ export function HomePage() {
         .sort((a, b) => b.updatedAt - a.updatedAt)
         .map((warband) => ({
           warband,
-          totals: warbandTotals(warband, models, rules),
+          totals: warbandTotals(warband, models, rules, profiles),
           thumbnails: warband.entries.flatMap((e) => {
             const model = models.find((m) => m.id === e.modelId)
             return model
@@ -40,7 +43,7 @@ export function HomePage() {
               : []
           }),
         })),
-    [warbands, models, rules, imageUrls],
+    [warbands, models, rules, profiles, imageUrls],
   )
 
   const handleImport = () => {
@@ -76,15 +79,15 @@ export function HomePage() {
 
       {noRules && (
         <EmptyState
-          title="No rules loaded yet."
+          title="No sources added yet."
           action={
             <Button asChild>
-              <Link to="/rules">Import rules</Link>
+              <Link to="/sources">Add sources</Link>
             </Button>
           }
         >
-          Import the special rules so you can give them to your models. The rules screen offers the included
-          rules file, or you can load your own.
+          Sources are the books your special rules and ready-made profiles come from. Add the included ones, import
+          a source file, or make your own.
         </EmptyState>
       )}
 
@@ -105,7 +108,7 @@ export function HomePage() {
               id={warband.id}
               name={warband.name}
               theme={warband.theme}
-              roster={[editionTag(warband), rosterLabel(warband.roster)].filter(Boolean).join(' · ') || undefined}
+              roster={[editionTag(warband), rosterLabel(warband.roster, rosters)].filter(Boolean).join(' · ') || undefined}
               total={totals.total}
               cap={warband.pointsCap}
               hasUnknown={totals.hasUnknown}
@@ -117,6 +120,8 @@ export function HomePage() {
       )}
 
       <WarbandSettingsDialog
+        sources={sources}
+        rosters={rosters}
         open={createOpen}
         title="New warband"
         submitLabel="Create warband"

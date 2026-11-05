@@ -3,7 +3,7 @@ import { Link, useNavigate, useParams } from 'react-router'
 import { CircleAlert, ImageOff, Save } from 'lucide-react'
 import { toast } from 'sonner'
 import { CreditsFooter } from '@/components/CreditsFooter'
-import { rosterLabel } from '@/data/warband-options'
+import { rosterLabel } from '@/lib/sources'
 import { ModelCard } from '@/components/ModelCard'
 import { PointsBar } from '@/components/PointsBar'
 import { ValidationPanel } from '@/components/ValidationPanel'
@@ -21,7 +21,10 @@ export function SharedWarbandPage() {
   const importBundle = useDataStore((s) => s.importBundle)
   const decoded = useMemo(() => decodeShare(payload), [payload])
   const bundle = decoded.ok ? decoded.value : undefined
-  const view = useRoster(bundle?.warband, bundle?.models ?? [], bundle?.rules ?? [], noImages)
+  const profiles = useDataStore((s) => s.profiles)
+  const sources = useDataStore((s) => s.sources)
+  const rosters = useDataStore((s) => s.rosters)
+  const view = useRoster(bundle?.warband, bundle?.models ?? [], bundle?.rules ?? [], noImages, profiles, sources)
 
   if (!decoded.ok || !bundle || !view) {
     return (
@@ -50,7 +53,7 @@ export function SharedWarbandPage() {
             <p className="text-sm text-muted-foreground">Shared warband, read only</p>
             <h1 className="font-display text-[1.5rem] leading-tight font-bold wrap-break-word">{warband.name}</h1>
             {(warband.roster || warband.theme) && (
-              <p className="text-muted-foreground">{[rosterLabel(warband.roster), warband.theme].filter(Boolean).join(' · ')}</p>
+              <p className="text-muted-foreground">{[rosterLabel(warband.roster, rosters), warband.theme].filter(Boolean).join(' · ')}</p>
             )}
           </div>
           <Button

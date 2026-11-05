@@ -1,8 +1,9 @@
 import { LEADER_RULE_NAME, NONCOMBATANT_MAX_COST, UNIQUE_RULE_NAME } from '@/data/rule-names'
 import { hasRuleNamed, isNoncombatant, modelCost, rulesOf, warbandTotals } from '@/lib/cost'
-import { isStrictRoster, rosterLabel } from '@/data/warband-options'
-import { booksInUse, editionById, editionIdOf, editionOf, ruleAllowed, ruleNameKey, ruleOrigin } from '@/lib/editions'
-import type { Model, Profile, SpecialRule, Warband } from '@/lib/schema'
+import { isStrictRoster } from '@/data/warband-options'
+import { editionById, editionIdOf, editionOf, ruleAllowed, ruleNameKey, ruleOrigin, ruleScope } from '@/lib/editions'
+import { flattenSources, rosterLabel } from '@/lib/sources'
+import type { Model, Profile, Roster, Source, SpecialRule, Warband } from '@/lib/schema'
 
 export type ValidationIssue =
   | { kind: 'empty' }
@@ -69,7 +70,10 @@ export function validateWarband(
   rules: readonly SpecialRule[],
   /** Book profiles, for their prices and their Rare and Unique limits. */
   profiles: readonly Profile[] = [],
+  /** Sources, for which rules the warband may use and for roster names. */
+  sources: readonly Source[] = [],
 ): ValidationIssue[] {
+  const rosters: Roster[] = flattenSources(sources).rosters
   if (warband.entries.length === 0) return [{ kind: 'empty' }]
 
   const issues: ValidationIssue[] = []
@@ -135,14 +139,21 @@ export function validateWarband(
   if (isStrictRoster(warband) && warband.roster) {
     const warbandRoster = warband.roster
     for (const { model } of rows) {
-      if (!model.roster) issues.push({ kind: 'no-roster', modelName: model.name, warbandRoster })
+      if (!model.roster) {
+        issues.push({ kind: 'no-roster', modelName: model.name, warbandRoster: rosterLabel(warbandRoster, rosters) ?? warbandRoster })
+      }
       else if (model.roster !== warbandRoster) {
-        issues.push({ kind: 'off-roster', modelName: model.name, roster: model.roster, warbandRoster })
+        issues.push({
+          kind: 'off-roster',
+          modelName: model.name,
+          roster: rosterLabel(model.roster, rosters) ?? model.roster,
+          warbandRoster: rosterLabel(warbandRoster, rosters) ?? warbandRoster,
+        })
       }
     }
   }
 
-  issues.push(...editionIssues(warband, rows, rules, profiles))
+  issues.push(...editionIssues(warband, rows, rules, profiles, sources))
 
   const noncombatants = rows
     .filter((r) => isNoncombatant(modelCost(r.model, rules, profiles)))
@@ -160,10 +171,11 @@ function editionIssues(
   rows: readonly Row[],
   rules: readonly SpecialRule[],
   profiles: readonly Profile[],
+  sources: readonly Source[],
 ): ValidationIssue[] {
   const issues: ValidationIssue[] = []
   const edition = editionOf(warband)
-  const books = booksInUse(edition, warband.books)
+  const scope = ruleScope(sources, edition.id, warband.sourceIds)
   const nameOf = (id: string) => rules.find((r) => r.id === id)?.name ?? id
   const has = (row: Row, id: string) => row.model.ruleIds.includes(id)
 
@@ -180,8 +192,8 @@ function editionIssues(
       continue
     }
     for (const rule of rulesOf(model, rules)) {
-      if (ruleAllowed(rule, edition.id, books)) continue
-      issues.push({ kind: 'rule-not-in-use', modelName: model.name, ruleName: rule.name, from: ruleOrigin(rule, edition) })
+      if (ruleAllowed(rule, scope)) continue
+      issues.push({ kind: 'rule-not-in-use', modelName: model.name, ruleName: rule.name, from: ruleOrigin(rule, scope) })
     }
     // Exclusions match by name, so a supplement rule also clashes with a same-named rule of the model's own game.
     const chosen = rulesOf(model, rules)
@@ -294,7 +306,7 @@ function describeText(issue: ValidationIssue): Omit<ValidationMessage, 'severity
       return {
         issue,
         title: `"${issue.modelName}" has ${issue.ruleName} from ${issue.from}, which this warband does not use.`,
-        fix: 'Remove the rule, or turn the book on in warband settings.',
+        fix: 'Remove the rule, or turn its source on in warband settings.',
       }
     case 'multiple-leaders':
       return {
@@ -329,14 +341,14 @@ function describeText(issue: ValidationIssue): Omit<ValidationMessage, 'severity
     case 'off-roster':
       return {
         issue,
-        title: `"${issue.modelName}" is from ${rosterLabel(issue.roster)}, not ${rosterLabel(issue.warbandRoster)}.`,
+        title: `"${issue.modelName}" is from ${issue.roster}, not ${issue.warbandRoster}.`,
         fix: 'Remove it, or turn off strict roster in warband settings.',
       }
     case 'no-roster':
       return {
         issue,
         title: `"${issue.modelName}" has no roster.`,
-        fix: `Set its roster to ${rosterLabel(issue.warbandRoster)} in the model panel if it belongs there.`,
+        fix: `Set its roster to ${issue.warbandRoster} in the model panel if it belongs there.`,
       }
     case 'profile-rare-exceeded':
       return {

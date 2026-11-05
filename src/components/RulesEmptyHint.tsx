@@ -11,11 +11,11 @@ export function RulesEmptyHint({ edition }: RulesEmptyHintProps) {
     <div className="flex flex-col items-start gap-2 text-sm text-muted-foreground">
       <p>
         {edition
-          ? `No ${edition} special rules loaded. Import its rules file to pick from.`
-          : 'No special rules loaded. Import a rules file to pick from.'}
+          ? `No ${edition} special rules yet. Add a source for this game to pick from.`
+          : 'No special rules yet. Add a source, such as a rulebook, to pick from.'}
       </p>
       <Button asChild variant="outline">
-        <Link to="/rules">Import rules</Link>
+        <Link to="/sources">Add sources</Link>
       </Button>
     </div>
   )

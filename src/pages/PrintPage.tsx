@@ -25,8 +25,11 @@ export function PrintPage() {
   const warband = useDataStore((s) => s.warbands.find((w) => w.id === id))
   const models = useDataStore((s) => s.models)
   const rules = useDataStore((s) => s.rules)
+  const profiles = useDataStore((s) => s.profiles)
+  const sources = useDataStore((s) => s.sources)
+  const rosters = useDataStore((s) => s.rosters)
   const imageUrls = useImageUrls(useMemo(() => models.map((m) => m.imageId), [models]))
-  const view = useRoster(warband, models, rules, imageUrls)
+  const view = useRoster(warband, models, rules, imageUrls, profiles, sources)
   const { exportPng } = useWarbandFiles()
   const sheetRef = useRef<HTMLDivElement>(null)
 
@@ -113,6 +116,7 @@ export function PrintPage() {
           rows={view.rows}
           totals={view.totals}
           rules={rules}
+          rosters={rosters}
           paperSize={prefs.paperSize}
           sheetRef={sheetRef}
           onExportCard={exportNode}

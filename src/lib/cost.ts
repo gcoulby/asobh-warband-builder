@@ -1,5 +1,4 @@
 import { NONCOMBATANT_MAX_COST } from '@/data/rule-names'
-import { loadBundledProfiles } from '@/lib/profiles-loader'
 import type { Combat, Model, Profile, Quality, SpecialRule, Warband } from '@/lib/schema'
 
 /**
@@ -62,7 +61,7 @@ export function bookPrice(
 export function modelCost(
   model: Pick<Model, 'quality' | 'combat' | 'ruleIds' | 'profileId'>,
   rules: readonly SpecialRule[],
-  profiles: readonly Profile[] = loadBundledProfiles().profiles,
+  profiles: readonly Profile[] = [],
 ): CostResult {
   const traits = rulesCost(model.ruleIds, rules)
   if (!traits.known) return traits
@@ -110,7 +109,7 @@ export function warbandTotals(
   warband: Pick<Warband, 'entries'>,
   models: readonly Model[],
   rules: readonly SpecialRule[],
-  profiles: readonly Profile[] = loadBundledProfiles().profiles,
+  profiles: readonly Profile[] = [],
 ): WarbandTotals {
   let total = 0
   let personalityTotal = 0
