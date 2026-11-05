@@ -2,6 +2,7 @@ import { useMemo } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
 import { CircleAlert, ImageOff, Save } from 'lucide-react'
 import { toast } from 'sonner'
+import { CreditsFooter } from '@/components/CreditsFooter'
 import { rosterLabel } from '@/data/warband-options'
 import { ModelCard } from '@/components/ModelCard'
 import { PointsBar } from '@/components/PointsBar'
@@ -83,6 +84,7 @@ export function SharedWarbandPage() {
             </li>
           ))}
         </ol>
+        <CreditsFooter className="mt-6" />
       </main>
       <PointsBar
         total={view.totals.total}

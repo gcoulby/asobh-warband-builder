@@ -22,6 +22,11 @@ export const specialRuleSchema = z.object({
   name: z.string().trim().min(1, 'name is required'),
   cost: z.number().int('cost must be a whole number'),
   summary: z.string().default(''),
+  /**
+   * Full rule text, for a personal rules file made from your own copy of a book.
+   * Never bundled with the app and left out of share links.
+   */
+  text: z.string().optional(),
   page: z.string().optional(),
   /** Grouping such as Trait or Spell. */
   category: z.string().optional(),
@@ -30,6 +35,12 @@ export const specialRuleSchema = z.object({
   tags: z.array(ruleTagSchema).optional(),
   /** Most figures in a warband that may have this rule. */
   rare: z.number().int().positive().optional(),
+  /** Game edition, such as `sbh`. Without one the rule is Advanced SBH. */
+  edition: z.string().optional(),
+  /** Book within the edition, such as `sgd`, so a warband can leave supplements out. */
+  book: z.string().optional(),
+  /** Rules a model cannot have alongside this one. */
+  excludes: z.array(z.string()).optional(),
 })
 export type SpecialRule = z.infer<typeof specialRuleSchema>
 
@@ -41,8 +52,43 @@ export const modelSchema = z.object({
   ruleIds: z.array(z.string()),
   imageId: z.string().optional(),
   notes: z.string().optional(),
+  /** Roster the model belongs to, such as `lizardmen`. */
+  roster: z.string().optional(),
+  /** Book profile the model was made from, if any. */
+  profileId: z.string().optional(),
+  /** Game edition the model is built for. Without one it is Advanced SBH. */
+  edition: z.string().optional(),
 })
 export type Model = z.infer<typeof modelSchema>
+
+/** A profile from the book's rosters: a ready-made model. */
+export const profileSchema = z.object({
+  id: z.string().min(1),
+  roster: z.string().min(1),
+  name: z.string().min(1),
+  quality: qualitySchema,
+  combat: combatSchema,
+  ruleIds: z.array(z.string()),
+  /** Points printed in the book. A model still matching the profile costs this, whatever the formula gives. */
+  bookPoints: z.number().int().optional(),
+  personality: z.boolean().optional(),
+  /** Most models from this profile a warband may field. */
+  rare: z.number().int().positive().optional(),
+  /** One per warband. */
+  unique: z.boolean().optional(),
+  /** Options the book gives, such as "Huge Weapon or Bludgeon". The first is used. */
+  choices: z.array(z.string()).optional(),
+})
+export type Profile = z.infer<typeof profileSchema>
+
+export const rosterSchema = z.object({ id: z.string().min(1), label: z.string().min(1) })
+export type Roster = z.infer<typeof rosterSchema>
+
+export const profilesFileSchema = z.object({
+  name: z.string().optional(),
+  rosters: z.array(rosterSchema),
+  profiles: z.array(z.unknown()),
+})
 
 export const warbandEntrySchema = z.object({
   modelId: z.string().min(1),
@@ -56,6 +102,12 @@ export const warbandSchema = z.object({
   theme: z.string().optional(),
   /** Roster the warband is drawn from, or `mixed` for anything goes. */
   roster: z.string().optional(),
+  /** When set with a roster, models from other rosters are flagged. */
+  strictRoster: z.boolean().optional(),
+  /** Game edition, such as `sbh`. Without one the warband is Advanced SBH. */
+  edition: z.string().optional(),
+  /** Supplements in use, by book id. The core book is always in use. */
+  books: z.array(z.string()).optional(),
   pointsCap: z.number().int().positive('The points cap must be above zero.'),
   entries: z.array(warbandEntrySchema),
   createdAt: z.number(),

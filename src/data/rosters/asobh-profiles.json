@@ -1,0 +1,3384 @@
+{
+ "name": "Advanced Song of Blades and Heroes rosters",
+ "rosters": [
+  {
+   "id": "lizardmen",
+   "label": "Lizardmen"
+  },
+  {
+   "id": "high-elves",
+   "label": "High Elves"
+  },
+  {
+   "id": "wood-elves",
+   "label": "Wood Elves"
+  },
+  {
+   "id": "orcs",
+   "label": "Orcs"
+  },
+  {
+   "id": "dwarves",
+   "label": "Dwarves"
+  },
+  {
+   "id": "goblins",
+   "label": "Goblins"
+  },
+  {
+   "id": "humans",
+   "label": "Humans"
+  },
+  {
+   "id": "undead",
+   "label": "Undead"
+  },
+  {
+   "id": "monsters-beasts",
+   "label": "Monsters & Beasts"
+  },
+  {
+   "id": "catfolk",
+   "label": "Catfolk"
+  },
+  {
+   "id": "halflings",
+   "label": "Halflings"
+  },
+  {
+   "id": "minotaurs",
+   "label": "Minotaurs"
+  },
+  {
+   "id": "swarms",
+   "label": "Swarms"
+  },
+  {
+   "id": "ratmen",
+   "label": "Ratmen"
+  }
+ ],
+ "profiles": [
+  {
+   "id": "lizardmen-juvenile-lizardman-warrior-w-hand-weapon",
+   "roster": "lizardmen",
+   "name": "Juvenile Lizardman Warrior w/hand weapon",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "tailslap"
+   ],
+   "bookPoints": 32
+  },
+  {
+   "id": "lizardmen-adult-lizardman-warrior-w-hand-weapon",
+   "roster": "lizardmen",
+   "name": "Adult Lizardman Warrior w/hand weapon",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "tailslap"
+   ],
+   "bookPoints": 42
+  },
+  {
+   "id": "lizardmen-veteran-lizardman-warrior-w-hand-weapon",
+   "roster": "lizardmen",
+   "name": "Veteran Lizardman Warrior w/hand weapon",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "tailslap"
+   ],
+   "bookPoints": 52
+  },
+  {
+   "id": "lizardmen-lizardman-warrior-w-weapon-and-small-shield",
+   "roster": "lizardmen",
+   "name": "Lizardman Warrior w/weapon and small shield",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "melee-block",
+    "tailslap"
+   ],
+   "bookPoints": 48
+  },
+  {
+   "id": "lizardmen-lizardman-warrior-w-weapon-and-shield",
+   "roster": "lizardmen",
+   "name": "Lizardman Warrior w/weapon and shield",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "block",
+    "tailslap"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "lizardmen-lizardman-warrior-w-spear-and-shield",
+   "roster": "lizardmen",
+   "name": "Lizardman Warrior w/spear and shield",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "block",
+    "long-reach",
+    "tailslap"
+   ],
+   "bookPoints": 56
+  },
+  {
+   "id": "lizardmen-lizardman-skirmisher-with-javelin",
+   "roster": "lizardmen",
+   "name": "Lizardman skirmisher with Javelin",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "javelin",
+    "tailslap"
+   ],
+   "bookPoints": 46
+  },
+  {
+   "id": "lizardmen-lizardman-leader",
+   "roster": "lizardmen",
+   "name": "Lizardman Leader",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "leader",
+    "tailslap"
+   ],
+   "bookPoints": 82
+  },
+  {
+   "id": "lizardmen-lizardman-leader-w-venom",
+   "roster": "lizardmen",
+   "name": "Lizardman Leader w/Venom",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "leader",
+    "poison",
+    "tailslap"
+   ],
+   "bookPoints": 88,
+   "personality": true
+  },
+  {
+   "id": "lizardmen-lizardman-champion-w-flail-and-shield",
+   "roster": "lizardmen",
+   "name": "Lizardman Champion w/flail and shield",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "expert-block",
+    "flail",
+    "tailslap"
+   ],
+   "bookPoints": 68
+  },
+  {
+   "id": "lizardmen-lizardman-healer",
+   "roster": "lizardmen",
+   "name": "Lizardman Healer",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "amphibious",
+    "potion-of-healing",
+    "potion-of-healing",
+    "tailslap"
+   ],
+   "bookPoints": 52,
+   "personality": true
+  },
+  {
+   "id": "lizardmen-lizardman-green-archer",
+   "roster": "lizardmen",
+   "name": "Lizardman Green Archer",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "composite-bow"
+   ],
+   "bookPoints": 38
+  },
+  {
+   "id": "lizardmen-lizardman-archer",
+   "roster": "lizardmen",
+   "name": "Lizardman Archer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "composite-bow"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "lizardmen-lizardman-veteran-archer",
+   "roster": "lizardmen",
+   "name": "Lizardman Veteran Archer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "composite-bow",
+    "good-shot"
+   ],
+   "bookPoints": 56
+  },
+  {
+   "id": "lizardmen-lizardman-veteran-archer-w-poisoned-arrows",
+   "roster": "lizardmen",
+   "name": "Lizardman Veteran Archer w/poisoned arrows",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "composite-bow",
+    "good-shot",
+    "poison"
+   ],
+   "bookPoints": 62
+  },
+  {
+   "id": "lizardmen-lizardman-swamp-mage",
+   "roster": "lizardmen",
+   "name": "Lizardman Swamp Mage",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "amphibious",
+    "poison",
+    "spell-caster",
+    "spell-alter-terrain",
+    "spell-lightning",
+    "spell-turn-to-stone"
+   ],
+   "bookPoints": 112,
+   "personality": true
+  },
+  {
+   "id": "lizardmen-jungle-lizardling",
+   "roster": "lizardmen",
+   "name": "Jungle Lizardling",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "forester",
+    "javelin",
+    "rabble"
+   ],
+   "bookPoints": 15
+  },
+  {
+   "id": "lizardmen-veteran-jungle-lizardling",
+   "roster": "lizardmen",
+   "name": "Veteran Jungle Lizardling",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "forester",
+    "javelin",
+    "rabble"
+   ],
+   "bookPoints": 20
+  },
+  {
+   "id": "lizardmen-jungle-lizardling-champion",
+   "roster": "lizardmen",
+   "name": "Jungle Lizardling Champion",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "javelin"
+   ],
+   "bookPoints": 40
+  },
+  {
+   "id": "lizardmen-giant-lizard",
+   "roster": "lizardmen",
+   "name": "Giant Lizard",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "animal",
+    "big",
+    "clinging",
+    "tailslap"
+   ],
+   "bookPoints": 44
+  },
+  {
+   "id": "lizardmen-giant-lizard-venomous",
+   "roster": "lizardmen",
+   "name": "Giant Lizard (Venomous)",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "animal",
+    "big",
+    "clinging",
+    "poison",
+    "tailslap"
+   ],
+   "bookPoints": 48
+  },
+  {
+   "id": "lizardmen-giant-lizard-rider",
+   "roster": "lizardmen",
+   "name": "Giant Lizard Rider",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "big",
+    "clinging",
+    "mounted",
+    "tailslap"
+   ],
+   "bookPoints": 76
+  },
+  {
+   "id": "lizardmen-giant-lizard-rider-w-crossbow",
+   "roster": "lizardmen",
+   "name": "Giant Lizard Rider w/crossbow",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "big",
+    "clinging",
+    "crossbow",
+    "mounted",
+    "tailslap"
+   ],
+   "bookPoints": 90
+  },
+  {
+   "id": "lizardmen-giant-lizard-rider-w-crossbow-poisoned-bolts",
+   "roster": "lizardmen",
+   "name": "Giant Lizard Rider w/crossbow, poisoned bolts",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "big",
+    "clinging",
+    "crossbow",
+    "mounted",
+    "poison",
+    "tailslap"
+   ],
+   "bookPoints": 96
+  },
+  {
+   "id": "lizardmen-giant-lizardman",
+   "roster": "lizardmen",
+   "name": "Giant Lizardman",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "big",
+    "heavy-weapon",
+    "tailslap"
+   ],
+   "bookPoints": 66
+  },
+  {
+   "id": "lizardmen-war-lizard-rider",
+   "roster": "lizardmen",
+   "name": "War Lizard Rider",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "dashing",
+    "greedy",
+    "long-move",
+    "mounted",
+    "savage"
+   ],
+   "bookPoints": 80,
+   "personality": true
+  },
+  {
+   "id": "lizardmen-cleric-of-ssiklis",
+   "roster": "lizardmen",
+   "name": "Cleric of Ssiklis",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "beastmaster",
+    "healer",
+    "tailslap"
+   ],
+   "bookPoints": 80,
+   "personality": true
+  },
+  {
+   "id": "lizardmen-acolyte-of-ssiklis",
+   "roster": "lizardmen",
+   "name": "Acolyte of Ssiklis",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "amphibious",
+    "block",
+    "steadfast",
+    "tailslap"
+   ],
+   "bookPoints": 42
+  },
+  {
+   "id": "lizardmen-trained-thunder-lizard",
+   "roster": "lizardmen",
+   "name": "Trained Thunder Lizard",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "animal",
+    "huge",
+    "tailslap",
+    "tough",
+    "trample"
+   ],
+   "bookPoints": 75,
+   "personality": true,
+   "rare": 1
+  },
+  {
+   "id": "lizardmen-gargantuan-thunder-lizard",
+   "roster": "lizardmen",
+   "name": "Gargantuan Thunder Lizard",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "animal",
+    "gargantuan",
+    "tailslap",
+    "tough",
+    "trample"
+   ],
+   "bookPoints": 81,
+   "personality": true,
+   "rare": 1
+  },
+  {
+   "id": "lizardmen-armored-thunder-lizard",
+   "roster": "lizardmen",
+   "name": "Armored Thunder Lizard",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "animal",
+    "gargantuan",
+    "heavily-armored",
+    "tailslap",
+    "tough",
+    "trample",
+    "unreactive"
+   ],
+   "bookPoints": 83,
+   "personality": true,
+   "rare": 1
+  },
+  {
+   "id": "high-elves-high-elf-pureblood-warrior",
+   "roster": "high-elves",
+   "name": "High Elf Pureblood Warrior",
+   "quality": 2,
+   "combat": 3,
+   "ruleIds": [],
+   "bookPoints": 38,
+   "rare": 3
+  },
+  {
+   "id": "high-elves-high-elf-pureblood-warrior-w-shield",
+   "roster": "high-elves",
+   "name": "High Elf Pureblood Warrior w/shield",
+   "quality": 2,
+   "combat": 3,
+   "ruleIds": [
+    "block"
+   ],
+   "bookPoints": 48,
+   "rare": 3
+  },
+  {
+   "id": "high-elves-high-elf-pureblood-warrior-w-spear-and-shield",
+   "roster": "high-elves",
+   "name": "High Elf Pureblood Warrior w/spear and shield",
+   "quality": 2,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "long-reach"
+   ],
+   "bookPoints": 55,
+   "rare": 3
+  },
+  {
+   "id": "high-elves-veteran-pureblood-warrior-w-spear-and-shield",
+   "roster": "high-elves",
+   "name": "Veteran Pureblood Warrior w/spear and shield",
+   "quality": 2,
+   "combat": 3,
+   "ruleIds": [
+    "expert-block",
+    "long-reach"
+   ],
+   "bookPoints": 58,
+   "rare": 3
+  },
+  {
+   "id": "high-elves-high-elf-archer",
+   "roster": "high-elves",
+   "name": "High Elf Archer",
+   "quality": 2,
+   "combat": 2,
+   "ruleIds": [
+    "free-disengage",
+    "good-shot",
+    "longbow"
+   ],
+   "bookPoints": 58
+  },
+  {
+   "id": "high-elves-high-elf-veteran-archer",
+   "roster": "high-elves",
+   "name": "High Elf Veteran Archer",
+   "quality": 2,
+   "combat": 3,
+   "ruleIds": [
+    "free-disengage",
+    "good-shot",
+    "leafsight",
+    "longbow"
+   ],
+   "bookPoints": 75
+  },
+  {
+   "id": "high-elves-high-elf-bowmaster",
+   "roster": "high-elves",
+   "name": "High Elf Bowmaster",
+   "quality": 2,
+   "combat": 4,
+   "ruleIds": [
+    "free-disengage",
+    "good-shot",
+    "leafsight",
+    "legendary-shot",
+    "longbow"
+   ],
+   "bookPoints": 113,
+   "personality": true,
+   "rare": 1
+  },
+  {
+   "id": "high-elves-apprentice-spellsinger",
+   "roster": "high-elves",
+   "name": "Apprentice Spellsinger",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "spell-caster",
+    "spell-break-enchantment",
+    "spell-counter-spell",
+    "spell-fear"
+   ],
+   "bookPoints": 68,
+   "personality": true
+  },
+  {
+   "id": "high-elves-forest-guard",
+   "roster": "high-elves",
+   "name": "Forest Guard",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "heavily-armored",
+    "heavy-weapon",
+    "leafwalk"
+   ],
+   "bookPoints": 56
+  },
+  {
+   "id": "high-elves-high-elf-forest-guard-cavalry",
+   "roster": "high-elves",
+   "name": "High Elf Forest Guard Cavalry",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "agile",
+    "forester",
+    "heavily-armored",
+    "long-move",
+    "mounted"
+   ],
+   "bookPoints": 82
+  },
+  {
+   "id": "high-elves-forest-guard-cavalry-captain",
+   "roster": "high-elves",
+   "name": "Forest Guard Cavalry Captain",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "agile",
+    "forester",
+    "heavily-armored",
+    "leader",
+    "long-move",
+    "mounted"
+   ],
+   "bookPoints": 112,
+   "personality": true
+  },
+  {
+   "id": "high-elves-elf-sneak-guerrilla",
+   "roster": "high-elves",
+   "name": "Elf Sneak/Guerrilla",
+   "quality": 2,
+   "combat": 2,
+   "ruleIds": [
+    "acrobat",
+    "agile",
+    "stealth"
+   ],
+   "bookPoints": 48
+  },
+  {
+   "id": "high-elves-veteran-elf-sneak-guerrilla",
+   "roster": "high-elves",
+   "name": "Veteran Elf Sneak/Guerrilla",
+   "quality": 2,
+   "combat": 2,
+   "ruleIds": [
+    "acrobat",
+    "agile",
+    "backstab",
+    "stealth"
+   ],
+   "bookPoints": 55
+  },
+  {
+   "id": "high-elves-high-elf-spellsinger",
+   "roster": "high-elves",
+   "name": "High Elf Spellsinger",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "increased-spell-memory",
+    "spell-caster",
+    "spell-anti-magic-shell",
+    "spell-break-enchantment",
+    "spell-counter-spell",
+    "spell-fear",
+    "spell-fireball"
+   ],
+   "bookPoints": 156,
+   "personality": true
+  },
+  {
+   "id": "wood-elves-explorer",
+   "roster": "wood-elves",
+   "name": "Explorer",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "forester",
+    "short-bow"
+   ],
+   "bookPoints": 27
+  },
+  {
+   "id": "wood-elves-ranger",
+   "roster": "wood-elves",
+   "name": "Ranger",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "forester",
+    "good-shot",
+    "short-bow"
+   ],
+   "bookPoints": 42
+  },
+  {
+   "id": "wood-elves-archer-w-hunting-bow",
+   "roster": "wood-elves",
+   "name": "Archer w/hunting bow",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "forester",
+    "good-shot",
+    "leafsight",
+    "short-bow",
+    "unerring-aim"
+   ],
+   "bookPoints": 52
+  },
+  {
+   "id": "wood-elves-spearman",
+   "roster": "wood-elves",
+   "name": "Spearman",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "heavily-armored",
+    "long-reach"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "wood-elves-leader",
+   "roster": "wood-elves",
+   "name": "Leader",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "heavily-armored",
+    "leader",
+    "long-reach"
+   ],
+   "bookPoints": 80,
+   "personality": true
+  },
+  {
+   "id": "wood-elves-forest-shaman",
+   "roster": "wood-elves",
+   "name": "Forest Shaman",
+   "quality": 2,
+   "combat": 1,
+   "ruleIds": [
+    "spell-caster",
+    "stealth",
+    "forester",
+    "leafsight",
+    "leafwalk",
+    "spell-blast",
+    "spell-fear",
+    "spell-protection-from-arrows",
+    "spell-transfix",
+    "spell-wall-of-wood"
+   ],
+   "bookPoints": 110,
+   "personality": true
+  },
+  {
+   "id": "wood-elves-apprentice-shaman",
+   "roster": "wood-elves",
+   "name": "Apprentice Shaman",
+   "quality": 3,
+   "combat": 1,
+   "ruleIds": [
+    "spell-caster",
+    "stealth",
+    "forester",
+    "leafsight",
+    "leafwalk",
+    "spell-blast",
+    "spell-protection-from-arrows",
+    "spell-transfix",
+    "spell-wall-of-wood"
+   ],
+   "bookPoints": 78,
+   "personality": true
+  },
+  {
+   "id": "wood-elves-wood-elf-citadel-enforcer",
+   "roster": "wood-elves",
+   "name": "Wood Elf Citadel Enforcer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "bludgeon"
+   ],
+   "bookPoints": 40
+  },
+  {
+   "id": "wood-elves-bandit",
+   "roster": "wood-elves",
+   "name": "Bandit",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "leafsight",
+    "short-bow"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "wood-elves-bandit-leader",
+   "roster": "wood-elves",
+   "name": "Bandit Leader",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "hero",
+    "leader",
+    "leafsight",
+    "legendary-shot",
+    "lucky",
+    "short-bow",
+    "stealth"
+   ],
+   "bookPoints": 146,
+   "personality": true
+  },
+  {
+   "id": "wood-elves-wood-elf-archer",
+   "roster": "wood-elves",
+   "name": "Wood Elf Archer",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "forester",
+    "good-shot",
+    "leafsight",
+    "longbow"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "wood-elves-chosen-wood-elf-archer",
+   "roster": "wood-elves",
+   "name": "Chosen Wood Elf Archer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "good-shot",
+    "leafsight",
+    "longbow"
+   ],
+   "bookPoints": 60
+  },
+  {
+   "id": "wood-elves-elite-wood-elf-archer",
+   "roster": "wood-elves",
+   "name": "Elite Wood Elf Archer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "good-shot",
+    "leafsight",
+    "legendary-shot",
+    "longbow"
+   ],
+   "bookPoints": 90,
+   "personality": true
+  },
+  {
+   "id": "wood-elves-wood-elf-rookie-duelist",
+   "roster": "wood-elves",
+   "name": "Wood Elf Rookie Duelist",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "leafwalk",
+    "parry"
+   ],
+   "bookPoints": 38
+  },
+  {
+   "id": "wood-elves-wood-elf-duelist",
+   "roster": "wood-elves",
+   "name": "Wood Elf Duelist",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "leafwalk",
+    "parry"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "wood-elves-wood-elf-master-duelist",
+   "roster": "wood-elves",
+   "name": "Wood Elf Master Duelist",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "expert-parry",
+    "forester",
+    "leafwalk",
+    "master-duelist"
+   ],
+   "bookPoints": 72,
+   "personality": true
+  },
+  {
+   "id": "orcs-heavy-orc-warrior-w-buckler",
+   "roster": "orcs",
+   "name": "Heavy Orc Warrior w/buckler",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "heavily-armored",
+    "melee-block"
+   ],
+   "bookPoints": 33
+  },
+  {
+   "id": "orcs-spearman-w-shield",
+   "roster": "orcs",
+   "name": "Spearman w/shield",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "long-reach"
+   ],
+   "bookPoints": 33
+  },
+  {
+   "id": "orcs-veteran-spearman",
+   "roster": "orcs",
+   "name": "Veteran Spearman",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "long-reach",
+    "dashing"
+   ],
+   "bookPoints": 38
+  },
+  {
+   "id": "orcs-armored-spearman",
+   "roster": "orcs",
+   "name": "Armored Spearman",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "heavily-armored",
+    "long-reach",
+    "dashing"
+   ],
+   "bookPoints": 44
+  },
+  {
+   "id": "orcs-armored-swordsman",
+   "roster": "orcs",
+   "name": "Armored Swordsman",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "heavily-armored"
+   ],
+   "bookPoints": 29
+  },
+  {
+   "id": "orcs-armored-leader",
+   "roster": "orcs",
+   "name": "Armored Leader",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "heavily-armored",
+    "lead-from-the-front"
+   ],
+   "bookPoints": 68,
+   "personality": true
+  },
+  {
+   "id": "orcs-mounted-leader",
+   "roster": "orcs",
+   "name": "Mounted Leader",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "heavily-armored",
+    "leader",
+    "long-move",
+    "long-reach",
+    "mounted"
+   ],
+   "bookPoints": 106,
+   "personality": true
+  },
+  {
+   "id": "orcs-musician",
+   "roster": "orcs",
+   "name": "Musician",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "free-disengage",
+    "music"
+   ],
+   "bookPoints": 20
+  },
+  {
+   "id": "orcs-explorer",
+   "roster": "orcs",
+   "name": "Explorer",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "danger-sense",
+    "forester",
+    "stealth"
+   ],
+   "bookPoints": 29
+  },
+  {
+   "id": "orcs-javelineer",
+   "roster": "orcs",
+   "name": "Javelineer",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "javelin"
+   ],
+   "bookPoints": 18
+  },
+  {
+   "id": "orcs-infantry-w-shield-and-sword",
+   "roster": "orcs",
+   "name": "Infantry w/shield and sword",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "block"
+   ],
+   "bookPoints": 21
+  },
+  {
+   "id": "orcs-orc-infantry",
+   "roster": "orcs",
+   "name": "Orc Infantry",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [],
+   "bookPoints": 23
+  },
+  {
+   "id": "orcs-bowman",
+   "roster": "orcs",
+   "name": "Bowman",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "poison",
+    "short-bow"
+   ],
+   "bookPoints": 27
+  },
+  {
+   "id": "orcs-chosen-bowman",
+   "roster": "orcs",
+   "name": "Chosen Bowman",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "good-shot",
+    "poison",
+    "short-bow",
+    "unerring-aim"
+   ],
+   "bookPoints": 36
+  },
+  {
+   "id": "orcs-swarmling",
+   "roster": "orcs",
+   "name": "Swarmling",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "difficult-target",
+    "gang"
+   ],
+   "bookPoints": 24
+  },
+  {
+   "id": "orcs-war-leader",
+   "roster": "orcs",
+   "name": "War-Leader",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "difficult-target",
+    "group-fighter",
+    "leader"
+   ],
+   "bookPoints": 80,
+   "personality": true
+  },
+  {
+   "id": "orcs-beast-rider-light-wolfrider",
+   "roster": "orcs",
+   "name": "Beast Rider/Light Wolfrider",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "block",
+    "forester",
+    "javelin",
+    "long-move",
+    "mounted"
+   ],
+   "bookPoints": 70
+  },
+  {
+   "id": "orcs-heavy-infantry-mercenary",
+   "roster": "orcs",
+   "name": "Heavy Infantry Mercenary",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "coward",
+    "dashing",
+    "heavily-armored",
+    "heavy-weapon"
+   ],
+   "bookPoints": 36
+  },
+  {
+   "id": "orcs-mercenary-crossbowman",
+   "roster": "orcs",
+   "name": "Mercenary Crossbowman",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "coward",
+    "crossbow"
+   ],
+   "bookPoints": 40
+  },
+  {
+   "id": "orcs-mercenary-woodsman",
+   "roster": "orcs",
+   "name": "Mercenary Woodsman",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "coward",
+    "forester",
+    "opportunistic"
+   ],
+   "bookPoints": 23
+  },
+  {
+   "id": "orcs-large-brute-e-g-ogre",
+   "roster": "orcs",
+   "name": "Large Brute (e.g. ogre)",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "big",
+    "huge-weapon"
+   ],
+   "bookPoints": 45,
+   "choices": [
+    "Huge Weapon or Bludgeon"
+   ]
+  },
+  {
+   "id": "dwarves-green-slinger",
+   "roster": "dwarves",
+   "name": "Green Slinger",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "short-move",
+    "sling"
+   ],
+   "bookPoints": 17
+  },
+  {
+   "id": "dwarves-green-light-infantry",
+   "roster": "dwarves",
+   "name": "Green Light Infantry",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "short-move"
+   ],
+   "bookPoints": 11
+  },
+  {
+   "id": "dwarves-light-infantry",
+   "roster": "dwarves",
+   "name": "Light Infantry",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "short-move"
+   ],
+   "bookPoints": 14
+  },
+  {
+   "id": "dwarves-trained-runner",
+   "roster": "dwarves",
+   "name": "Trained Runner",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "free-disengage"
+   ],
+   "bookPoints": 26,
+   "rare": 3
+  },
+  {
+   "id": "dwarves-trained-crossbow-wielder",
+   "roster": "dwarves",
+   "name": "Trained Crossbow Wielder",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "crossbow",
+    "short-move"
+   ],
+   "bookPoints": 28
+  },
+  {
+   "id": "dwarves-veteran-crossbow-wielder",
+   "roster": "dwarves",
+   "name": "Veteran Crossbow Wielder",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "crossbow",
+    "good-shot",
+    "short-move"
+   ],
+   "bookPoints": 44
+  },
+  {
+   "id": "dwarves-heroic-crossbow-wielder",
+   "roster": "dwarves",
+   "name": "Heroic Crossbow Wielder",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "crossbow",
+    "fire-into-melee",
+    "good-shot",
+    "hero",
+    "lucky",
+    "short-move"
+   ],
+   "bookPoints": 94,
+   "personality": true
+  },
+  {
+   "id": "dwarves-green-javelineer",
+   "roster": "dwarves",
+   "name": "Green Javelineer",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "javelin",
+    "short-move"
+   ],
+   "bookPoints": 14
+  },
+  {
+   "id": "dwarves-trained-heavy-axeman",
+   "roster": "dwarves",
+   "name": "Trained Heavy Axeman",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "shieldbreaker",
+    "short-move"
+   ],
+   "bookPoints": 28
+  },
+  {
+   "id": "dwarves-veteran-heavy-axeman",
+   "roster": "dwarves",
+   "name": "Veteran Heavy Axeman",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "shieldbreaker",
+    "short-move",
+    "steadfast"
+   ],
+   "bookPoints": 34
+  },
+  {
+   "id": "dwarves-green-heavy-infantry-w-shield",
+   "roster": "dwarves",
+   "name": "Green Heavy Infantry w/shield",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "shieldbreaker",
+    "short-move"
+   ],
+   "bookPoints": 27
+  },
+  {
+   "id": "dwarves-trained-heavy-axeman-w-shield",
+   "roster": "dwarves",
+   "name": "Trained Heavy Axeman w/shield",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "shieldbreaker",
+    "short-move"
+   ],
+   "bookPoints": 36
+  },
+  {
+   "id": "dwarves-veteran-heavy-axeman-w-shield",
+   "roster": "dwarves",
+   "name": "Veteran Heavy Axeman w/shield",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "expert-block",
+    "shieldbreaker",
+    "short-move",
+    "steadfast"
+   ],
+   "bookPoints": 44
+  },
+  {
+   "id": "dwarves-elite-heavy-axeman-w-shield-and-plate-armor",
+   "roster": "dwarves",
+   "name": "Elite Heavy Axeman w/shield and plate armor",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "expert-block",
+    "heavily-armored",
+    "shieldbreaker",
+    "short-move",
+    "steadfast"
+   ],
+   "bookPoints": 62
+  },
+  {
+   "id": "dwarves-trained-spearman-w-shield",
+   "roster": "dwarves",
+   "name": "Trained Spearman w/shield",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "long-reach",
+    "short-move"
+   ],
+   "bookPoints": 30
+  },
+  {
+   "id": "dwarves-hero-swordsman-w-shield",
+   "roster": "dwarves",
+   "name": "Hero Swordsman w/shield",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "block",
+    "expert-parry",
+    "hero",
+    "lucky",
+    "short-move"
+   ],
+   "bookPoints": 92,
+   "personality": true
+  },
+  {
+   "id": "dwarves-leader-swordsman-w-shield",
+   "roster": "dwarves",
+   "name": "Leader Swordsman w/shield",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "block",
+    "expert-parry",
+    "lead-from-the-front",
+    "short-move"
+   ],
+   "bookPoints": 90,
+   "personality": true
+  },
+  {
+   "id": "dwarves-berserker-w-club",
+   "roster": "dwarves",
+   "name": "Berserker w/club",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "berserk",
+    "bludgeon",
+    "short-move"
+   ],
+   "bookPoints": 52
+  },
+  {
+   "id": "dwarves-berserker-w-mace",
+   "roster": "dwarves",
+   "name": "Berserker w/mace",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "berserk",
+    "hammering-blow",
+    "short-move"
+   ],
+   "bookPoints": 56
+  },
+  {
+   "id": "dwarves-berserker-w-maul",
+   "roster": "dwarves",
+   "name": "Berserker w/maul",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "berserk",
+    "heavy-weapon",
+    "short-move"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "dwarves-berserker-w-battleaxe",
+   "roster": "dwarves",
+   "name": "Berserker w/battleaxe",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "berserk",
+    "heavy-weapon",
+    "shieldbreaker",
+    "short-move"
+   ],
+   "bookPoints": 54
+  },
+  {
+   "id": "goblins-javelineer",
+   "roster": "goblins",
+   "name": "Javelineer",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "javelin"
+   ],
+   "bookPoints": 18
+  },
+  {
+   "id": "goblins-infantry-w-shield",
+   "roster": "goblins",
+   "name": "Infantry w/shield",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "block"
+   ],
+   "bookPoints": 21
+  },
+  {
+   "id": "goblins-heavy-infantry-w-hand-weapon",
+   "roster": "goblins",
+   "name": "Heavy Infantry w/hand weapon",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [],
+   "bookPoints": 23
+  },
+  {
+   "id": "goblins-goblin-bowman",
+   "roster": "goblins",
+   "name": "Goblin Bowman",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "poison",
+    "short-bow"
+   ],
+   "bookPoints": 27
+  },
+  {
+   "id": "goblins-chosen-bowman",
+   "roster": "goblins",
+   "name": "Chosen Bowman",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "good-shot",
+    "poison",
+    "short-bow",
+    "unerring-aim"
+   ],
+   "bookPoints": 36
+  },
+  {
+   "id": "goblins-goblin-swarmling",
+   "roster": "goblins",
+   "name": "Goblin Swarmling",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "difficult-target",
+    "gang"
+   ],
+   "bookPoints": 24
+  },
+  {
+   "id": "goblins-goblin-war-leader",
+   "roster": "goblins",
+   "name": "Goblin War-Leader",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "difficult-target",
+    "group-fighter",
+    "leader"
+   ],
+   "bookPoints": 80,
+   "personality": true
+  },
+  {
+   "id": "goblins-goblin-shaman",
+   "roster": "goblins",
+   "name": "Goblin Shaman",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "difficult-target",
+    "spell-caster",
+    "spell-blast",
+    "spell-courage",
+    "spell-flame-jet",
+    "spell-protection-from-arrows"
+   ],
+   "bookPoints": 84,
+   "personality": true
+  },
+  {
+   "id": "goblins-goblin-discipline-master",
+   "roster": "goblins",
+   "name": "Goblin Discipline Master",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "difficult-target",
+    "discipline-master"
+   ],
+   "bookPoints": 54,
+   "personality": true
+  },
+  {
+   "id": "goblins-goblin-bearwolf-rider",
+   "roster": "goblins",
+   "name": "Goblin BearWolf Rider",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "javelin",
+    "long-move",
+    "mounted"
+   ],
+   "bookPoints": 66
+  },
+  {
+   "id": "goblins-goblin-bearwolf-rider-w-bow",
+   "roster": "goblins",
+   "name": "Goblin BearWolf Rider w/bow",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "long-move",
+    "mounted",
+    "short-bow"
+   ],
+   "bookPoints": 72
+  },
+  {
+   "id": "goblins-goblin-bearwolf-rider-w-shield",
+   "roster": "goblins",
+   "name": "Goblin BearWolf Rider w/shield",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "long-move",
+    "melee-block",
+    "mounted"
+   ],
+   "bookPoints": 68
+  },
+  {
+   "id": "goblins-goblin-slinger",
+   "roster": "goblins",
+   "name": "Goblin Slinger",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "gang",
+    "rabble",
+    "sling"
+   ],
+   "bookPoints": 18
+  },
+  {
+   "id": "goblins-veteran-goblin-slinger",
+   "roster": "goblins",
+   "name": "Veteran Goblin Slinger",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "gang",
+    "sling"
+   ],
+   "bookPoints": 26
+  },
+  {
+   "id": "goblins-goblin-assassin",
+   "roster": "goblins",
+   "name": "Goblin Assassin",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "assassin",
+    "stealth"
+   ],
+   "bookPoints": 56,
+   "personality": true
+  },
+  {
+   "id": "goblins-goblin-sneak",
+   "roster": "goblins",
+   "name": "Goblin Sneak",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "acrobat",
+    "backstab",
+    "stealth",
+    "thief"
+   ],
+   "bookPoints": 54
+  },
+  {
+   "id": "goblins-rookie-goblin-sneak",
+   "roster": "goblins",
+   "name": "Rookie Goblin Sneak",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "backstab",
+    "stealth",
+    "thief"
+   ],
+   "bookPoints": 36
+  },
+  {
+   "id": "goblins-white-goblin-paladin",
+   "roster": "goblins",
+   "name": "White Goblin Paladin",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "block",
+    "heavily-armored",
+    "lumbering"
+   ],
+   "bookPoints": 34
+  },
+  {
+   "id": "goblins-veteran-white-goblin-paladin",
+   "roster": "goblins",
+   "name": "Veteran White Goblin Paladin",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "expert-block",
+    "heavily-armored",
+    "lumbering"
+   ],
+   "bookPoints": 46
+  },
+  {
+   "id": "humans-green-slinger",
+   "roster": "humans",
+   "name": "Green Slinger",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "sling"
+   ],
+   "bookPoints": 21
+  },
+  {
+   "id": "humans-expert-slinger",
+   "roster": "humans",
+   "name": "Expert Slinger",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "good-shot",
+    "sling"
+   ],
+   "bookPoints": 26
+  },
+  {
+   "id": "humans-veteran-slinger",
+   "roster": "humans",
+   "name": "Veteran Slinger",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "good-shot",
+    "sling"
+   ],
+   "bookPoints": 34
+  },
+  {
+   "id": "humans-archer",
+   "roster": "humans",
+   "name": "Archer",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "longbow"
+   ],
+   "bookPoints": 34
+  },
+  {
+   "id": "humans-veteran-archer",
+   "roster": "humans",
+   "name": "Veteran Archer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "good-shot",
+    "longbow"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "humans-crossbow-wielder",
+   "roster": "humans",
+   "name": "Crossbow Wielder",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "crossbow"
+   ],
+   "bookPoints": 33
+  },
+  {
+   "id": "humans-heavy-infantry-w-shield-and-sword",
+   "roster": "humans",
+   "name": "Heavy Infantry w/shield and sword",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "heavily-armored"
+   ],
+   "bookPoints": 35
+  },
+  {
+   "id": "humans-elite-heavy-infantry-w-shield-and-sword",
+   "roster": "humans",
+   "name": "Elite Heavy Infantry w/shield and sword",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "expert-block",
+    "heavily-armored"
+   ],
+   "bookPoints": 48
+  },
+  {
+   "id": "humans-acrobat",
+   "roster": "humans",
+   "name": "Acrobat",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "acrobat"
+   ],
+   "bookPoints": 26
+  },
+  {
+   "id": "humans-acrobat-thief",
+   "roster": "humans",
+   "name": "Acrobat/Thief",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "acrobat",
+    "stealth",
+    "thief"
+   ],
+   "bookPoints": 48
+  },
+  {
+   "id": "humans-master-thief",
+   "roster": "humans",
+   "name": "Master Thief",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "acrobat",
+    "backstab",
+    "expert-parry",
+    "stealth",
+    "thief",
+    "traps"
+   ],
+   "bookPoints": 80,
+   "personality": true
+  },
+  {
+   "id": "humans-healer",
+   "roster": "humans",
+   "name": "Healer",
+   "quality": 4,
+   "combat": 1,
+   "ruleIds": [
+    "healer"
+   ],
+   "bookPoints": 24,
+   "personality": true
+  },
+  {
+   "id": "humans-master-healer",
+   "roster": "humans",
+   "name": "Master Healer",
+   "quality": 3,
+   "combat": 1,
+   "ruleIds": [
+    "healer"
+   ],
+   "bookPoints": 32,
+   "personality": true
+  },
+  {
+   "id": "humans-apprentice-spellcaster",
+   "roster": "humans",
+   "name": "Apprentice Spellcaster",
+   "quality": 4,
+   "combat": 1,
+   "ruleIds": [
+    "lumbering",
+    "spell-caster",
+    "spell-mist",
+    "spell-sleep"
+   ],
+   "bookPoints": 44,
+   "personality": true
+  },
+  {
+   "id": "humans-spellcaster",
+   "roster": "humans",
+   "name": "Spellcaster",
+   "quality": 3,
+   "combat": 1,
+   "ruleIds": [
+    "spell-caster",
+    "spell-blast",
+    "spell-fireball",
+    "spell-mist",
+    "spell-sleep"
+   ],
+   "bookPoints": 98,
+   "personality": true,
+   "choices": [
+    "Spell: Fireball OR Lightning"
+   ]
+  },
+  {
+   "id": "humans-adventuring-spellcaster",
+   "roster": "humans",
+   "name": "Adventuring Spellcaster",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "spell-caster",
+    "spell-mist",
+    "spell-sleep",
+    "spell-wall-of-fire",
+    "spell-blast",
+    "spell-fireball"
+   ],
+   "bookPoints": 132,
+   "personality": true,
+   "choices": [
+    "Spell: Fireball OR Lightning"
+   ]
+  },
+  {
+   "id": "humans-fighting-cleric-of-tamas-zeya",
+   "roster": "humans",
+   "name": "Fighting Cleric of Tamas Zeya",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "healer",
+    "heavily-armored",
+    "heavy-weapon"
+   ],
+   "bookPoints": 76,
+   "personality": true
+  },
+  {
+   "id": "humans-edda-barbarian",
+   "roster": "humans",
+   "name": "Edda Barbarian",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "dashing",
+    "snow-walk"
+   ],
+   "bookPoints": 42
+  },
+  {
+   "id": "humans-edda-barbarian-archer",
+   "roster": "humans",
+   "name": "Edda Barbarian Archer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "composite-bow",
+    "snow-walk"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "humans-edda-barbarian-shaman",
+   "roster": "humans",
+   "name": "Edda Barbarian Shaman",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "spell-caster",
+    "spell-aura-of-terror",
+    "spell-hailstorm",
+    "spell-snowstorm",
+    "spell-wall-of-ice"
+   ],
+   "bookPoints": 90,
+   "personality": true
+  },
+  {
+   "id": "humans-edda-barbarian-leader",
+   "roster": "humans",
+   "name": "Edda Barbarian Leader",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "huge-weapon",
+    "lead-from-the-front",
+    "snow-walk"
+   ],
+   "bookPoints": 88,
+   "personality": true
+  },
+  {
+   "id": "humans-an-nur-nomad-archer",
+   "roster": "humans",
+   "name": "An-Nur Nomad Archer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "composite-bow",
+    "desert-walk"
+   ],
+   "bookPoints": 48
+  },
+  {
+   "id": "humans-an-nur-nomad-cavalryman",
+   "roster": "humans",
+   "name": "An-Nur Nomad Cavalryman",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "desert-walk",
+    "heavily-armored",
+    "mounted"
+   ],
+   "bookPoints": 62
+  },
+  {
+   "id": "humans-dorantian-grunt",
+   "roster": "humans",
+   "name": "Dorantian Grunt",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "heavily-armored"
+   ],
+   "bookPoints": 46
+  },
+  {
+   "id": "humans-dorantian-centurion",
+   "roster": "humans",
+   "name": "Dorantian Centurion",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "heavily-armored",
+    "steadfast"
+   ],
+   "bookPoints": 52
+  },
+  {
+   "id": "humans-dorantian-commander",
+   "roster": "humans",
+   "name": "Dorantian Commander",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "block",
+    "heavily-armored",
+    "leader",
+    "steadfast"
+   ],
+   "bookPoints": 92,
+   "personality": true
+  },
+  {
+   "id": "humans-dorantian-pikeman",
+   "roster": "humans",
+   "name": "Dorantian Pikeman",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "heavily-armored",
+    "long-reach",
+    "steadfast"
+   ],
+   "bookPoints": 58
+  },
+  {
+   "id": "humans-dorantian-cavalry",
+   "roster": "humans",
+   "name": "Dorantian Cavalry",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "long-move",
+    "long-reach",
+    "mounted"
+   ],
+   "bookPoints": 68
+  },
+  {
+   "id": "humans-dorantian-gladiator",
+   "roster": "humans",
+   "name": "Dorantian Gladiator",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "expert-block",
+    "heavily-armored"
+   ],
+   "bookPoints": 48
+  },
+  {
+   "id": "humans-dorantian-master-gladiator",
+   "roster": "humans",
+   "name": "Dorantian Master Gladiator",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "expert-block",
+    "heavily-armored",
+    "master-duelist"
+   ],
+   "bookPoints": 70,
+   "personality": true
+  },
+  {
+   "id": "humans-dorantian-slave-scout",
+   "roster": "humans",
+   "name": "Dorantian Slave Scout",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "forester",
+    "quick",
+    "rabble"
+   ],
+   "bookPoints": 17
+  },
+  {
+   "id": "humans-dorantian-light-infantry",
+   "roster": "humans",
+   "name": "Dorantian Light Infantry",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "agile",
+    "free-disengage",
+    "javelin"
+   ],
+   "bookPoints": 27
+  },
+  {
+   "id": "humans-dorantian-veteran-light-infantry",
+   "roster": "humans",
+   "name": "Dorantian Veteran Light Infantry",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "agile",
+    "free-disengage",
+    "javelin"
+   ],
+   "bookPoints": 36
+  },
+  {
+   "id": "humans-dorantian-elite-light-infantry",
+   "roster": "humans",
+   "name": "Dorantian Elite Light Infantry",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "agile",
+    "free-disengage",
+    "gang",
+    "good-shot",
+    "javelin"
+   ],
+   "bookPoints": 48
+  },
+  {
+   "id": "humans-attendant-paladin-of-foryos-the-mighty",
+   "roster": "humans",
+   "name": "Attendant Paladin of Foryos the Mighty",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "fearless",
+    "hammering-blow"
+   ],
+   "bookPoints": 38
+  },
+  {
+   "id": "humans-paladin-of-foryos-the-mighty",
+   "roster": "humans",
+   "name": "Paladin of Foryos the Mighty",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "fearless",
+    "hammering-blow"
+   ],
+   "bookPoints": 60
+  },
+  {
+   "id": "humans-templar-of-foryos-the-mighty",
+   "roster": "humans",
+   "name": "Templar of Foryos the Mighty",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "expert-block",
+    "fearless",
+    "flail"
+   ],
+   "bookPoints": 62
+  },
+  {
+   "id": "humans-master-templar-of-foryos-the-mighty",
+   "roster": "humans",
+   "name": "Master Templar of Foryos the Mighty",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "expert-block",
+    "fearless",
+    "flail",
+    "heavily-armored",
+    "hero"
+   ],
+   "bookPoints": 100,
+   "personality": true
+  },
+  {
+   "id": "humans-assassin",
+   "roster": "humans",
+   "name": "Assassin",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "assassin",
+    "stealth"
+   ],
+   "bookPoints": 56,
+   "personality": true
+  },
+  {
+   "id": "humans-master-assassin",
+   "roster": "humans",
+   "name": "Master Assassin",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "acrobat",
+    "assassin",
+    "crossbow",
+    "danger-sense",
+    "good-shot",
+    "stealth",
+    "traps"
+   ],
+   "bookPoints": 94,
+   "personality": true
+  },
+  {
+   "id": "humans-ranger",
+   "roster": "humans",
+   "name": "Ranger",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "danger-sense",
+    "forester",
+    "leafwalk",
+    "parry"
+   ],
+   "bookPoints": 56
+  },
+  {
+   "id": "humans-veteran-ranger",
+   "roster": "humans",
+   "name": "Veteran Ranger",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "composite-bow",
+    "danger-sense",
+    "fire-into-melee",
+    "forester",
+    "leafwalk",
+    "parry"
+   ],
+   "bookPoints": 90
+  },
+  {
+   "id": "humans-heroic-ranger",
+   "roster": "humans",
+   "name": "Heroic Ranger",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "composite-bow",
+    "danger-sense",
+    "expert-parry",
+    "fire-into-melee",
+    "forester",
+    "good-shot",
+    "hero",
+    "leafwalk",
+    "lucky"
+   ],
+   "bookPoints": 136,
+   "personality": true
+  },
+  {
+   "id": "undead-generic-zombie",
+   "roster": "undead",
+   "name": "Generic Zombie",
+   "quality": 5,
+   "combat": 3,
+   "ruleIds": [
+    "aim-for-the-head",
+    "dim-witted",
+    "undead"
+   ],
+   "bookPoints": 19
+  },
+  {
+   "id": "undead-dread-walker",
+   "roster": "undead",
+   "name": "Dread Walker",
+   "quality": 5,
+   "combat": 3,
+   "ruleIds": [
+    "aim-for-the-head",
+    "dim-witted",
+    "gang",
+    "undead"
+   ],
+   "bookPoints": 22
+  },
+  {
+   "id": "undead-swamp-dweller",
+   "roster": "undead",
+   "name": "Swamp Dweller",
+   "quality": 5,
+   "combat": 3,
+   "ruleIds": [
+    "aim-for-the-head",
+    "swamp-walk",
+    "undead"
+   ],
+   "bookPoints": 24
+  },
+  {
+   "id": "undead-slow-zombie",
+   "roster": "undead",
+   "name": "Slow Zombie",
+   "quality": 5,
+   "combat": 3,
+   "ruleIds": [
+    "aim-for-the-head",
+    "short-move",
+    "undead"
+   ],
+   "bookPoints": 18
+  },
+  {
+   "id": "undead-rotting-shambler",
+   "roster": "undead",
+   "name": "Rotting Shambler",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "dashing",
+    "slow",
+    "undead"
+   ],
+   "bookPoints": 24
+  },
+  {
+   "id": "undead-skeleton-warrior",
+   "roster": "undead",
+   "name": "Skeleton Warrior",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "fragile",
+    "skeletal",
+    "undead"
+   ],
+   "bookPoints": 36
+  },
+  {
+   "id": "undead-skeleton-warrior-w-shield",
+   "roster": "undead",
+   "name": "Skeleton Warrior w/shield",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "block",
+    "fragile",
+    "skeletal",
+    "undead"
+   ],
+   "bookPoints": 44
+  },
+  {
+   "id": "undead-skeleton-warrior-w-flail",
+   "roster": "undead",
+   "name": "Skeleton Warrior w/flail",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "flail",
+    "fragile",
+    "skeletal",
+    "undead"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "undead-armored-skeleton-warrior",
+   "roster": "undead",
+   "name": "Armored Skeleton Warrior",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "block",
+    "fragile",
+    "heavily-armored",
+    "skeletal",
+    "undead"
+   ],
+   "bookPoints": 52
+  },
+  {
+   "id": "undead-ghost-warrior",
+   "roster": "undead",
+   "name": "Ghost Warrior",
+   "quality": 3,
+   "combat": 1,
+   "ruleIds": [
+    "incorporeal",
+    "undead"
+   ],
+   "bookPoints": 44,
+   "personality": true
+  },
+  {
+   "id": "undead-greater-ghost-warrior",
+   "roster": "undead",
+   "name": "Greater Ghost Warrior",
+   "quality": 2,
+   "combat": 1,
+   "ruleIds": [
+    "incorporeal",
+    "terror",
+    "undead"
+   ],
+   "bookPoints": 93,
+   "personality": true
+  },
+  {
+   "id": "undead-minor-an-m-r-daywalker-vampire",
+   "roster": "undead",
+   "name": "Minor An-Mòr Daywalker Vampire",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "aim-for-the-head",
+    "tough",
+    "undead"
+   ],
+   "bookPoints": 54,
+   "personality": true
+  },
+  {
+   "id": "undead-an-m-r-daywalker-vampire",
+   "roster": "undead",
+   "name": "An-Mòr Daywalker Vampire",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "aim-for-the-head",
+    "terror",
+    "tough",
+    "undead"
+   ],
+   "bookPoints": 112,
+   "personality": true
+  },
+  {
+   "id": "undead-greater-an-m-r-daywalker-vampire",
+   "roster": "undead",
+   "name": "Greater An-Mòr Daywalker Vampire",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "aim-for-the-head",
+    "drain",
+    "terror",
+    "tough",
+    "undead"
+   ],
+   "bookPoints": 128,
+   "personality": true
+  },
+  {
+   "id": "undead-an-nur-ghul",
+   "roster": "undead",
+   "name": "An-Nur Ghul",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "desert-walk",
+    "greedy",
+    "poison",
+    "undead"
+   ],
+   "bookPoints": 32
+  },
+  {
+   "id": "undead-mummy",
+   "roster": "undead",
+   "name": "Mummy",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "bludgeon",
+    "desert-walk",
+    "slow",
+    "undead"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "undead-greater-mummy",
+   "roster": "undead",
+   "name": "Greater Mummy",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "bludgeon",
+    "desert-walk",
+    "slow",
+    "spell-caster",
+    "tough",
+    "undead",
+    "spell-wall-of-bones",
+    "spell-fear"
+   ],
+   "bookPoints": 130,
+   "personality": true
+  },
+  {
+   "id": "undead-zombie-master",
+   "roster": "undead",
+   "name": "Zombie Master",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "aim-for-the-head",
+    "lead-from-the-front",
+    "undead"
+   ],
+   "bookPoints": 80,
+   "personality": true
+  },
+  {
+   "id": "undead-zombie-overlord",
+   "roster": "undead",
+   "name": "Zombie Overlord",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "aim-for-the-head",
+    "lead-from-the-front",
+    "tough",
+    "undead"
+   ],
+   "bookPoints": 110,
+   "personality": true
+  },
+  {
+   "id": "monsters-beasts-green-troll",
+   "roster": "monsters-beasts",
+   "name": "Green Troll",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "big",
+    "fearless",
+    "regeneration"
+   ],
+   "bookPoints": 57,
+   "personality": true
+  },
+  {
+   "id": "monsters-beasts-acquatic-troll",
+   "roster": "monsters-beasts",
+   "name": "Acquatic Troll",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "amphibious",
+    "big",
+    "fearless",
+    "regeneration"
+   ],
+   "bookPoints": 62,
+   "personality": true
+  },
+  {
+   "id": "monsters-beasts-forest-troll",
+   "roster": "monsters-beasts",
+   "name": "Forest Troll",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "big",
+    "forester",
+    "tough"
+   ],
+   "bookPoints": 62,
+   "personality": true
+  },
+  {
+   "id": "monsters-beasts-cave-troll",
+   "roster": "monsters-beasts",
+   "name": "Cave Troll",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "big",
+    "bludgeon",
+    "dim-witted",
+    "tough"
+   ],
+   "bookPoints": 62,
+   "personality": true
+  },
+  {
+   "id": "monsters-beasts-earth-elemental",
+   "roster": "monsters-beasts",
+   "name": "Earth Elemental",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "artificial",
+    "big",
+    "burrowing",
+    "tough",
+    "trample"
+   ],
+   "bookPoints": 110,
+   "personality": true
+  },
+  {
+   "id": "monsters-beasts-clay-golem",
+   "roster": "monsters-beasts",
+   "name": "Clay Golem",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "artificial",
+    "big",
+    "bludgeon",
+    "tough",
+    "unreactive"
+   ],
+   "bookPoints": 86,
+   "personality": true
+  },
+  {
+   "id": "monsters-beasts-stone-golem",
+   "roster": "monsters-beasts",
+   "name": "Stone Golem",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "artificial",
+    "big",
+    "bludgeon",
+    "heavily-armored",
+    "tough",
+    "unreactive"
+   ],
+   "bookPoints": 71,
+   "personality": true
+  },
+  {
+   "id": "monsters-beasts-giant-spider",
+   "roster": "monsters-beasts",
+   "name": "Giant Spider",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "animal",
+    "big",
+    "clinging",
+    "entangle",
+    "poison"
+   ],
+   "bookPoints": 72
+  },
+  {
+   "id": "monsters-beasts-huge-spider",
+   "roster": "monsters-beasts",
+   "name": "Huge Spider",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "animal",
+    "clinging",
+    "entangle",
+    "huge"
+   ],
+   "bookPoints": 80
+  },
+  {
+   "id": "monsters-beasts-large-centipede",
+   "roster": "monsters-beasts",
+   "name": "Large Centipede",
+   "quality": 4,
+   "combat": 1,
+   "ruleIds": [
+    "animal",
+    "clinging",
+    "poison",
+    "rabble"
+   ],
+   "bookPoints": 5
+  },
+  {
+   "id": "monsters-beasts-huge-centipede",
+   "roster": "monsters-beasts",
+   "name": "Huge Centipede",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "animal",
+    "big",
+    "clinging",
+    "poison"
+   ],
+   "bookPoints": 24
+  },
+  {
+   "id": "catfolk-lion-man-warrior",
+   "roster": "catfolk",
+   "name": "Lion Man Warrior",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "fearless"
+   ],
+   "bookPoints": 46
+  },
+  {
+   "id": "catfolk-lion-man-leader",
+   "roster": "catfolk",
+   "name": "Lion Man Leader",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "fearless",
+    "lead-from-the-front"
+   ],
+   "bookPoints": 74,
+   "personality": true
+  },
+  {
+   "id": "catfolk-cheetah-man-javeliner",
+   "roster": "catfolk",
+   "name": "Cheetah Man Javeliner",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "difficult-target",
+    "javelin",
+    "long-move"
+   ],
+   "bookPoints": 60
+  },
+  {
+   "id": "catfolk-panther-man-stalker",
+   "roster": "catfolk",
+   "name": "Panther Man Stalker",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "acrobat",
+    "backstab",
+    "dashing",
+    "difficult-target",
+    "forester",
+    "stealth"
+   ],
+   "bookPoints": 66
+  },
+  {
+   "id": "catfolk-tiger-man-sorcerer",
+   "roster": "catfolk",
+   "name": "Tiger Man Sorcerer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "forester",
+    "reactive",
+    "spell-caster",
+    "stealth",
+    "spell-fear",
+    "spell-flame-jet",
+    "spell-trip"
+   ],
+   "bookPoints": 102,
+   "personality": true
+  },
+  {
+   "id": "catfolk-lion-man-cub",
+   "roster": "catfolk",
+   "name": "Lion Man Cub",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "steadfast"
+   ],
+   "bookPoints": 27
+  },
+  {
+   "id": "catfolk-lynx-man-scout",
+   "roster": "catfolk",
+   "name": "Lynx Man Scout",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "composite-bow",
+    "danger-sense",
+    "forester",
+    "mountaineer",
+    "snow-walk",
+    "stealth"
+   ],
+   "bookPoints": 72
+  },
+  {
+   "id": "catfolk-tiger-man-ranger",
+   "roster": "catfolk",
+   "name": "Tiger Man Ranger",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "composite-bow",
+    "fire-into-melee",
+    "forester",
+    "stealth"
+   ],
+   "bookPoints": 66
+  },
+  {
+   "id": "catfolk-smilodon-man-berserker",
+   "roster": "catfolk",
+   "name": "Smilodon Man Berserker",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "berserk",
+    "mountaineer"
+   ],
+   "bookPoints": 52
+  },
+  {
+   "id": "halflings-halfling-village-militiaman-w-spear-and-shield",
+   "roster": "halflings",
+   "name": "Halfling Village Militiaman w/spear and shield",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "block",
+    "long-reach"
+   ],
+   "bookPoints": 26
+  },
+  {
+   "id": "halflings-veteran-village-militiaman-w-spear-and-shield",
+   "roster": "halflings",
+   "name": "Veteran Village Militiaman w/spear and shield",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "expert-block",
+    "long-reach"
+   ],
+   "bookPoints": 36
+  },
+  {
+   "id": "halflings-slinger",
+   "roster": "halflings",
+   "name": "Slinger",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "gang",
+    "good-shot",
+    "sling"
+   ],
+   "bookPoints": 30
+  },
+  {
+   "id": "halflings-village-elder",
+   "roster": "halflings",
+   "name": "Village Elder",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "leader",
+    "potion-of-healing"
+   ],
+   "bookPoints": 60,
+   "personality": true
+  },
+  {
+   "id": "halflings-village-spellcaster",
+   "roster": "halflings",
+   "name": "Village Spellcaster",
+   "quality": 3,
+   "combat": 1,
+   "ruleIds": [
+    "spell-caster",
+    "spell-courage",
+    "spell-rain",
+    "spell-sleep"
+   ],
+   "bookPoints": 74,
+   "personality": true
+  },
+  {
+   "id": "halflings-thief",
+   "roster": "halflings",
+   "name": "Thief",
+   "quality": 3,
+   "combat": 1,
+   "ruleIds": [
+    "stealth",
+    "thief",
+    "traps"
+   ],
+   "bookPoints": 38
+  },
+  {
+   "id": "halflings-master-thief",
+   "roster": "halflings",
+   "name": "Master Thief",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "backstab",
+    "good-shot",
+    "sling",
+    "stealth",
+    "thief",
+    "traps"
+   ],
+   "bookPoints": 68
+  },
+  {
+   "id": "halflings-paddy-field-watchman",
+   "roster": "halflings",
+   "name": "Paddy-Field Watchman",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "good-shot",
+    "sling",
+    "swamp-walk"
+   ],
+   "bookPoints": 30
+  },
+  {
+   "id": "minotaurs-minotaur-guard",
+   "roster": "minotaurs",
+   "name": "Minotaur Guard",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "bludgeon",
+    "danger-sense",
+    "dashing"
+   ],
+   "bookPoints": 52
+  },
+  {
+   "id": "minotaurs-young-minotaur",
+   "roster": "minotaurs",
+   "name": "Young Minotaur",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "bludgeon",
+    "dashing",
+    "rabble"
+   ],
+   "bookPoints": 20
+  },
+  {
+   "id": "minotaurs-elite-minotaur-guard-w-two-handed-weapon",
+   "roster": "minotaurs",
+   "name": "Elite Minotaur Guard w/two handed weapon",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "danger-sense",
+    "dashing",
+    "huge-weapon"
+   ],
+   "bookPoints": 66
+  },
+  {
+   "id": "minotaurs-minotaur-shaman",
+   "roster": "minotaurs",
+   "name": "Minotaur Shaman",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "dashing",
+    "spell-caster",
+    "spell-flaming-touch"
+   ],
+   "bookPoints": 46,
+   "personality": true
+  },
+  {
+   "id": "minotaurs-chaotic-minotaur",
+   "roster": "minotaurs",
+   "name": "Chaotic Minotaur",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "big",
+    "dashing",
+    "dim-witted",
+    "huge-weapon"
+   ],
+   "bookPoints": 47
+  },
+  {
+   "id": "minotaurs-chaotic-minotaur-gladiator",
+   "roster": "minotaurs",
+   "name": "Chaotic Minotaur Gladiator",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "big",
+    "dashing",
+    "expert-block",
+    "heavily-armored",
+    "shieldbreaker"
+   ],
+   "bookPoints": 53
+  },
+  {
+   "id": "minotaurs-chaotic-minotaur-gladiator-champion",
+   "roster": "minotaurs",
+   "name": "Chaotic Minotaur Gladiator Champion",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "big",
+    "dashing",
+    "expert-block",
+    "heavily-armored",
+    "quick",
+    "savage",
+    "shieldbreaker",
+    "tough"
+   ],
+   "bookPoints": 116,
+   "personality": true,
+   "rare": 2
+  },
+  {
+   "id": "swarms-bats",
+   "roster": "swarms",
+   "name": "Bats",
+   "quality": 3,
+   "combat": 0,
+   "ruleIds": [
+    "swarm",
+    "flying",
+    "free-disengage"
+   ],
+   "bookPoints": 34
+  },
+  {
+   "id": "swarms-vampire-bats",
+   "roster": "swarms",
+   "name": "Vampire Bats",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "swarm",
+    "flying",
+    "long-move",
+    "free-disengage"
+   ],
+   "bookPoints": 72
+  },
+  {
+   "id": "swarms-bees-or-wasps",
+   "roster": "swarms",
+   "name": "Bees or Wasps",
+   "quality": 3,
+   "combat": 0,
+   "ruleIds": [
+    "swarm",
+    "flying",
+    "fearless",
+    "free-disengage",
+    "poison",
+    "short-move"
+   ],
+   "bookPoints": 40
+  },
+  {
+   "id": "swarms-ants",
+   "roster": "swarms",
+   "name": "Ants",
+   "quality": 4,
+   "combat": 0,
+   "ruleIds": [
+    "swarm",
+    "clinging",
+    "fearless",
+    "short-move"
+   ],
+   "bookPoints": 11
+  },
+  {
+   "id": "swarms-centipedes",
+   "roster": "swarms",
+   "name": "Centipedes",
+   "quality": 4,
+   "combat": 0,
+   "ruleIds": [
+    "swarm",
+    "clinging",
+    "fearless",
+    "poison",
+    "short-move"
+   ],
+   "bookPoints": 15
+  },
+  {
+   "id": "swarms-frogs",
+   "roster": "swarms",
+   "name": "Frogs",
+   "quality": 4,
+   "combat": 0,
+   "ruleIds": [
+    "amphibious",
+    "swarm",
+    "short-move"
+   ],
+   "bookPoints": 6
+  },
+  {
+   "id": "swarms-rats",
+   "roster": "swarms",
+   "name": "Rats",
+   "quality": 3,
+   "combat": 1,
+   "ruleIds": [
+    "swarm",
+    "clinging"
+   ],
+   "bookPoints": 22
+  },
+  {
+   "id": "swarms-scorpions",
+   "roster": "swarms",
+   "name": "Scorpions",
+   "quality": 3,
+   "combat": 1,
+   "ruleIds": [
+    "swarm",
+    "clinging",
+    "fearless",
+    "poison",
+    "desert-walk"
+   ],
+   "bookPoints": 40
+  },
+  {
+   "id": "swarms-imps",
+   "roster": "swarms",
+   "name": "Imps",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "swarm",
+    "flying"
+   ],
+   "bookPoints": 46
+  },
+  {
+   "id": "swarms-swarm-of-mechanical-gremlins",
+   "roster": "swarms",
+   "name": "Swarm of Mechanical Gremlins",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "artificial",
+    "lethal"
+   ],
+   "bookPoints": 32,
+   "choices": [
+    "Lethal vs Artificial Models"
+   ]
+  },
+  {
+   "id": "ratmen-ratman-warrior",
+   "roster": "ratmen",
+   "name": "Ratman Warrior",
+   "quality": 4,
+   "combat": 3,
+   "ruleIds": [
+    "gregarious"
+   ],
+   "bookPoints": 27
+  },
+  {
+   "id": "ratmen-ratman-champion",
+   "roster": "ratmen",
+   "name": "Ratman Champion",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "gregarious"
+   ],
+   "bookPoints": 35
+  },
+  {
+   "id": "ratmen-ratman-champion-with-two-handed-weapon",
+   "roster": "ratmen",
+   "name": "Ratman Champion with two-handed weapon",
+   "quality": 4,
+   "combat": 4,
+   "ruleIds": [
+    "gregarious",
+    "heavy-weapon"
+   ],
+   "bookPoints": 41
+  },
+  {
+   "id": "ratmen-champion-of-radah-the-rodent-god",
+   "roster": "ratmen",
+   "name": "Champion of Radah The Rodent God",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "gregarious",
+    "quick",
+    "tough"
+   ],
+   "bookPoints": 82,
+   "personality": true
+  },
+  {
+   "id": "ratmen-ratman-crossbow-wielder",
+   "roster": "ratmen",
+   "name": "Ratman Crossbow Wielder",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "crossbow",
+    "quick"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "ratmen-ratman-archer",
+   "roster": "ratmen",
+   "name": "Ratman Archer",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "composite-bow",
+    "gang"
+   ],
+   "bookPoints": 50
+  },
+  {
+   "id": "ratmen-ratman-assassin",
+   "roster": "ratmen",
+   "name": "Ratman Assassin",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "assassin",
+    "free-disengage",
+    "stealth"
+   ],
+   "bookPoints": 72,
+   "personality": true
+  },
+  {
+   "id": "ratmen-ratman-sewer-sorceror",
+   "roster": "ratmen",
+   "name": "Ratman Sewer Sorceror",
+   "quality": 3,
+   "combat": 2,
+   "ruleIds": [
+    "free-disengage",
+    "spell-caster",
+    "spell-fear",
+    "spell-fireball",
+    "spell-transfix"
+   ],
+   "bookPoints": 84,
+   "personality": true
+  },
+  {
+   "id": "ratmen-master-sewer-sorceror",
+   "roster": "ratmen",
+   "name": "Master Sewer Sorceror",
+   "quality": 3,
+   "combat": 3,
+   "ruleIds": [
+    "flail",
+    "free-disengage",
+    "spell-caster",
+    "spell-fear",
+    "spell-fireball",
+    "spell-transfix"
+   ],
+   "bookPoints": 100,
+   "personality": true
+  },
+  {
+   "id": "ratmen-mouseling-ratling-rabble",
+   "roster": "ratmen",
+   "name": "Mouseling/Ratling Rabble",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "gregarious",
+    "javelin",
+    "rabble"
+   ],
+   "bookPoints": 15
+  },
+  {
+   "id": "ratmen-sewer-ratmen-rabble",
+   "roster": "ratmen",
+   "name": "Sewer Ratmen Rabble",
+   "quality": 4,
+   "combat": 2,
+   "ruleIds": [
+    "gang",
+    "long-move",
+    "long-reach",
+    "rabble"
+   ],
+   "bookPoints": 32
+  },
+  {
+   "id": "ratmen-ratman-commander",
+   "roster": "ratmen",
+   "name": "Ratman Commander",
+   "quality": 3,
+   "combat": 4,
+   "ruleIds": [
+    "leader",
+    "long-move"
+   ],
+   "bookPoints": 90,
+   "personality": true
+  }
+ ]
+}

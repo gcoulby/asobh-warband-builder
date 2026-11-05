@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest'
-import { formulaCost, hasRuleNamed, isLeader, isNoncombatant, isPersonality, modelCost, warbandTotals, type CostResult } from '@/lib/cost'
+import { bookPrice, formulaCost, hasRuleNamed, isLeader, isNoncombatant, isPersonality, modelCost, warbandTotals, type CostResult } from '@/lib/cost'
 import { fakeRules, makeModel, makeWarband } from '@/test/fixtures'
-import type { Combat, Quality } from '@/lib/schema'
+import type { Combat, Profile, Quality } from '@/lib/schema'
 
 const known = (cost: number): CostResult => ({ known: true, cost })
 
@@ -101,5 +101,34 @@ describe('hasRuleNamed', () => {
     const model = makeModel({ ruleIds: ['fake-leader'] })
     expect(hasRuleNamed(model, fakeRules, 'leader')).toBe(true)
     expect(hasRuleNamed(model, fakeRules, 'fake-leader')).toBe(false)
+  })
+})
+
+describe('book prices', () => {
+  const profile: Profile = { id: 'p1', roster: 'r', name: 'Book glow', quality: 4, combat: 3, ruleIds: ['fake-glow'], bookPoints: 25 }
+  const fromBook = makeModel({ profileId: 'p1', ruleIds: ['fake-glow'] })
+
+  it('uses the book points while the model matches its profile', () => {
+    expect(modelCost(fromBook, fakeRules, [profile])).toEqual({ known: true, cost: 25, formula: 30 })
+  })
+
+  it('ignores rule order and the name', () => {
+    const p = { ...profile, ruleIds: ['fake-glow', 'fake-hop'] }
+    const m = makeModel({ name: 'Renamed', profileId: 'p1', ruleIds: ['fake-hop', 'fake-glow'] })
+    expect(bookPrice(m, [p])).toBe(25)
+  })
+
+  it('uses the formula once the stats or rules change', () => {
+    expect(modelCost({ ...fromBook, quality: 3 }, fakeRules, [profile])).toEqual(known(40))
+    expect(modelCost({ ...fromBook, ruleIds: [] }, fakeRules, [profile])).toEqual(known(23))
+  })
+
+  it('leaves out the formula when the two agree', () => {
+    expect(modelCost(fromBook, fakeRules, [{ ...profile, bookPoints: 30 }])).toEqual(known(30))
+  })
+
+  it('counts towards warband totals', () => {
+    const warband = makeWarband({ entries: [{ modelId: fromBook.id, quantity: 2 }] })
+    expect(warbandTotals(warband, [fromBook], fakeRules, [profile]).total).toBe(50)
   })
 })

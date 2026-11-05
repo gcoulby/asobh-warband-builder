@@ -6,6 +6,7 @@ import { PrintSheet } from '@/components/PrintSheet'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Switch } from '@/components/ui/switch'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { printNoncombatantOptions } from '@/data/warband-options'
 import { usePrefs, type PaperSize, type PrintNoncombatants } from '@/hooks/use-prefs'
@@ -89,6 +90,14 @@ export function PrintPage() {
                 </Select>
               </>
             )}
+            <div className="flex items-center gap-2">
+              <Switch
+                id="print-rule-glossary"
+                checked={prefs.printRuleGlossary}
+                onCheckedChange={(checked) => setPrefs({ printRuleGlossary: checked })}
+              />
+              <Label htmlFor="print-rule-glossary">Rule text</Label>
+            </div>
             <Button variant="outline" onClick={() => sheetRef.current && exportNode(sheetRef.current, warband.name)}>
               <ImageDown /> Export roster as PNG
             </Button>
@@ -108,6 +117,7 @@ export function PrintPage() {
           sheetRef={sheetRef}
           onExportCard={exportNode}
           noncombatantMode={prefs.printNoncombatants}
+          showRuleGlossary={prefs.printRuleGlossary}
         />
       </main>
     </div>

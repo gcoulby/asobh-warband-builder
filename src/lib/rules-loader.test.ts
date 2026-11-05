@@ -75,4 +75,17 @@ describe('mergeRules', () => {
     expect(merged).toHaveLength(fakeRules.length)
     expect(merged.find((r) => r.id === 'fake-glow')?.cost).toBe(99)
   })
+
+  it('keeps an existing summary when the imported entry has none', () => {
+    const merged = mergeRules(fakeRules, [{ ...fakeRules[0]!, summary: '' }])
+    expect(merged.find((r) => r.id === 'fake-glow')?.summary).toBe('Test rule.')
+    const replaced = mergeRules(fakeRules, [{ ...fakeRules[0]!, summary: 'New words.' }])
+    expect(replaced.find((r) => r.id === 'fake-glow')?.summary).toBe('New words.')
+  })
+
+  it('keeps existing full text when the imported entry has none', () => {
+    const withText = mergeRules(fakeRules, [{ ...fakeRules[0]!, text: 'Made-up full text.' }])
+    const reimported = mergeRules(withText, [{ ...fakeRules[0]!, summary: '' }])
+    expect(reimported.find((r) => r.id === 'fake-glow')?.text).toBe('Made-up full text.')
+  })
 })

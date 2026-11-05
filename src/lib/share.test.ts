@@ -29,6 +29,12 @@ describe('share', () => {
     expect(result.value.models[0]?.name).toBe('Test grunt')
   })
 
+  it('leaves full rule text out of the link', () => {
+    const withText = { ...bundle, rules: bundle.rules.map((r) => ({ ...r, text: 'Made-up full text.' })) }
+    const decoded = decodeShare(encodeShare(withText))
+    expect(decoded.ok && decoded.value.rules.every((r) => r.text === undefined)).toBe(true)
+  })
+
   it('produces a URL-safe payload', () => {
     expect(encodeShare(bundle)).toMatch(/^[A-Za-z0-9+\-$_]+$/)
     expect(shareUrl(bundle, 'https://x.test', '/repo/')).toMatch(/^https:\/\/x\.test\/repo\/#\/s\//)

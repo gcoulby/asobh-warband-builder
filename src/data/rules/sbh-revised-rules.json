@@ -1,0 +1,1260 @@
+{
+  "name": "Song of Blades and Heroes (Revised) and supplements",
+  "rules": [
+    {
+      "id": "sbh-acrobat",
+      "name": "Acrobat",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd"
+    },
+    {
+      "id": "sbh-amphibious",
+      "name": "Amphibious",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-animal",
+      "name": "Animal",
+      "cost": -3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-beastmaster"
+      ]
+    },
+    {
+      "id": "sbh-artificial",
+      "name": "Artificial",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-mutant"
+      ]
+    },
+    {
+      "id": "sbh-assassin",
+      "name": "Assassin",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-bard",
+      "name": "Bard",
+      "cost": 10,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-beastmaster",
+      "name": "Beastmaster",
+      "cost": 8,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-animal"
+      ]
+    },
+    {
+      "id": "sbh-berserk",
+      "name": "Berserk",
+      "cost": 4,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww",
+      "excludes": [
+        "sbh-dashing"
+      ]
+    },
+    {
+      "id": "sbh-big",
+      "name": "Big",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-gargantuan",
+        "sbh-huge"
+      ]
+    },
+    {
+      "id": "sbh-blacksmith",
+      "name": "Blacksmith",
+      "cost": 1,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg"
+    },
+    {
+      "id": "sbh-blast",
+      "name": "Blast",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg"
+    },
+    {
+      "id": "sbh-brewmaster",
+      "name": "Brewmaster",
+      "cost": 1,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg"
+    },
+    {
+      "id": "sbh-burrowing",
+      "name": "Burrowing",
+      "cost": 4,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-champion",
+      "name": "Champion",
+      "cost": 9,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-chivalry",
+      "name": "Chivalry",
+      "cost": 0,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam"
+    },
+    {
+      "id": "sbh-cleric",
+      "name": "Cleric",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-clinging",
+      "name": "Clinging",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-combat-master",
+      "name": "Combat Master",
+      "cost": 10,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-coward",
+      "name": "Coward",
+      "cost": -2,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd",
+      "excludes": [
+        "sbh-fearless",
+        "sbh-hero",
+        "sbh-steadfast"
+      ]
+    },
+    {
+      "id": "sbh-danger-sense",
+      "name": "Danger Sense",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-dashing",
+      "name": "Dashing",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-berserk"
+      ]
+    },
+    {
+      "id": "sbh-desert-walk",
+      "name": "Desert Walk",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-diplomat",
+      "name": "Diplomat",
+      "cost": 8,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-distract",
+      "name": "Distract",
+      "cost": 12,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd"
+    },
+    {
+      "id": "sbh-dogged",
+      "name": "Dogged",
+      "cost": -2,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam"
+    },
+    {
+      "id": "sbh-drain",
+      "name": "Drain",
+      "cost": 8,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-elementalist",
+      "name": "Elementalist",
+      "cost": 15,
+      "summary": "Summoned figures come from a separate points pool, which this builder does not track.",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-enchanter",
+        "sbh-illusionist",
+        "sbh-magic-resistance",
+        "sbh-magic-user",
+        "sbh-necromancer",
+        "sbh-shield-mage",
+        "sbh-sorcerer",
+        "sbh-summoner"
+      ]
+    },
+    {
+      "id": "sbh-enchanter",
+      "name": "Enchanter",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-elementalist",
+        "sbh-illusionist",
+        "sbh-magic-resistance",
+        "sbh-magic-user",
+        "sbh-necromancer",
+        "sbh-shield-mage",
+        "sbh-sorcerer",
+        "sbh-summoner"
+      ]
+    },
+    {
+      "id": "sbh-entangle",
+      "name": "Entangle",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-evil",
+      "name": "Evil",
+      "cost": 0,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd"
+    },
+    {
+      "id": "sbh-fearless",
+      "name": "Fearless",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-coward"
+      ]
+    },
+    {
+      "id": "sbh-flying",
+      "name": "Flying",
+      "cost": 10,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-forester",
+      "name": "Forester",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-free-disengage",
+      "name": "Free Disengage",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-gargantuan",
+      "name": "Gargantuan",
+      "cost": 9,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-big",
+        "sbh-huge"
+      ]
+    },
+    {
+      "id": "sbh-ghost-blade",
+      "name": "Ghost Blade",
+      "cost": 2,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd"
+    },
+    {
+      "id": "sbh-giant-slayer",
+      "name": "Giant Slayer",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww",
+      "excludes": [
+        "sbh-huge"
+      ]
+    },
+    {
+      "id": "sbh-good-shot",
+      "name": "Good shot",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-greedy",
+      "name": "Greedy",
+      "cost": -2,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-gregarious",
+      "name": "Gregarious",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-group-fighter",
+      "name": "Group Fighter",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-hatred",
+      "name": "Hatred",
+      "cost": 3,
+      "summary": "Name what it applies to in the model's notes.",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-heavy-armor",
+      "name": "Heavy Armor",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-stealth"
+      ]
+    },
+    {
+      "id": "sbh-hero",
+      "name": "Hero",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-coward"
+      ]
+    },
+    {
+      "id": "sbh-heros-horse",
+      "name": "Hero's Horse",
+      "cost": 6,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-huge",
+      "name": "Huge",
+      "cost": 5,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-big",
+        "sbh-gargantuan",
+        "sbh-giant-slayer"
+      ]
+    },
+    {
+      "id": "sbh-illusionist",
+      "name": "Illusionist",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-elementalist",
+        "sbh-enchanter",
+        "sbh-magic-resistance",
+        "sbh-magic-user",
+        "sbh-necromancer",
+        "sbh-shield-mage",
+        "sbh-sorcerer",
+        "sbh-summoner"
+      ]
+    },
+    {
+      "id": "sbh-immortal",
+      "name": "Immortal",
+      "cost": 20,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-inconvenient",
+      "name": "Inconvenient",
+      "cost": 5,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam"
+    },
+    {
+      "id": "sbh-jouster",
+      "name": "Jouster",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam"
+    },
+    {
+      "id": "sbh-knight",
+      "name": "Knight",
+      "cost": 1,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam"
+    },
+    {
+      "id": "sbh-laborer",
+      "name": "Laborer",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg"
+    },
+    {
+      "id": "sbh-leader",
+      "name": "Leader",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "tags": [
+        "L",
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-legendary-archer",
+      "name": "Legendary Archer",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-legendary-wizard",
+      "name": "Legendary Wizard",
+      "cost": 99,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-lethal",
+      "name": "Lethal",
+      "cost": 3,
+      "summary": "Name what it applies to in the model's notes.",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-long-move",
+      "name": "Long Move",
+      "cost": 10,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-short-move"
+      ]
+    },
+    {
+      "id": "sbh-magic-resistance",
+      "name": "Magic Resistance",
+      "cost": 5,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd",
+      "excludes": [
+        "sbh-elementalist",
+        "sbh-enchanter",
+        "sbh-illusionist",
+        "sbh-magic-user",
+        "sbh-necromancer",
+        "sbh-shield-mage",
+        "sbh-sorcerer",
+        "sbh-summoner"
+      ]
+    },
+    {
+      "id": "sbh-magic-user",
+      "name": "Magic-User",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-elementalist",
+        "sbh-enchanter",
+        "sbh-illusionist",
+        "sbh-magic-resistance",
+        "sbh-necromancer",
+        "sbh-shield-mage",
+        "sbh-sorcerer",
+        "sbh-summoner"
+      ]
+    },
+    {
+      "id": "sbh-mountaineer",
+      "name": "Mountaineer",
+      "cost": 2,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-mounted",
+      "name": "Mounted",
+      "cost": 6,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-mutant",
+      "name": "Mutant",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd",
+      "excludes": [
+        "sbh-artificial",
+        "sbh-undead"
+      ]
+    },
+    {
+      "id": "sbh-necromancer",
+      "name": "Necromancer",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-elementalist",
+        "sbh-enchanter",
+        "sbh-illusionist",
+        "sbh-magic-resistance",
+        "sbh-magic-user",
+        "sbh-shield-mage",
+        "sbh-sorcerer",
+        "sbh-summoner"
+      ]
+    },
+    {
+      "id": "sbh-noble",
+      "name": "Noble",
+      "cost": 5,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-opportunistic",
+      "name": "Opportunistic",
+      "cost": 4,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd"
+    },
+    {
+      "id": "sbh-outrider",
+      "name": "Outrider",
+      "cost": 8,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg"
+    },
+    {
+      "id": "sbh-paladin",
+      "name": "Paladin",
+      "cost": 2,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd"
+    },
+    {
+      "id": "sbh-poison",
+      "name": "Poison",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-protect",
+      "name": "Protect",
+      "cost": -2,
+      "summary": "Name what it applies to in the model's notes.",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam"
+    },
+    {
+      "id": "sbh-rabble",
+      "name": "Rabble",
+      "cost": -5,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-reckless",
+      "name": "Reckless",
+      "cost": 5,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg"
+    },
+    {
+      "id": "sbh-reflect",
+      "name": "Reflect",
+      "cost": 4,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg"
+    },
+    {
+      "id": "sbh-running-blow",
+      "name": "Running Blow",
+      "cost": 8,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-savage",
+      "name": "Savage",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-sharpshooter",
+      "name": "Sharpshooter",
+      "cost": 4,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-shield-mage",
+      "name": "Shield-Mage",
+      "cost": 10,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Deeds and Glory",
+      "edition": "sbh",
+      "book": "sdg",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-elementalist",
+        "sbh-enchanter",
+        "sbh-illusionist",
+        "sbh-magic-resistance",
+        "sbh-magic-user",
+        "sbh-necromancer",
+        "sbh-sorcerer",
+        "sbh-summoner"
+      ]
+    },
+    {
+      "id": "sbh-shieldwall",
+      "name": "Shieldwall",
+      "cost": 1,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-shooter-long",
+      "name": "Shooter (long)",
+      "cost": 7,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-shooter-medium",
+        "sbh-shooter-short"
+      ]
+    },
+    {
+      "id": "sbh-shooter-medium",
+      "name": "Shooter (medium)",
+      "cost": 4,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-shooter-long",
+        "sbh-shooter-short"
+      ]
+    },
+    {
+      "id": "sbh-shooter-short",
+      "name": "Shooter (short)",
+      "cost": 2,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-shooter-long",
+        "sbh-shooter-medium"
+      ]
+    },
+    {
+      "id": "sbh-short-move",
+      "name": "Short Move",
+      "cost": -3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-long-move"
+      ]
+    },
+    {
+      "id": "sbh-slow",
+      "name": "Slow",
+      "cost": -5,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-snow-walk",
+      "name": "Snow Walk",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-solar-force",
+      "name": "Solar Force",
+      "cost": 0,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam"
+    },
+    {
+      "id": "sbh-sorcerer",
+      "name": "Sorcerer",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-elementalist",
+        "sbh-enchanter",
+        "sbh-illusionist",
+        "sbh-magic-resistance",
+        "sbh-magic-user",
+        "sbh-necromancer",
+        "sbh-shield-mage",
+        "sbh-summoner"
+      ]
+    },
+    {
+      "id": "sbh-standard-bearer",
+      "name": "Standard Bearer",
+      "cost": 0,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-steadfast",
+      "name": "Steadfast",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-coward"
+      ]
+    },
+    {
+      "id": "sbh-stealth",
+      "name": "Stealth",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-heavy-armor"
+      ]
+    },
+    {
+      "id": "sbh-stubborn",
+      "name": "Stubborn",
+      "cost": -2,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam"
+    },
+    {
+      "id": "sbh-summoner",
+      "name": "Summoner",
+      "cost": 15,
+      "summary": "Summoned figures come from a separate points pool, which this builder does not track.",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd",
+      "tags": [
+        "P"
+      ],
+      "excludes": [
+        "sbh-elementalist",
+        "sbh-enchanter",
+        "sbh-illusionist",
+        "sbh-magic-resistance",
+        "sbh-magic-user",
+        "sbh-necromancer",
+        "sbh-shield-mage",
+        "sbh-sorcerer"
+      ]
+    },
+    {
+      "id": "sbh-swamp-walk",
+      "name": "Swamp Walk",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Wind and Water",
+      "edition": "sbh",
+      "book": "sww"
+    },
+    {
+      "id": "sbh-swarm",
+      "name": "Swarm",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-tailslap",
+      "name": "Tailslap",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-teleport",
+      "name": "Teleport",
+      "cost": 12,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-terror",
+      "name": "Terror",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-tough",
+      "name": "Tough",
+      "cost": 15,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "tags": [
+        "P"
+      ]
+    },
+    {
+      "id": "sbh-traps",
+      "name": "Traps",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd"
+    },
+    {
+      "id": "sbh-undead",
+      "name": "Undead",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh",
+      "excludes": [
+        "sbh-mutant"
+      ]
+    },
+    {
+      "id": "sbh-unerring-aim",
+      "name": "Unerring aim",
+      "cost": 3,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Blades and Heroes",
+      "edition": "sbh",
+      "book": "sbh"
+    },
+    {
+      "id": "sbh-unique",
+      "name": "Unique",
+      "cost": 0,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Arthur and Merlin",
+      "edition": "sbh",
+      "book": "sam"
+    },
+    {
+      "id": "sbh-were",
+      "name": "Were",
+      "cost": 0,
+      "summary": "",
+      "category": "Trait",
+      "source": "Song of Gold and Darkness",
+      "edition": "sbh",
+      "book": "sgd"
+    }
+  ]
+}

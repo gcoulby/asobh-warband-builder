@@ -16,7 +16,7 @@ export const newId = (): string => crypto.randomUUID()
 
 export type ModelDraft = Omit<Model, 'id'>
 
-export type WarbandSettings = Pick<Warband, 'name' | 'theme' | 'roster' | 'pointsCap'>
+export type WarbandSettings = Pick<Warband, 'name' | 'theme' | 'roster' | 'strictRoster' | 'pointsCap' | 'edition' | 'books'>
 
 interface DataState extends StoredData {
   /** True once saved data has been read, so nothing is written before then. */
@@ -42,6 +42,8 @@ interface DataActions {
   deleteModel: (id: string) => void
 
   importRules: (rules: readonly SpecialRule[]) => void
+  /** Sets a rule's summary, written in your own words. */
+  setRuleSummary: (id: string, summary: string) => void
   clearRules: () => void
 
   importBundle: (bundle: WarbandBundle, imageIdMap?: ReadonlyMap<string, string>) => string
@@ -76,6 +78,9 @@ export const useDataStore = create<DataStore>()((set, get) => {
         name: settings.name ?? 'New warband',
         theme: settings.theme,
         roster: settings.roster,
+        strictRoster: settings.strictRoster,
+        edition: settings.edition,
+        books: settings.books,
         pointsCap: settings.pointsCap ?? DEFAULT_POINTS_CAP,
         entries: [],
         createdAt: now,
@@ -173,6 +178,9 @@ export const useDataStore = create<DataStore>()((set, get) => {
     importRules: (rules) => set((s) => ({ rules: mergeRules(s.rules, rules) })),
 
     clearRules: () => set({ rules: [] }),
+
+    setRuleSummary: (id, summary) =>
+      set((s) => ({ rules: s.rules.map((r) => (r.id === id ? { ...r, summary: summary.trim() } : r)) })),
 
     importBundle: (bundle, imageIdMap) => {
       const imported = rekeyBundle(bundle, newId, Date.now())

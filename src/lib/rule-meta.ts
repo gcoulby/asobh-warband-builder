@@ -21,6 +21,9 @@ export function matchesRuleSearch(rule: SpecialRule, query: string): boolean {
   return words.every((w) => haystack.includes(w))
 }
 
+/** What a rule does, in the fullest form loaded: its full text, else its summary. Empty when neither. */
+export const ruleDescription = (rule: Pick<SpecialRule, 'summary' | 'text'>): string => rule.text || rule.summary
+
 /** Signed cost for display: +3, -2, 0. */
 export const formatRuleCost = (cost: number): string => (cost > 0 ? `+${cost}` : String(cost))
 

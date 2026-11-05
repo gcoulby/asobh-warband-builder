@@ -30,13 +30,28 @@ export const rosterOptions: readonly RosterOption[] = [
   { id: 'lizardmen', label: 'Lizardmen' },
   { id: 'high-elves', label: 'High Elves' },
   { id: 'wood-elves', label: 'Wood Elves' },
+  { id: 'orcs', label: 'Orcs' },
   { id: 'dwarves', label: 'Dwarves' },
   { id: 'goblins', label: 'Goblins' },
   { id: 'humans', label: 'Humans' },
   { id: 'undead', label: 'Undead' },
+  { id: 'monsters-beasts', label: 'Monsters & Beasts' },
   { id: 'catfolk', label: 'Catfolk' },
+  { id: 'halflings', label: 'Halflings' },
+  { id: 'minotaurs', label: 'Minotaurs' },
+  { id: 'swarms', label: 'Swarms' },
   { id: 'ratmen', label: 'Ratmen' },
 ]
+
+/** Id meaning the warband mixes rosters freely. */
+export const MIXED_ROSTER = 'mixed'
+
+/** Rosters a model can belong to: every roster except Anything goes. */
+export const modelRosterOptions = rosterOptions.filter((r) => r.id !== MIXED_ROSTER)
+
+/** True when the warband sticks to one roster and has strict roster turned on. */
+export const isStrictRoster = (warband: { roster?: string; strictRoster?: boolean }): boolean =>
+  Boolean(warband.strictRoster && warband.roster && warband.roster !== MIXED_ROSTER)
 
 /** Label for a stored roster id. Unknown ids are shown as stored. */
 export const rosterLabel = (id: string | undefined): string | undefined =>

@@ -1,6 +1,7 @@
 import { useMemo } from 'react'
 import type { RosterRow } from '@/components/RosterRow'
 import { modelCost, warbandTotals, type WarbandTotals } from '@/lib/cost'
+import { loadBundledProfiles } from '@/lib/profiles-loader'
 import type { Model, SpecialRule, Warband } from '@/lib/schema'
 import { describeIssue, validateWarband, type ValidationMessage } from '@/lib/validate'
 
@@ -34,7 +35,7 @@ export function useRoster(
     return {
       rows,
       totals: warbandTotals(warband, models, rules),
-      messages: validateWarband(warband, models, rules).map(describeIssue),
+      messages: validateWarband(warband, models, rules, loadBundledProfiles().profiles).map(describeIssue),
     }
   }, [warband, models, rules, imageUrls])
 }

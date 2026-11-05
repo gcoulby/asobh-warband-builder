@@ -87,10 +87,18 @@ export function loadBundledRules(): BundledRulesFile[] {
   }))
 }
 
-/** Merges imported rules into existing ones by id. Imported entries win. */
+/**
+ * Merges imported rules into existing ones by id. Imported entries win, except
+ * that an existing summary or full text is kept when the imported entry has none.
+ */
 export function mergeRules(existing: readonly SpecialRule[], incoming: readonly SpecialRule[]): SpecialRule[] {
   const byId = new Map(existing.map((r) => [r.id, r]))
-  for (const rule of incoming) byId.set(rule.id, rule)
+  for (const rule of incoming) {
+    const existing = byId.get(rule.id)
+    const summary = rule.summary || existing?.summary || ''
+    const text = rule.text || existing?.text
+    byId.set(rule.id, text ? { ...rule, summary, text } : { ...rule, summary })
+  }
   return [...byId.values()].sort((a, b) => a.name.localeCompare(b.name))
 }
 

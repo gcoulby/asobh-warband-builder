@@ -1,15 +1,18 @@
 import { useMemo, useState } from 'react'
 import { Download, FileJson, Search, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { CreditsFooter } from '@/components/CreditsFooter'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { EmptyState } from '@/components/EmptyState'
 import { RuleList } from '@/components/RuleList'
 import { RulesImportDialog } from '@/components/RulesImportDialog'
+import { RuleSummaryDialog } from '@/components/RuleSummaryDialog'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { jsonFileType, saveFile } from '@/lib/file-access'
 import { loadBundledRules, rulesTemplate } from '@/lib/rules-loader'
+import { ruleSections } from '@/lib/editions'
 import { ruleKeywords } from '@/lib/rule-meta'
 import { useDataStore } from '@/stores/data-store'
 
@@ -17,6 +20,9 @@ export function RulesPage() {
   const rules = useDataStore((s) => s.rules)
   const importRules = useDataStore((s) => s.importRules)
   const clearRules = useDataStore((s) => s.clearRules)
+  const setRuleSummary = useDataStore((s) => s.setRuleSummary)
+  const [editingId, setEditingId] = useState<string>()
+  const editing = editingId ? rules.find((r) => r.id === editingId) : undefined
   const bundled = useMemo(() => loadBundledRules(), [])
 
   const [query, setQuery] = useState('')
@@ -28,6 +34,13 @@ export function RulesPage() {
     if (!q) return rules
     return rules.filter((r) => [r.name, ...ruleKeywords(r)].some((text) => text.toLowerCase().includes(q)))
   }, [rules, query])
+
+  const downloadRules = () => {
+    const text = JSON.stringify({ name: 'My rules', rules }, null, 2)
+    saveFile(new Blob([text], { type: 'application/json' }), 'my-rules.json', jsonFileType).catch(() =>
+      toast.error('The rules could not be saved. Try again.'),
+    )
+  }
 
   const downloadTemplate = () => {
     saveFile(new Blob([rulesTemplate()], { type: 'application/json' }), 'rules-template.json', jsonFileType).catch(() =>
@@ -55,7 +68,8 @@ export function RulesPage() {
         </h2>
         <p className="text-muted-foreground">
           A model costs ((Combat × 5 + its rules' costs) × (7 − Quality)) ÷ 2 points, rounded, and never less than 1.
-          Up to half the points cap may go on Personalities.
+          Advanced SBH allows up to half the points cap on Personalities. SBH Revised allows a third, and half on
+          Animals and Swarms.
         </p>
       </section>
 
@@ -110,10 +124,19 @@ export function RulesPage() {
             <h2 id="rules-heading" className="font-display text-xl font-semibold">
               {rules.length} special {rules.length === 1 ? 'rule' : 'rules'}
             </h2>
-            <Button variant="ghost" onClick={() => setClearOpen(true)}>
-              <Trash2 /> Remove all rules
-            </Button>
+            <div className="flex flex-wrap gap-1">
+              <Button variant="ghost" onClick={downloadRules}>
+                <Download /> Download rules
+              </Button>
+              <Button variant="ghost" onClick={() => setClearOpen(true)}>
+                <Trash2 /> Remove all rules
+              </Button>
+            </div>
           </div>
+          <p className="text-sm text-muted-foreground">
+            Add a one line summary to any rule, in your own words, with the pencil button. Summaries show in the rule
+            picker and on the print sheet. Download your rules to keep them or share them.
+          </p>
           <div className="relative">
             <Label htmlFor="rules-search" className="sr-only">
               Search rules
@@ -131,7 +154,15 @@ export function RulesPage() {
           {filtered.length === 0 ? (
             <p className="text-muted-foreground">No rules match “{query}”.</p>
           ) : (
-            <RuleList rules={filtered} />
+            ruleSections(filtered).map((section) => (
+              <section key={section.id} aria-labelledby={`rules-${section.id}`} className="flex flex-col gap-1.5">
+                <h3 id={`rules-${section.id}`} className="font-display text-lg font-semibold">
+                  {section.label}{' '}
+                  <span className="text-sm text-muted-foreground tabular-nums">{section.rules.length}</span>
+                </h3>
+                <RuleList rules={section.rules} label={section.label} onEdit={setEditingId} />
+              </section>
+            ))
           )}
         </section>
       )}
@@ -146,6 +177,16 @@ export function RulesPage() {
         }}
       />
 
+      <RuleSummaryDialog
+        rule={editing}
+        onOpenChange={(open) => !open && setEditingId(undefined)}
+        onSave={(summary) => {
+          if (editing) setRuleSummary(editing.id, summary)
+          setEditingId(undefined)
+          toast.success('Summary saved')
+        }}
+      />
+
       <ConfirmDialog
         open={clearOpen}
         onOpenChange={setClearOpen}
@@ -157,6 +198,7 @@ export function RulesPage() {
           toast.success('Rules removed')
         }}
       />
+      <CreditsFooter className="mt-6" />
     </main>
   )
 }

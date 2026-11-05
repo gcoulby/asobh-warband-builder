@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Copy, EllipsisVertical, Pencil, Plus, Search, Trash2 } from 'lucide-react'
 import { BuilderPanel } from '@/components/BuilderPanel'
+import { BookProfileList, type BookItem } from '@/components/BookProfileList'
 import { ModelRow } from '@/components/ModelRow'
 import { NoncombatantsHeader } from '@/components/NoncombatantsHeader'
 import { Button } from '@/components/ui/button'
@@ -13,8 +14,10 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { ToggleGroup, ToggleGroupItem } from '@/components/ui/toggle-group'
 import { isNoncombatant, type CostResult } from '@/lib/cost'
-import type { Model, SpecialRule } from '@/lib/schema'
+import type { Model, Roster, SpecialRule } from '@/lib/schema'
 
 export interface LibraryItem {
   model: Model
@@ -36,8 +39,20 @@ interface LibraryPanelProps {
   onDelete: (modelId: string) => void
   showNoncombatants: boolean
   onShowNoncombatantsChange: (shown: boolean) => void
+  /** Notes on your models left out, such as those for another game or roster. */
+  hiddenNotes?: readonly string[]
+  /** Book profiles of the chosen roster. Empty when no roster file is bundled. */
+  bookItems: readonly BookItem[]
+  bookRosters: readonly Roster[]
+  bookRoster?: string
+  onBookRosterChange: (roster: string) => void
+  /** Strict roster fixes the book roster to the warband's. */
+  bookRosterLocked: boolean
+  onAddProfile: (profileId: string) => void
   className?: string
 }
+
+type Source = 'mine' | 'book'
 
 /** Every saved model, ready to add to the open warband. */
 export function LibraryPanel({
@@ -51,13 +66,30 @@ export function LibraryPanel({
   onDelete,
   showNoncombatants,
   onShowNoncombatantsChange,
+  hiddenNotes = [],
+  bookItems,
+  bookRosters,
+  bookRoster,
+  onBookRosterChange,
+  bookRosterLocked,
+  onAddProfile,
   className,
 }: LibraryPanelProps) {
+  const [source, setSource] = useState<Source>('mine')
   const [query, setQuery] = useState('')
+  const hasBook = bookRosters.length > 0
+  const showBook = hasBook && source === 'book'
   const q = query.trim().toLowerCase()
   const shown = q
     ? items.filter((i) => [i.model.name, ...i.ruleNames].some((text) => text.toLowerCase().includes(q)))
     : items
+  const shownBook = q
+    ? bookItems.filter((i) =>
+        [i.profile.name, ...i.profile.ruleIds.map((id) => rules.find((r) => r.id === id)?.name ?? id)].some((text) =>
+          text.toLowerCase().includes(q),
+        ),
+      )
+    : bookItems
   const fighters = shown.filter((i) => !isNoncombatant(i.cost))
   const noncombatants = shown.filter((i) => isNoncombatant(i.cost))
 
@@ -113,14 +145,55 @@ export function LibraryPanel({
       header={
         <div className="flex flex-col gap-2">
           <div className="flex items-center justify-between gap-2">
-            <h2 className="font-display text-lg font-bold">
-              Library <span className="text-sm font-semibold text-muted-foreground tabular-nums">{items.length}</span>
-            </h2>
+            {hasBook ? (
+              <ToggleGroup
+                type="single"
+                variant="outline"
+                size="sm"
+                spacing={0}
+                value={source}
+                onValueChange={(v) => (v === 'mine' || v === 'book') && setSource(v)}
+                aria-label="Show models from"
+              >
+                <ToggleGroupItem value="mine" className="h-8 px-2.5 text-xs pointer-fine:h-8">
+                  My models <span className="text-muted-foreground tabular-nums">{items.length}</span>
+                </ToggleGroupItem>
+                <ToggleGroupItem value="book" className="h-8 px-2.5 text-xs pointer-fine:h-8">
+                  From the book
+                </ToggleGroupItem>
+              </ToggleGroup>
+            ) : (
+              <h2 className="font-display text-lg font-bold">
+                Library <span className="text-sm font-semibold text-muted-foreground tabular-nums">{items.length}</span>
+              </h2>
+            )}
             <Button size="sm" onClick={onNew}>
               <Plus /> New model
             </Button>
           </div>
-          {items.length > 0 && (
+          {showBook && (
+            <div className="flex items-center gap-2">
+              <Label htmlFor="book-roster" className="text-xs text-muted-foreground">
+                Roster
+              </Label>
+              <Select value={bookRoster} onValueChange={onBookRosterChange} disabled={bookRosterLocked}>
+                <SelectTrigger id="book-roster" size="sm" className="flex-1">
+                  <SelectValue placeholder="Choose a roster" />
+                </SelectTrigger>
+                <SelectContent>
+                  {bookRosters.map((r) => (
+                    <SelectItem key={r.id} value={r.id}>
+                      {r.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+          )}
+          {showBook && bookRosterLocked && (
+            <p className="text-xs text-muted-foreground">Strict roster is on, so only this roster is offered.</p>
+          )}
+          {(items.length > 0 || showBook) && (
             <div className="relative">
               <Label htmlFor="library-panel-search" className="sr-only">
                 Search the library
@@ -139,7 +212,21 @@ export function LibraryPanel({
         </div>
       }
     >
-      {items.length === 0 ? (
+      {showBook ? (
+        shownBook.length === 0 ? (
+          <p className="p-3 text-sm text-muted-foreground">
+            {q ? `No profiles match “${query}”.` : 'Choose a roster to see its profiles.'}
+          </p>
+        ) : (
+          <BookProfileList
+            items={shownBook}
+            rules={rules}
+            onAdd={onAddProfile}
+            showNoncombatants={showNoncombatants}
+            onShowNoncombatantsChange={onShowNoncombatantsChange}
+          />
+        )
+      ) : items.length === 0 ? (
         <p className="p-3 text-sm text-muted-foreground">No models yet. Create one with New model.</p>
       ) : shown.length === 0 ? (
         <p className="p-3 text-sm text-muted-foreground">No models match “{query}”.</p>
@@ -158,6 +245,12 @@ export function LibraryPanel({
           )}
         </>
       )}
+      {!showBook &&
+        hiddenNotes.map((note) => (
+          <p key={note} className="px-3 pt-3 text-xs text-muted-foreground last:pb-3">
+            {note}
+          </p>
+        ))}
     </BuilderPanel>
   )
 }

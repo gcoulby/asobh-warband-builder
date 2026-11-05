@@ -10,8 +10,10 @@ const sharePayloadSchema = z.object({
 })
 
 /** Removes image references, since pictures never travel in a link. */
+/** Share links leave out pictures and full rule text, which would make them very long. */
 const withoutImages = (bundle: WarbandBundle): WarbandBundle => ({
   ...bundle,
+  rules: bundle.rules.map(({ text: _text, ...rule }) => rule),
   models: bundle.models.map(({ imageId: _imageId, ...model }) => model),
 })
 

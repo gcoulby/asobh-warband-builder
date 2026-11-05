@@ -1,12 +1,15 @@
 import type { Ref } from 'react'
 import { ImageDown } from 'lucide-react'
 import { ModelCard } from '@/components/ModelCard'
+import { PrintRuleGlossary } from '@/components/PrintRuleGlossary'
 import type { RosterRow } from '@/components/RosterRow'
 import { Button } from '@/components/ui/button'
 import type { PaperSize, PrintNoncombatants } from '@/hooks/use-prefs'
-import { isNoncombatant, type WarbandTotals } from '@/lib/cost'
+import { isNoncombatant, rulesOf, type WarbandTotals } from '@/lib/cost'
 import type { SpecialRule, Warband } from '@/lib/schema'
+import { builderCredit, gameCredit } from '@/data/credits'
 import { rosterLabel } from '@/data/warband-options'
+import { editionOf } from '@/lib/editions'
 import { cn } from '@/lib/utils'
 
 interface PrintSheetProps {
@@ -19,6 +22,8 @@ interface PrintSheetProps {
   onExportCard: (node: HTMLElement, name: string) => void
   /** Noncombatants go after the rest: as cards, as one summary line, or not at all. */
   noncombatantMode: PrintNoncombatants
+  /** Whether to list what each rule on the sheet does. */
+  showRuleGlossary: boolean
 }
 
 /** Printable roster sheet: warband header and one compact card per row, two up. */
@@ -31,6 +36,7 @@ export function PrintSheet({
   sheetRef,
   onExportCard,
   noncombatantMode,
+  showRuleGlossary,
 }: PrintSheetProps) {
   const fighters = rows.filter((r) => !isNoncombatant(r.cost))
   const noncombatants = rows.filter((r) => isNoncombatant(r.cost))
@@ -38,6 +44,12 @@ export function PrintSheet({
   const noncombatantPoints = noncombatants.reduce(
     (sum, r) => sum + (r.cost.known ? r.cost.cost * r.entry.quantity : 0),
     0,
+  )
+
+  // Rules of every model printed as a card, or named in the noncombatant line, once each, by name.
+  const listed = noncombatantMode === 'hide' ? fighters : rows
+  const usedRules = [...new Map(listed.flatMap((r) => rulesOf(r.model, rules)).map((r) => [r.id, r])).values()].sort((a, b) =>
+    a.name.localeCompare(b.name),
   )
 
   const card = (row: RosterRow) => (
@@ -76,9 +88,9 @@ export function PrintSheet({
       <header className="mb-4 flex items-end justify-between gap-4 border-b-2 border-black pb-2">
         <div>
           <h1 className="font-display text-3xl leading-tight font-bold">{warband.name}</h1>
-          {(warband.roster || warband.theme) && (
-            <p className="text-sm">{[rosterLabel(warband.roster), warband.theme].filter(Boolean).join(' · ')}</p>
-          )}
+          <p className="text-sm">
+            {[editionOf(warband).shortLabel, rosterLabel(warband.roster), warband.theme].filter(Boolean).join(' · ')}
+          </p>
         </div>
         <div className="text-right">
           <p className="font-display text-3xl leading-none font-bold tabular-nums">
@@ -116,6 +128,11 @@ export function PrintSheet({
           <span className="tabular-nums">{noncombatantPoints} pts</span>
         </p>
       )}
+      {showRuleGlossary && <PrintRuleGlossary rules={usedRules} />}
+      <p className="mt-4 border-t border-black/30 pt-1.5 text-[0.625rem]">
+        {gameCredit.title} © {gameCredit.holder}, {gameCredit.url.replace(/^https?:\/\/|\/$/g, '')}. {builderCredit.role}{' '}
+        {builderCredit.name}.
+      </p>
     </div>
   )
 }

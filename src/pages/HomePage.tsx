@@ -2,12 +2,14 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { FileArchive, Plus } from 'lucide-react'
 import { toast } from 'sonner'
+import { CreditsFooter } from '@/components/CreditsFooter'
 import { EmptyState } from '@/components/EmptyState'
 import { WarbandListItem } from '@/components/WarbandListItem'
 import { WarbandSettingsDialog } from '@/components/WarbandSettingsDialog'
 import { Button } from '@/components/ui/button'
 import { DEFAULT_POINTS_CAP } from '@/data/profile-options'
 import { rosterLabel } from '@/data/warband-options'
+import { editionTag } from '@/lib/editions'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { useWarbandFiles } from '@/hooks/use-warband-files'
 import { warbandTotals } from '@/lib/cost'
@@ -103,7 +105,7 @@ export function HomePage() {
               id={warband.id}
               name={warband.name}
               theme={warband.theme}
-              roster={rosterLabel(warband.roster)}
+              roster={[editionTag(warband), rosterLabel(warband.roster)].filter(Boolean).join(' · ') || undefined}
               total={totals.total}
               cap={warband.pointsCap}
               hasUnknown={totals.hasUnknown}
@@ -127,6 +129,7 @@ export function HomePage() {
           void navigate(`/warband/${id}`)
         }}
       />
+      <CreditsFooter className="mt-6" />
     </main>
   )
 }

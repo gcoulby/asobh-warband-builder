@@ -12,6 +12,8 @@ const prefsSchema = z.object({
   showNoncombatants: z.boolean().catch(true),
   /** How the print sheet shows noncombatants: every card, one summary line, or not at all. */
   printNoncombatants: z.enum(['all', 'summary', 'hide']).catch('summary'),
+  /** Whether the print sheet lists what each special rule does. */
+  printRuleGlossary: z.boolean().catch(true),
 })
 
 export type Prefs = z.infer<typeof prefsSchema>
@@ -20,7 +22,13 @@ export type PaperSize = Prefs['paperSize']
 export type PrintNoncombatants = Prefs['printNoncombatants']
 
 /** Dark by default: games are often played in dim rooms. */
-const defaults: Prefs = { theme: 'dark', paperSize: 'a4', showNoncombatants: true, printNoncombatants: 'summary' }
+const defaults: Prefs = {
+  theme: 'dark',
+  paperSize: 'a4',
+  showNoncombatants: true,
+  printNoncombatants: 'summary',
+  printRuleGlossary: true,
+}
 
 const read = (): Prefs => {
   try {

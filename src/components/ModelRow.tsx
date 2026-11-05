@@ -18,13 +18,14 @@ interface ModelRowProps {
   /** Extra line under the rules, such as where the model is used. */
   note?: ReactNode
   selected?: boolean
-  onOpen: () => void
+  /** Opens the model. Without it the name is plain text. */
+  onOpen?: () => void
   /** Buttons at the end of the row. They sit above the row's click area. */
   actions?: ReactNode
   className?: string
 }
 
-/** A model as one compact list line. Clicking anywhere on it opens the model. */
+/** A model as one compact list line. With `onOpen`, clicking anywhere on it opens the model. */
 export function ModelRow({ model, rules, cost, imageUrl, prefix, note, selected = false, onOpen, actions, className }: ModelRowProps) {
   const leader = isLeader(model, rules)
   const personality = isPersonality(model, rules)
@@ -42,15 +43,22 @@ export function ModelRow({ model, rules, cost, imageUrl, prefix, note, selected 
       <ModelImage name={model.name} imageUrl={imageUrl} className="w-9 shrink-0 rounded-sm" />
       <div className="min-w-0 flex-1">
         <p className="flex items-center gap-1.5 text-sm font-bold">
-          <button
-            type="button"
-            onClick={onOpen}
-            aria-pressed={selected}
-            className="truncate text-left after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-ring"
-          >
-            {prefix}
-            {model.name}
-          </button>
+          {onOpen ? (
+            <button
+              type="button"
+              onClick={onOpen}
+              aria-pressed={selected}
+              className="truncate text-left after:absolute after:inset-0 focus-visible:outline-none focus-visible:after:outline-2 focus-visible:after:-outline-offset-2 focus-visible:after:outline-ring"
+            >
+              {prefix}
+              {model.name}
+            </button>
+          ) : (
+            <span className="truncate">
+              {prefix}
+              {model.name}
+            </span>
+          )}
           {leader && (
             <span className="shrink-0 text-primary" title="Leader">
               <Crown className="size-3.5" aria-hidden="true" />

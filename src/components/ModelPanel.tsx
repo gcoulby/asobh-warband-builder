@@ -9,19 +9,28 @@ import { RuleBrowser } from '@/components/RuleBrowser'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { combatOptions, qualityOptions } from '@/data/profile-options'
+import { editions } from '@/data/editions'
+import { modelRosterOptions, rosterLabel } from '@/data/warband-options'
+import { editionOf } from '@/lib/editions'
 import type { CostResult } from '@/lib/cost'
-import type { Model, SpecialRule } from '@/lib/schema'
+import type { Model, Profile, SpecialRule } from '@/lib/schema'
 
 export type ModelPatch = Partial<Omit<Model, 'id' | 'imageId'>>
 
 const MAX_NAME_LENGTH = 80
 const MAX_NOTES_LENGTH = 500
+/** Select value for a model with no roster. */
+const NO_ROSTER = 'none'
 
 interface ModelPanelProps {
   model: Model
+  /** Every loaded rule, so chosen rules always show. */
   rules: readonly SpecialRule[]
+  /** Rules offered for adding: those of the model's game and books. */
+  pickableRules: readonly SpecialRule[]
   cost: CostResult
   imageUrl?: string
   /** Quantity in the open warband, or undefined when the model is not in it. */
@@ -29,6 +38,8 @@ interface ModelPanelProps {
   /** How many warbands use this model. */
   usageCount: number
   rulesEmptyState: ReactNode
+  /** Book profile the model was made from, if any. */
+  profile?: Profile
   onPatch: (patch: ModelPatch) => void
   onImageChange: (change: ImageChange) => void
   onQuantityChange?: (quantity: number) => void
@@ -42,11 +53,13 @@ interface ModelPanelProps {
 export function ModelPanel({
   model,
   rules,
+  pickableRules,
   cost,
   imageUrl,
   quantity,
   usageCount,
   rulesEmptyState,
+  profile,
   onPatch,
   onImageChange,
   onQuantityChange,
@@ -56,6 +69,7 @@ export function ModelPanel({
   const nameMissing = name.trim().length === 0
   const nameId = `model-name-${model.id}`
   const notesId = `model-notes-${model.id}`
+  const edition = editionOf(model)
 
   return (
     <div className="flex flex-col">
@@ -121,7 +135,61 @@ export function ModelPanel({
             value={model.combat}
             onChange={(combat) => onPatch({ combat })}
           />
+          <label htmlFor={`model-edition-${model.id}`} className="text-sm font-bold">
+            Game
+          </label>
+          <Select
+            value={edition.id}
+            onValueChange={(v) =>
+              onPatch(editions.find((e) => e.id === v)?.hasRosters ? { edition: v } : { edition: v, roster: undefined })
+            }
+          >
+            <SelectTrigger id={`model-edition-${model.id}`} size="sm" className="w-full">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              {editions.map((e) => (
+                <SelectItem key={e.id} value={e.id}>
+                  {e.shortLabel}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+          {edition.hasRosters && (
+            <>
+              <label htmlFor={`model-roster-${model.id}`} className="text-sm font-bold">
+                Roster
+              </label>
+              <Select
+                value={model.roster ?? NO_ROSTER}
+                onValueChange={(v) => onPatch({ roster: v === NO_ROSTER ? undefined : v })}
+              >
+                <SelectTrigger id={`model-roster-${model.id}`} size="sm" className="w-full">
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value={NO_ROSTER}>No roster</SelectItem>
+                  <SelectSeparator />
+                  {modelRosterOptions.map((o) => (
+                    <SelectItem key={o.id} value={o.id}>
+                      {o.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </>
+          )}
         </div>
+
+        {profile && (
+          <p className="text-xs text-muted-foreground">
+            From the book: {profile.name}, {rosterLabel(profile.roster)}.
+            {cost.known && cost.formula !== undefined && (
+              <> Costs the book's {cost.cost} pts; the formula gives {cost.formula}. Change its stats or rules and the formula applies.</>
+            )}
+            {profile.choices && <> Book options: {profile.choices.join('; ')}.</>}
+          </p>
+        )}
 
         <div className="flex flex-col gap-1">
           <span className="text-sm font-bold">Special rules</span>
@@ -153,9 +221,9 @@ export function ModelPanel({
         )}
       </div>
 
-      {rules.length > 0 ? (
+      {pickableRules.length > 0 ? (
         <RuleBrowser
-          rules={rules}
+          rules={pickableRules}
           value={model.ruleIds}
           onChange={(ruleIds) => onPatch({ ruleIds })}
           title={

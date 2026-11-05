@@ -7,7 +7,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { isRuleGroupId, ruleGroupLabels, type RuleGroupId } from '@/data/rule-groups'
 import { groupRules } from '@/lib/rule-groups'
 import { RuleMarkers } from '@/components/RuleMarkers'
-import { formatRuleCost, matchesRuleSearch, ruleMarkers, ruleSource } from '@/lib/rule-meta'
+import { formatRuleCost, matchesRuleSearch, ruleDescription, ruleMarkers, ruleSource } from '@/lib/rule-meta'
 import type { SpecialRule } from '@/lib/schema'
 import { cn } from '@/lib/utils'
 
@@ -51,7 +51,7 @@ export function RuleBrowser({ rules, value, onChange, title, className }: RuleBr
         value={rule.id}
         onSelect={() => toggle(rule.id)}
         data-chosen={isOn}
-        title={[rule.summary, source].filter(Boolean).join(' · ') || undefined}
+        title={[ruleDescription(rule), source].filter(Boolean).join(' · ') || undefined}
         className={cn(
           'h-9 gap-2 rounded-none border-b border-l-2 border-l-transparent px-3 py-0 [&>svg:last-child]:hidden',
           isOn && 'border-l-primary bg-accent/70',

@@ -1,6 +1,7 @@
 import { useMemo, useState } from 'react'
 import { Copy, Plus, Search, Trash2 } from 'lucide-react'
 import { toast } from 'sonner'
+import { CreditsFooter } from '@/components/CreditsFooter'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
 import { EditorSheet } from '@/components/EditorSheet'
 import { EmptyState } from '@/components/EmptyState'
@@ -11,6 +12,8 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { ModelPanelContainer } from '@/containers/ModelPanelContainer'
 import { useDeleteModel } from '@/hooks/use-delete-model'
+import { rosterLabel } from '@/data/warband-options'
+import { editionTag } from '@/lib/editions'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { usePrefs } from '@/hooks/use-prefs'
 import { DESKTOP_QUERY, useMediaQuery } from '@/hooks/use-media-query'
@@ -56,7 +59,9 @@ export function LibraryPage() {
         rules={rules}
         cost={modelCost(model, rules)}
         imageUrl={model.imageId ? imageUrls.get(model.imageId) : undefined}
-        note={usage > 0 ? `In ${usage} ${usage === 1 ? 'warband' : 'warbands'}` : 'Not in a warband'}
+        note={[editionTag(model), rosterLabel(model.roster), usage > 0 ? `In ${usage} ${usage === 1 ? 'warband' : 'warbands'}` : 'Not in a warband']
+          .filter(Boolean)
+          .join(' · ')}
         onOpen={() => setEditing(model.id)}
         actions={
           <>
@@ -176,6 +181,7 @@ export function LibraryPage() {
           toast.success('Model deleted')
         }}
       />
+      <CreditsFooter className="mt-6" />
     </main>
   )
 }

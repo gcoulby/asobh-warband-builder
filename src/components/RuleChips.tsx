@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge'
+import { ruleDescription } from '@/lib/rule-meta'
 import type { SpecialRule } from '@/lib/schema'
 import { cn } from '@/lib/utils'
 
@@ -25,7 +26,7 @@ export function RuleChips({ ruleIds, rules, compact = false }: RuleChipsProps) {
                 'h-auto rounded-sm px-1.5 py-0.5 font-normal whitespace-nowrap print:border print:border-black print:bg-white print:text-black',
                 compact ? 'text-[0.6875rem]' : 'text-[0.8125rem]',
               )}
-              title={rule?.summary}
+              title={rule && ruleDescription(rule)}
             >
               {rule ? rule.name : `Unknown rule: ${id}`}
             </Badge>
