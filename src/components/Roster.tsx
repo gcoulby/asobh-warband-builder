@@ -59,7 +59,7 @@ export function Roster({ rows, rules, selectedModelId, newModelId, onMove, ...ha
       }}
     >
       <SortableContext items={ids} strategy={verticalListSortingStrategy}>
-        <ol className="flex flex-col gap-2" aria-label="Roster">
+        <ol className="flex flex-col" aria-label="Roster">
           {rows.map((row, index) => (
             <RosterItem
               key={row.entry.modelId}

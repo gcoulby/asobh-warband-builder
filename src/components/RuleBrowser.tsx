@@ -14,8 +14,8 @@ interface RuleBrowserProps {
   rules: readonly SpecialRule[]
   value: readonly string[]
   onChange: (ruleIds: string[]) => void
-  /** Shown along the foot, such as the running model cost and a Done button. */
-  footer?: ReactNode
+  /** Pinned above the search, so the model stays in view while scrolling the list. */
+  title?: ReactNode
   className?: string
 }
 
@@ -23,9 +23,10 @@ const isPersonalityOnly = (rule: SpecialRule) => rule.tags?.includes('P') ?? fal
 
 /**
  * Every special rule, sorted into tabs by kind. Searching looks across all tabs.
- * Picking a rule toggles it on the model.
+ * Picking a rule toggles it on the model. The list scrolls with the panel around
+ * it while the search and tabs stay pinned to the top.
  */
-export function RuleBrowser({ rules, value, onChange, footer, className }: RuleBrowserProps) {
+export function RuleBrowser({ rules, value, onChange, title, className }: RuleBrowserProps) {
   const [search, setSearch] = useState('')
   const [hidePersonality, setHidePersonality] = useState(false)
   const selected = new Set(value)
@@ -50,18 +51,18 @@ export function RuleBrowser({ rules, value, onChange, footer, className }: RuleB
         onSelect={() => toggle(rule.id)}
         data-chosen={isOn}
         className={cn(
-          'min-h-11 items-start gap-2 rounded-sm border-l-2 border-transparent py-1.5',
-          isOn && 'border-l-primary bg-accent/60',
+          'min-h-10 items-start gap-2 rounded-none border-b border-l-2 border-l-transparent px-3 py-1.5',
+          isOn && 'border-l-primary bg-accent/70',
         )}
       >
-        <Check className={cn('mt-0.5 shrink-0', isOn ? 'opacity-100' : 'opacity-0')} aria-hidden="true" />
+        <Check className={cn('mt-0.5 shrink-0 text-primary', isOn ? 'opacity-100' : 'opacity-0')} aria-hidden="true" />
         <div className="flex min-w-0 flex-1 flex-col">
           <span className="flex justify-between gap-2 font-bold">
             <span>
               {rule.name}
               {isOn && <span className="sr-only">, chosen</span>}
             </span>
-            <span className="font-display text-base text-brass tabular-nums">{formatRuleCost(rule.cost)}</span>
+            <span className="font-display text-sm tabular-nums">{formatRuleCost(rule.cost)}</span>
           </span>
           {rule.summary && <span className="text-xs text-muted-foreground">{rule.summary}</span>}
           {meta.length > 0 && <span className="text-xs text-muted-foreground">{meta.join(' · ')}</span>}
@@ -71,70 +72,69 @@ export function RuleBrowser({ rules, value, onChange, footer, className }: RuleB
   }
 
   const searching = search.trim().length > 0
-  const listClass = 'max-h-none min-h-0 flex-1 px-1 pb-2'
 
   return (
-    <Command shouldFilter={false} className={cn('flex min-h-0 flex-col rounded-none bg-transparent', className)}>
-      <div className="flex flex-col gap-2 border-b px-3 pt-3 pb-2">
-        <CommandInput value={search} onValueChange={setSearch} placeholder="Search all special rules" />
-        <div className="flex items-center gap-2">
-          <Switch id="hide-personality" checked={hidePersonality} onCheckedChange={setHidePersonality} />
-          <Label htmlFor="hide-personality" className="text-sm font-normal text-muted-foreground">
-            Hide Personality-only rules
-          </Label>
+    <Command
+      shouldFilter={false}
+      className={cn('size-auto overflow-visible rounded-none! bg-transparent p-0', className)}
+    >
+      <Tabs value={activeTab} onValueChange={(v) => isRuleGroupId(v) && setTab(v)} className="gap-0">
+        <div className="sticky top-0 z-10 flex flex-col gap-2 border-b bg-card px-3 pt-2 pb-2">
+          {title}
+          <CommandInput value={search} onValueChange={setSearch} placeholder="Search all special rules" />
+          <div className="flex items-center gap-2">
+            <Switch id="hide-personality" checked={hidePersonality} onCheckedChange={setHidePersonality} />
+            <Label htmlFor="hide-personality" className="text-xs font-normal text-muted-foreground">
+              Hide Personality-only rules
+            </Label>
+          </div>
+          {!searching && (
+            <TabsList
+              aria-label="Kinds of special rule"
+              className="h-auto w-full flex-wrap justify-start gap-1 rounded-none bg-transparent p-0 group-data-horizontal/tabs:h-auto"
+            >
+              {groups.map((group) => {
+                const chosen = group.rules.filter((r) => selected.has(r.id)).length
+                return (
+                  <TabsTrigger
+                    key={group.id}
+                    value={group.id}
+                    className="h-7 flex-none rounded-sm border-border px-2 text-xs data-active:border-primary data-active:bg-accent"
+                  >
+                    {ruleGroupLabels[group.id]}
+                    <span className="text-muted-foreground tabular-nums">
+                      {chosen > 0 ? `${chosen}/${group.rules.length}` : group.rules.length}
+                    </span>
+                  </TabsTrigger>
+                )
+              })}
+            </TabsList>
+          )}
         </div>
-      </div>
 
-      {searching ? (
-        <CommandList className={cn(listClass, 'pt-1')} aria-label="Matching special rules">
-          <CommandEmpty>No rules match that search.</CommandEmpty>
-          {groups.map((group) => {
-            const matches = group.rules.filter((r) => matchesRuleSearch(r, search))
-            if (matches.length === 0) return null
-            return (
-              <CommandGroup key={group.id} heading={ruleGroupLabels[group.id]}>
-                {matches.map(item)}
-              </CommandGroup>
-            )
-          })}
-        </CommandList>
-      ) : (
-        <Tabs
-          value={activeTab}
-          onValueChange={(v) => isRuleGroupId(v) && setTab(v)}
-          className="flex min-h-0 flex-1 flex-col gap-0"
-        >
-          <TabsList
-            aria-label="Kinds of special rule"
-            className="h-auto w-full flex-wrap justify-start group-data-horizontal/tabs:h-auto gap-1 rounded-none border-b bg-transparent px-2 py-2"
-          >
+        {searching ? (
+          <CommandList className="max-h-none overflow-visible" aria-label="Matching special rules">
+            <CommandEmpty>No rules match that search.</CommandEmpty>
             {groups.map((group) => {
-              const chosen = group.rules.filter((r) => selected.has(r.id)).length
+              const matches = group.rules.filter((r) => matchesRuleSearch(r, search))
+              if (matches.length === 0) return null
               return (
-                <TabsTrigger
-                  key={group.id}
-                  value={group.id}
-                  className="h-8 flex-none rounded-sm border-border px-2 data-active:border-primary data-active:bg-accent"
-                >
-                  {ruleGroupLabels[group.id]}
-                  <span className="text-xs text-muted-foreground tabular-nums">
-                    {chosen > 0 ? `${chosen}/${group.rules.length}` : group.rules.length}
-                  </span>
-                </TabsTrigger>
+                <CommandGroup key={group.id} heading={ruleGroupLabels[group.id]} className="p-0">
+                  {matches.map(item)}
+                </CommandGroup>
               )
             })}
-          </TabsList>
-          {groups.map((group) => (
-            <TabsContent key={group.id} value={group.id} className="flex min-h-0 flex-1 flex-col">
-              <CommandList className={cn(listClass, 'pt-1')} aria-label={ruleGroupLabels[group.id]}>
-                <CommandGroup>{group.rules.map(item)}</CommandGroup>
+          </CommandList>
+        ) : (
+          groups.map((group) => (
+            <TabsContent key={group.id} value={group.id}>
+              <CommandList className="max-h-none overflow-visible" aria-label={ruleGroupLabels[group.id]}>
+                <CommandGroup className="p-0">{group.rules.map(item)}</CommandGroup>
               </CommandList>
             </TabsContent>
-          ))}
-        </Tabs>
-      )}
-
-      {footer && <div className="flex items-center justify-between gap-2 border-t px-3 py-2 text-sm">{footer}</div>}
+          ))
+        )}
+      </Tabs>
     </Command>
   )
 }

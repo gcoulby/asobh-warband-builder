@@ -5,6 +5,7 @@ import { ImageCropDialog } from '@/components/ImageCropDialog'
 import { ModelImage } from '@/components/ModelImage'
 import { Button } from '@/components/ui/button'
 import { cropAndCompress, type PixelArea } from '@/lib/images'
+import { cn } from '@/lib/utils'
 
 export type ImageChange = { kind: 'keep' } | { kind: 'set'; blob: Blob } | { kind: 'remove' }
 
@@ -14,10 +15,12 @@ interface ImageFieldProps {
   currentUrl?: string
   change: ImageChange
   onChange: (change: ImageChange) => void
+  /** Smaller picture and buttons, for panel headers. */
+  compact?: boolean
 }
 
 /** Picks a picture from the camera or files, crops it to the card ratio and compresses it. */
-export function ImageField({ name, currentUrl, change, onChange }: ImageFieldProps) {
+export function ImageField({ name, currentUrl, change, onChange, compact = false }: ImageFieldProps) {
   const inputRef = useRef<HTMLInputElement>(null)
   const [sourceUrl, setSourceUrl] = useState<string | null>(null)
   const [pendingUrl, setPendingUrl] = useState<string>()
@@ -66,9 +69,9 @@ export function ImageField({ name, currentUrl, change, onChange }: ImageFieldPro
   }
 
   return (
-    <div className="flex items-end gap-3">
-      <ModelImage name={name || 'New model'} imageUrl={shownUrl} className="w-20 shrink-0 rounded-sm border" />
-      <div className="flex flex-col gap-2">
+    <div className={cn('flex gap-3', compact ? 'flex-col items-start gap-1.5' : 'items-end')}>
+      <ModelImage name={name || 'New model'} imageUrl={shownUrl} className={cn('shrink-0 rounded-sm border', compact ? 'w-16' : 'w-20')} />
+      <div className={cn('flex flex-col', compact ? 'gap-0.5' : 'gap-2')}>
         <input
           ref={inputRef}
           type="file"
@@ -81,12 +84,26 @@ export function ImageField({ name, currentUrl, change, onChange }: ImageFieldPro
             e.target.value = ''
           }}
         />
-        <Button type="button" variant="outline" onClick={() => inputRef.current?.click()}>
-          <ImagePlus /> {shownUrl ? 'Change picture' : 'Add picture'}
+        <Button
+          type="button"
+          variant={compact ? 'ghost' : 'outline'}
+          size={compact ? 'sm' : 'default'}
+          className={cn(compact && 'h-7 px-1.5 text-xs')}
+          onClick={() => inputRef.current?.click()}
+          aria-label={shownUrl ? 'Change picture' : 'Add picture'}
+        >
+          <ImagePlus /> {compact ? (shownUrl ? 'Change' : 'Picture') : shownUrl ? 'Change picture' : 'Add picture'}
         </Button>
         {shownUrl && (
-          <Button type="button" variant="ghost" onClick={() => onChange({ kind: 'remove' })}>
-            <Trash2 /> Remove picture
+          <Button
+            type="button"
+            variant="ghost"
+            size={compact ? 'sm' : 'default'}
+            className={cn(compact && 'h-7 px-1.5 text-xs')}
+            onClick={() => onChange({ kind: 'remove' })}
+            aria-label="Remove picture"
+          >
+            <Trash2 /> {compact ? 'Remove' : 'Remove picture'}
           </Button>
         )}
       </div>

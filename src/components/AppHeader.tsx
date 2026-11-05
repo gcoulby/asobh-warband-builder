@@ -21,8 +21,8 @@ const links = [
 
 export function AppHeader({ status, theme, resolvedTheme, onThemeChange }: AppHeaderProps) {
   return (
-    <header className="border-b border-black/60 bg-card pt-[env(safe-area-inset-top)] shadow-[0_1px_0_0_rgb(255_255_255/0.03)] print:hidden">
-      <div className="mx-auto flex h-12 max-w-6xl items-center gap-1 px-2 sm:px-4">
+    <header className="shrink-0 border-b bg-card pt-[env(safe-area-inset-top)] print:hidden">
+      <div className="flex h-12 items-center gap-1 px-2 sm:px-4">
         <Link
           to="/"
           className="mr-1 hidden h-11 items-center gap-1.5 rounded-sm px-2 font-display text-lg font-bold tracking-tight sm:inline-flex"

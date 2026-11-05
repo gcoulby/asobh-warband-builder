@@ -1,21 +1,21 @@
 import { useEffect, useMemo, useState } from 'react'
 import { Link, useNavigate, useParams } from 'react-router'
-import { ChevronLeft, Library, Plus } from 'lucide-react'
+import { ChevronLeft, Pencil, Plus } from 'lucide-react'
 import { toast } from 'sonner'
+import { BuilderPanel } from '@/components/BuilderPanel'
 import { ConfirmDialog } from '@/components/ConfirmDialog'
-import { EditorSheet } from '@/components/EditorSheet'
-import { EmptyState } from '@/components/EmptyState'
-import { LibraryPickerDialog, type LibraryPickerItem } from '@/components/LibraryPickerDialog'
+import { LibraryPanel, type LibraryItem } from '@/components/LibraryPanel'
 import { PointsBar } from '@/components/PointsBar'
 import { Roster } from '@/components/Roster'
 import { ShareDialog } from '@/components/ShareDialog'
-import { ValidationPanel } from '@/components/ValidationPanel'
+import { ValidationPopover } from '@/components/ValidationPopover'
 import { WarbandActions } from '@/components/WarbandActions'
 import { WarbandMenu } from '@/components/WarbandMenu'
 import { WarbandSettingsDialog } from '@/components/WarbandSettingsDialog'
 import { Button } from '@/components/ui/button'
 import { ResizableHandle, ResizablePanel, ResizablePanelGroup } from '@/components/ui/resizable'
-import { ModelEditorContainer, type EditTarget } from '@/containers/ModelEditorContainer'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { ModelPanelContainer } from '@/containers/ModelPanelContainer'
 import { gameSizeOptions, rosterLabel } from '@/data/warband-options'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { DESKTOP_QUERY, useMediaQuery } from '@/hooks/use-media-query'
@@ -28,11 +28,19 @@ import { shareUrl } from '@/lib/share'
 import { selectStoredData, useDataStore } from '@/stores/data-store'
 import { NotFoundPage } from '@/pages/NotFoundPage'
 
+type MobileView = 'library' | 'warband' | 'model'
+const isMobileView = (v: string): v is MobileView => v === 'library' || v === 'warband' || v === 'model'
+
+/**
+ * The builder. Library on the left, the warband in the middle, the selected
+ * model on the right. Each column scrolls on its own. Below desktop width the
+ * three columns become tabs.
+ */
 export function WarbandPage() {
   const { id = '' } = useParams()
   const navigate = useNavigate()
   const isDesktop = useMediaQuery(DESKTOP_QUERY)
-  const [, setPrefs] = usePrefs()
+  const [prefs, setPrefs] = usePrefs()
 
   const warband = useDataStore((s) => s.warbands.find((w) => w.id === id))
   const models = useDataStore((s) => s.models)
@@ -43,9 +51,11 @@ export function WarbandPage() {
   const view = useRoster(warband, models, rules, imageUrls)
   const files = useWarbandFiles()
 
-  const [editing, setEditing] = useState<EditTarget>()
+  const [selectedId, setSelectedId] = useState<string | undefined>(() =>
+    prefs.lastModelId && warband?.entries.some((e) => e.modelId === prefs.lastModelId) ? prefs.lastModelId : undefined,
+  )
   const [newModelId, setNewModelId] = useState<string>()
-  const [pickerOpen, setPickerOpen] = useState(false)
+  const [mobileView, setMobileView] = useState<MobileView>('warband')
   const [settingsOpen, setSettingsOpen] = useState(false)
   const [shareOpen, setShareOpen] = useState(false)
   const [deleteOpen, setDeleteOpen] = useState(false)
@@ -54,190 +64,215 @@ export function WarbandPage() {
     if (warband) setPrefs({ lastWarbandId: warband.id })
   }, [warband?.id, setPrefs, warband])
 
-  const pickerItems = useMemo<LibraryPickerItem[]>(
+  const libraryItems = useMemo<LibraryItem[]>(
     () =>
-      models.map((model) => ({
-        model,
-        cost: modelCost(model, rules),
-        imageUrl: model.imageId ? imageUrls.get(model.imageId) : undefined,
-        ruleNames: model.ruleIds.map((rid) => rules.find((r) => r.id === rid)?.name ?? rid),
-      })),
-    [models, rules, imageUrls],
+      [...models]
+        .sort((a, b) => a.name.localeCompare(b.name))
+        .map((model) => ({
+          model,
+          cost: modelCost(model, rules),
+          imageUrl: model.imageId ? imageUrls.get(model.imageId) : undefined,
+          ruleNames: model.ruleIds.map((rid) => rules.find((r) => r.id === rid)?.name ?? rid),
+          inWarband: warband?.entries.find((e) => e.modelId === model.id)?.quantity ?? 0,
+        })),
+    [models, rules, imageUrls, warband],
   )
 
   if (!warband || !view) return <NotFoundPage what="warband" />
 
-  const editTitle = editing?.kind === 'new' ? 'Add model' : 'Edit model'
-  const selectedModelId = editing?.kind === 'existing' ? editing.modelId : undefined
+  const selectedExists = selectedId !== undefined && models.some((m) => m.id === selectedId)
 
-  const openEditor = (target: EditTarget) => {
-    setEditing(target)
-    if (target.kind === 'existing') setPrefs({ lastModelId: target.modelId })
+  const select = (modelId: string, openOnMobile = true) => {
+    setSelectedId(modelId)
+    setPrefs({ lastModelId: modelId })
+    if (openOnMobile) setMobileView('model')
   }
 
-  const handleDone = (savedId?: string) => {
-    if (savedId && editing?.kind === 'new') setNewModelId(savedId)
-    setEditing(isDesktop && savedId ? { kind: 'existing', modelId: savedId } : undefined)
+  const addToWarband = (modelId: string) => {
+    actions.addEntry(warband.id, modelId)
+    setNewModelId(modelId)
+    select(modelId, false)
+    const name = models.find((m) => m.id === modelId)?.name ?? 'Model'
+    toast.success(`${name} added`)
+  }
+
+  const createModel = () => {
+    const modelId = actions.createModel({ name: 'New model' })
+    actions.addEntry(warband.id, modelId)
+    setNewModelId(modelId)
+    select(modelId)
   }
 
   const share = shareOpen
     ? shareUrl(bundleWarband(warband, selectStoredData(useDataStore.getState())), window.location.origin, import.meta.env.BASE_URL)
     : ''
 
-  const editor = editing && (
-    <ModelEditorContainer
-      key={editing.kind === 'existing' ? editing.modelId : 'new'}
-      target={editing}
-      warbandId={warband.id}
-      onDone={handleDone}
+  const sizeLabel = gameSizeOptions.find((o) => o.points === warband.pointsCap)?.label
+  const meta = [sizeLabel, rosterLabel(warband.roster), warband.theme].filter(Boolean).join(' · ')
+  const errorCount = view.messages.filter((m) => m.severity === 'error').length
+  const warningCount = view.messages.filter((m) => m.severity === 'warning' && m.issue.kind !== 'empty').length
+
+  const library = (
+    <LibraryPanel
+      items={libraryItems}
+      selectedModelId={selectedId}
+      onSelect={(modelId) => select(modelId)}
+      onAdd={addToWarband}
+      onNew={createModel}
     />
   )
 
-  const rosterColumn = (
-    <div className="mx-auto flex w-full max-w-3xl flex-col gap-3 px-3 pt-3 pb-6 sm:px-4">
-      <div className="flex items-start gap-1">
-        <Button asChild variant="ghost" size="icon" className="-ml-2 shrink-0">
-          <Link to="/" aria-label="Back to warbands">
-            <ChevronLeft />
-          </Link>
-        </Button>
-        <div className="min-w-0 flex-1 pt-1">
-          <h1 className="font-display text-[1.5rem] leading-tight font-bold wrap-break-word">{warband.name}</h1>
-          <button
-            type="button"
-            onClick={() => setSettingsOpen(true)}
-            className="text-left text-sm text-muted-foreground underline-offset-4 hover:text-foreground hover:underline"
-          >
-            {[
-              `${warband.pointsCap} pts`,
-              gameSizeOptions.find((o) => o.points === warband.pointsCap)?.label,
-              rosterLabel(warband.roster),
-            ]
-              .filter(Boolean)
-              .join(' · ')}
-            <span className="sr-only">. Change warband settings</span>
-          </button>
-          {warband.theme && <p className="text-muted-foreground">{warband.theme}</p>}
+  const warbandPanel = (
+    <BuilderPanel
+      label="Warband"
+      header={
+        <div className="flex items-start gap-1">
+          <Button asChild variant="ghost" size="icon" className="-ml-2 shrink-0">
+            <Link to="/" aria-label="Back to warbands">
+              <ChevronLeft />
+            </Link>
+          </Button>
+          <div className="min-w-0 flex-1">
+            <h1>
+              <button
+                type="button"
+                onClick={() => setSettingsOpen(true)}
+                className="group flex max-w-full items-center gap-1.5 text-left font-display text-xl leading-tight font-bold"
+              >
+                <span className="truncate">{warband.name}</span>
+                <Pencil className="size-3.5 shrink-0 text-muted-foreground group-hover:text-foreground" aria-hidden="true" />
+                <span className="sr-only">, change warband settings</span>
+              </button>
+            </h1>
+            {meta && <p className="truncate text-xs text-muted-foreground">{meta}</p>}
+          </div>
+          <ValidationPopover messages={view.messages.filter((m) => m.issue.kind !== 'empty')} />
+          <WarbandActions
+            onPrint={() => void navigate(`/print/${warband.id}`)}
+            onShare={() => setShareOpen(true)}
+            onExportZip={() => {
+              files
+                .exportZip(warband)
+                .then((outcome) => outcome !== 'cancelled' && toast.success('Warband exported'))
+                .catch(() => toast.error('The warband could not be exported. Try again.'))
+            }}
+          />
+          <WarbandMenu onSettings={() => setSettingsOpen(true)} onDelete={() => setDeleteOpen(true)} />
         </div>
-        <WarbandMenu onSettings={() => setSettingsOpen(true)} onDelete={() => setDeleteOpen(true)} />
-      </div>
-
-      <WarbandActions
-        onPrint={() => void navigate(`/print/${warband.id}`)}
-        onShare={() => setShareOpen(true)}
-        onExportZip={() => {
-          files
-            .exportZip(warband)
-            .then((outcome) => outcome !== 'cancelled' && toast.success('Warband exported'))
-            .catch(() => toast.error('The warband could not be exported. Try again.'))
-        }}
-      />
-
-      <ValidationPanel messages={view.messages.filter((m) => m.issue.kind !== 'empty')} />
-
+      }
+      footer={
+        isDesktop && (
+          <PointsBar
+            total={view.totals.total}
+            cap={warband.pointsCap}
+            hasUnknown={view.totals.hasUnknown}
+            modelCount={view.totals.modelCount}
+            groupCount={view.totals.groupCount}
+            errorCount={errorCount}
+            warningCount={warningCount}
+          />
+        )
+      }
+    >
       {view.rows.length === 0 ? (
-        <EmptyState title="No models yet. Add your first model.">
-          Create a new model, or pick one you have already made from your library.
-        </EmptyState>
+        <div className="flex flex-col items-start gap-2 p-3 text-sm text-muted-foreground">
+          <p>No models yet. Add one from the library with +, or create a new one.</p>
+          <Button size="sm" onClick={createModel}>
+            <Plus /> New model
+          </Button>
+        </div>
       ) : (
         <Roster
           rows={view.rows}
           rules={rules}
-          selectedModelId={isDesktop ? selectedModelId : undefined}
+          selectedModelId={selectedId}
           newModelId={newModelId}
-          onEdit={(modelId) => openEditor({ kind: 'existing', modelId })}
+          onEdit={(modelId) => select(modelId)}
           onDuplicate={(modelId) => {
             const copy = actions.duplicateEntry(warband.id, modelId)
             if (copy) {
               setNewModelId(copy)
+              select(copy, false)
               toast.success('Model duplicated')
             }
           }}
           onRemove={(modelId) => {
             actions.removeEntry(warband.id, modelId)
-            if (selectedModelId === modelId) setEditing(undefined)
             toast('Removed from warband. The model is still in your library.')
           }}
           onQuantityChange={(modelId, quantity) => actions.updateEntry(warband.id, modelId, { quantity })}
           onMove={(from, to) => actions.moveEntry(warband.id, from, to)}
         />
       )}
-
-      <div className="flex flex-wrap gap-2">
-        <Button onClick={() => openEditor({ kind: 'new' })}>
-          <Plus /> Add model
-        </Button>
-        <Button variant="outline" onClick={() => setPickerOpen(true)} disabled={models.length === 0}>
-          <Library /> Add from library
-        </Button>
-      </div>
-    </div>
+    </BuilderPanel>
   )
 
-  const pointsBar = (
-    <PointsBar
-      total={view.totals.total}
-      cap={warband.pointsCap}
-      hasUnknown={view.totals.hasUnknown}
-      modelCount={view.totals.modelCount}
-      groupCount={view.totals.groupCount}
-      errorCount={view.messages.filter((m) => m.severity === 'error').length}
-      warningCount={view.messages.filter((m) => m.severity === 'warning' && m.issue.kind !== 'empty').length}
-      className={
-        isDesktop
-          ? 'sticky bottom-0'
-          : 'fixed inset-x-0 bottom-0 z-30 pb-[max(0.5rem,env(safe-area-inset-bottom))]'
-      }
-    />
+  const modelPanel = (
+    <BuilderPanel label="Selected model">
+      {selectedId && selectedExists ? (
+        <ModelPanelContainer key={selectedId} modelId={selectedId} warbandId={warband.id} />
+      ) : (
+        <p className="p-3 text-sm text-muted-foreground">
+          Select a model in the warband or the library to edit it here.
+        </p>
+      )}
+    </BuilderPanel>
   )
 
   return (
-    <>
+    <div className="flex h-full min-h-0 flex-col">
       {isDesktop ? (
-        <ResizablePanelGroup orientation="horizontal" className="h-[calc(100dvh-3.5rem)]">
-          <ResizablePanel defaultSize="38%" minSize="28%">
-            <div className="flex h-full flex-col overflow-y-auto">
-              <div className="flex-1">{rosterColumn}</div>
-              {pointsBar}
-            </div>
+        <ResizablePanelGroup orientation="horizontal" className="min-h-0 flex-1">
+          <ResizablePanel defaultSize="26%" minSize="18%">
+            {library}
           </ResizablePanel>
-          <ResizableHandle withHandle aria-label="Resize editor" />
-          <ResizablePanel defaultSize="62%" minSize="35%">
-            <aside aria-label={editing ? editTitle : 'Model editor'} className="flex h-full flex-col bg-popover">
-              {editing ? (
-                <>
-                  <h2 className="border-b px-4 py-3 font-display text-2xl font-semibold">{editTitle}</h2>
-                  <div className="flex min-h-0 flex-1 flex-col pt-4">{editor}</div>
-                </>
-              ) : (
-                <div className="p-6">
-                  <EmptyState title="No model selected">Select a model in the roster to edit it, or add a new one.</EmptyState>
-                </div>
-              )}
-            </aside>
+          <ResizableHandle withHandle aria-label="Resize library" />
+          <ResizablePanel defaultSize="38%" minSize="28%">
+            {warbandPanel}
+          </ResizablePanel>
+          <ResizableHandle withHandle aria-label="Resize model panel" />
+          <ResizablePanel defaultSize="36%" minSize="26%">
+            {modelPanel}
           </ResizablePanel>
         </ResizablePanelGroup>
       ) : (
-        <>
-          <div className="pb-28">{rosterColumn}</div>
-          {pointsBar}
-          <EditorSheet open={Boolean(editing)} title={editTitle} side="bottom" onOpenChange={(open) => !open && setEditing(undefined)}>
-            {editor}
-          </EditorSheet>
-        </>
+        <Tabs
+          value={mobileView}
+          onValueChange={(v) => isMobileView(v) && setMobileView(v)}
+          className="flex min-h-0 flex-1 flex-col gap-0"
+        >
+          <TabsList className="h-auto w-full shrink-0 rounded-none border-b bg-card p-1 group-data-horizontal/tabs:h-auto">
+            <TabsTrigger value="library" className="h-9">
+              Library
+            </TabsTrigger>
+            <TabsTrigger value="warband" className="h-9">
+              Warband <span className="text-muted-foreground tabular-nums">{view.totals.modelCount}</span>
+            </TabsTrigger>
+            <TabsTrigger value="model" className="h-9" disabled={!selectedExists}>
+              Model
+            </TabsTrigger>
+          </TabsList>
+          <TabsContent value="library" className="min-h-0">
+            {library}
+          </TabsContent>
+          <TabsContent value="warband" className="min-h-0">
+            {warbandPanel}
+          </TabsContent>
+          <TabsContent value="model" className="min-h-0">
+            {modelPanel}
+          </TabsContent>
+          <PointsBar
+            total={view.totals.total}
+            cap={warband.pointsCap}
+            hasUnknown={view.totals.hasUnknown}
+            modelCount={view.totals.modelCount}
+            groupCount={view.totals.groupCount}
+            errorCount={errorCount}
+            warningCount={warningCount}
+            className="shrink-0 pb-[max(0.5rem,env(safe-area-inset-bottom))]"
+          />
+        </Tabs>
       )}
-
-      <LibraryPickerDialog
-        open={pickerOpen}
-        items={pickerItems}
-        onOpenChange={setPickerOpen}
-        onPick={(modelId) => {
-          actions.addEntry(warband.id, modelId)
-          setNewModelId(modelId)
-          setPickerOpen(false)
-          toast.success('Model added')
-        }}
-      />
 
       <WarbandSettingsDialog
         open={settingsOpen}
@@ -276,6 +311,6 @@ export function WarbandPage() {
           void navigate('/')
         }}
       />
-    </>
+    </div>
   )
 }

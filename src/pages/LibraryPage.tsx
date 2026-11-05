@@ -8,7 +8,7 @@ import { ModelCard } from '@/components/ModelCard'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { ModelEditorContainer, type EditTarget } from '@/containers/ModelEditorContainer'
+import { ModelPanelContainer } from '@/containers/ModelPanelContainer'
 import { usePersistenceContext } from '@/hooks/persistence-context'
 import { useImageUrls } from '@/hooks/use-image-urls'
 import { DESKTOP_QUERY, useMediaQuery } from '@/hooks/use-media-query'
@@ -27,7 +27,9 @@ export function LibraryPage() {
   const imageUrls = useImageUrls(useMemo(() => models.map((m) => m.imageId), [models]))
 
   const [query, setQuery] = useState('')
-  const [editing, setEditing] = useState<EditTarget>()
+  const [editing, setEditing] = useState<string>()
+  const createModel = useDataStore((s) => s.createModel)
+  const startNew = () => setEditing(createModel({ name: 'New model' }))
   const [deleting, setDeleting] = useState<Model>()
 
   const filtered = useMemo(() => {
@@ -47,7 +49,7 @@ export function LibraryPage() {
     <main className="mx-auto flex max-w-6xl flex-col gap-4 px-4 py-4">
       <div className="flex flex-wrap items-end justify-between gap-3">
         <h1 className="font-display text-[1.75rem] leading-none font-bold">Library</h1>
-        <Button onClick={() => setEditing({ kind: 'new' })}>
+        <Button onClick={startNew}>
           <Plus /> New model
         </Button>
       </div>
@@ -73,7 +75,7 @@ export function LibraryPage() {
         <EmptyState
           title="No models yet. Add your first model."
           action={
-            <Button onClick={() => setEditing({ kind: 'new' })}>
+            <Button onClick={startNew}>
               <Plus /> New model
             </Button>
           }
@@ -92,7 +94,7 @@ export function LibraryPage() {
                 rules={rules}
                 cost={modelCost(model, rules)}
                 imageUrl={model.imageId ? imageUrls.get(model.imageId) : undefined}
-                onOpen={() => setEditing({ kind: 'existing', modelId: model.id })}
+                onOpen={() => setEditing(model.id)}
                 footer={
                   <div className="flex justify-end">
                     <Button
@@ -119,16 +121,14 @@ export function LibraryPage() {
 
       <EditorSheet
         open={Boolean(editing)}
-        title={editing?.kind === 'new' ? 'New model' : 'Edit model'}
+        title="Edit model"
         side={isDesktop ? 'right' : 'bottom'}
         onOpenChange={(open) => !open && setEditing(undefined)}
       >
         {editing && (
-          <ModelEditorContainer
-            key={editing.kind === 'existing' ? editing.modelId : 'new'}
-            target={editing}
-            onDone={() => setEditing(undefined)}
-          />
+          <div className="min-h-0 flex-1 overflow-y-auto">
+            <ModelPanelContainer key={editing} modelId={editing} />
+          </div>
         )}
       </EditorSheet>
 

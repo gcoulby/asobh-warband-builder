@@ -11,7 +11,7 @@ export function AppLayout() {
   const resolved = useResolvedTheme()
 
   return (
-    <div className="min-h-dvh">
+    <div className="flex h-dvh flex-col print:block print:h-auto">
       <a
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:top-2 focus:left-2 focus:z-50 focus:rounded-sm focus:bg-background focus:p-3"
@@ -29,7 +29,7 @@ export function AppLayout() {
         onThemeChange={(theme) => setPrefs({ theme })}
       />
       {status === 'error' && error && <StorageErrorBanner message={error} />}
-      <div id="main-content" tabIndex={-1} className="outline-none">
+      <div id="main-content" tabIndex={-1} className="min-h-0 flex-1 overflow-y-auto outline-none print:overflow-visible">
         <Outlet />
       </div>
     </div>
