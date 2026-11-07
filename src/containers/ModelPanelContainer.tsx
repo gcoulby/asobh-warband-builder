@@ -8,7 +8,7 @@ import { useImageUrls } from '@/hooks/use-image-urls'
 import { modelCost } from '@/lib/cost'
 import { editionIdOf, editionOf, ruleScope, rulesFor, sourcesFor } from '@/lib/editions'
 import type { Model } from '@/lib/schema'
-import { rosterLabel } from '@/lib/sources'
+import { rosterLabel, sourceLabel } from '@/lib/sources'
 import { useDataStore } from '@/stores/data-store'
 
 interface ModelPanelContainerProps {
@@ -77,14 +77,16 @@ export function ModelPanelContainer({ modelId, warbandId }: ModelPanelContainerP
   // Inside a warband of the same game, only its sources are offered. Elsewhere, every usable source is.
   const chosen = warband && editionIdOf(warband) === edition.id ? warband.sourceIds : undefined
   const pickable = rulesFor(rules, ruleScope(sources, edition.id, chosen))
-  const usableSources = new Set(sourcesFor(sources, edition.id).map((x) => x.id))
-  const usable = rosters.filter((r) => usableSources.has(r.sourceId) || r.id === model.roster)
-  // Rosters that share a name, such as Dwarves in two books, are told apart by their source.
-  const rosterChoices = usable.map((r) =>
-    usable.some((o) => o.id !== r.id && o.label === r.label)
-      ? { id: r.id, label: `${r.label} (${sources.find((x) => x.id === r.sourceId)?.shortName ?? r.sourceId})` }
-      : r,
-  )
+  // Rosters grouped by source, in the game's source order. A roster the model already has stays offered.
+  const usableSources = sourcesFor(sources, edition.id)
+  const current = rosters.find((r) => r.id === model.roster)
+  const rosterGroups = [
+    ...usableSources,
+    ...sources.filter((x) => x.id === current?.sourceId && !usableSources.includes(x)),
+  ].flatMap((x) => {
+    const list = rosters.filter((r) => r.sourceId === x.id)
+    return list.length > 0 ? [{ id: x.id, label: sourceLabel(x), rosters: list }] : []
+  })
 
   return (
     <ModelPanel
@@ -92,7 +94,7 @@ export function ModelPanelContainer({ modelId, warbandId }: ModelPanelContainerP
       model={model}
       rules={rules}
       pickableRules={pickable}
-      rosterOptions={rosterChoices}
+      rosterGroups={rosterGroups}
       cost={modelCost(model, rules, profiles)}
       imageUrl={model.imageId ? imageUrls.get(model.imageId) : undefined}
       quantity={entry?.quantity}

@@ -9,13 +9,29 @@ import { RuleBrowser } from '@/components/RuleBrowser'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectSeparator, SelectTrigger, SelectValue } from '@/components/ui/select'
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
 import { combatOptions, qualityOptions } from '@/data/profile-options'
 import { editions } from '@/data/editions'
 import { editionOf } from '@/lib/editions'
 import type { CostResult } from '@/lib/cost'
 import type { Model, Profile, Roster, SpecialRule } from '@/lib/schema'
+
+/** A source's rosters, under the source's name. */
+export interface RosterGroup {
+  id: string
+  label: string
+  rosters: readonly Roster[]
+}
 
 export type ModelPatch = Partial<Omit<Model, 'id' | 'imageId'>>
 
@@ -41,8 +57,8 @@ interface ModelPanelProps {
   profile?: Profile
   /** Name of that profile's roster. */
   rosterName?: string
-  /** Rosters the model can belong to, from the sources its game can use. */
-  rosterOptions: readonly Roster[]
+  /** Rosters the model can belong to, grouped by the source they come from. */
+  rosterGroups: readonly RosterGroup[]
   onPatch: (patch: ModelPatch) => void
   onImageChange: (change: ImageChange) => void
   onQuantityChange?: (quantity: number) => void
@@ -64,7 +80,7 @@ export function ModelPanel({
   rulesEmptyState,
   profile,
   rosterName,
-  rosterOptions,
+  rosterGroups,
   onPatch,
   onImageChange,
   onQuantityChange,
@@ -160,7 +176,7 @@ export function ModelPanel({
               ))}
             </SelectContent>
           </Select>
-          {rosterOptions.length > 0 && (
+          {rosterGroups.length > 0 && (
             <>
               <label htmlFor={`model-roster-${model.id}`} className="text-sm font-bold">
                 Roster
@@ -175,10 +191,15 @@ export function ModelPanel({
                 <SelectContent>
                   <SelectItem value={NO_ROSTER}>No roster</SelectItem>
                   <SelectSeparator />
-                  {rosterOptions.map((o) => (
-                    <SelectItem key={o.id} value={o.id}>
-                      {o.label}
-                    </SelectItem>
+                  {rosterGroups.map((g) => (
+                    <SelectGroup key={g.id}>
+                      <SelectLabel>{g.label}</SelectLabel>
+                      {g.rosters.map((o) => (
+                        <SelectItem key={o.id} value={o.id}>
+                          {o.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
                   ))}
                 </SelectContent>
               </Select>
