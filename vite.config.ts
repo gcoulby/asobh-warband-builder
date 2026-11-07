@@ -4,7 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 import path from 'node:path'
 
 export default defineConfig({
-  base: process.env.VITE_BASE ?? '/',
+  // GitHub Pages gives the base path without a trailing slash; the app joins file names onto it.
+  base: `${(process.env.VITE_BASE ?? '').replace(/\/+$/, '')}/`,
   plugins: [react(), tailwindcss()],
   resolve: {
     alias: {
