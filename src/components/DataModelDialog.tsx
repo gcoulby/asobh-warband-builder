@@ -1,3 +1,4 @@
+import { DataModelDiagram } from '@/components/DataModelDiagram'
 import { Badge } from '@/components/ui/badge'
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog'
 import { sourceModel, typeLabel, type ModelField } from '@/data/source-model'
@@ -13,21 +14,25 @@ const anchor = (className: string) => `model-${className}`
 const linkedClass = (field: ModelField) =>
   field.type.kind === 'contains' || field.type.kind === 'ref' ? field.type.className : undefined
 
-/** A read-only view of the source file model: each class, its fields, and how the classes link up. */
+const scrollTo = (className: string) =>
+  document.getElementById(anchor(className))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+
+/** A read-only view of the source file model: a class diagram, then each class's fields and what they mean. */
 export function DataModelDialog({ open, onOpenChange }: DataModelDialogProps) {
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="max-h-[calc(100dvh-2rem)] grid-rows-[auto_minmax(0,1fr)] sm:max-w-3xl">
+      <DialogContent className="max-h-[calc(100dvh-2rem)] grid-rows-[auto_minmax(0,1fr)] sm:max-w-5xl">
         <DialogHeader>
           <DialogTitle>Source file data model</DialogTitle>
           <DialogDescription>
-            Every source file follows this model. Contains means the field holds the items themselves; id means it
-            names them by id.
+            Every source file follows this model. A diamond line means the class holds the items themselves; an arrow
+            means it names them by id. Click a class for what its fields mean.
           </DialogDescription>
         </DialogHeader>
         <div className="-mx-4 flex min-h-0 flex-col gap-4 overflow-y-auto px-4 py-1">
+          <DataModelDiagram onSelect={scrollTo} />
           {sourceModel.map((c) => (
-            <section key={c.name} id={anchor(c.name)} aria-labelledby={`${anchor(c.name)}-title`} className="rounded-sm border bg-card">
+            <section key={c.name} id={anchor(c.name)} aria-labelledby={`${anchor(c.name)}-title`} className="shrink-0 rounded-sm border bg-card">
               <header className="border-b px-3 py-2">
                 <h3 id={`${anchor(c.name)}-title`} className="font-mono text-sm font-semibold">
                   {c.name}
@@ -56,7 +61,7 @@ export function DataModelDialog({ open, onOpenChange }: DataModelDialogProps) {
                               className="underline underline-offset-2"
                               onClick={(e) => {
                                 e.preventDefault()
-                                document.getElementById(anchor(linked))?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+                                scrollTo(linked)
                               }}
                             >
                               {f.type.kind === 'contains' ? `contains ${type}` : type}
