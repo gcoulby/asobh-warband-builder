@@ -14,6 +14,8 @@ const prefsSchema = z.object({
   printNoncombatants: z.enum(['all', 'summary', 'hide']).catch('summary'),
   /** Whether the print sheet lists what each special rule does. */
   printRuleGlossary: z.boolean().catch(true),
+  /** The sealedAt of the book data last unlocked on this device, to tell when an update is out. */
+  bookSealedAt: z.string().optional().catch(undefined),
 })
 
 export type Prefs = z.infer<typeof prefsSchema>

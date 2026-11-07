@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { Link, useNavigate } from 'react-router'
 import { FileArchive, Plus } from 'lucide-react'
 import { toast } from 'sonner'
+import { BookUpdateNotice } from '@/components/BookUpdateNotice'
 import { CreditsFooter } from '@/components/CreditsFooter'
 import { EmptyState } from '@/components/EmptyState'
 import { WarbandListItem } from '@/components/WarbandListItem'
@@ -76,6 +77,8 @@ export function HomePage() {
           </Button>
         </div>
       </div>
+
+      <BookUpdateNotice />
 
       {noRules && (
         <EmptyState

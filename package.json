@@ -10,6 +10,7 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "preview": "vite preview",
+    "seal-book": "node scripts/seal-book.ts",
     "test:e2e": "playwright test"
   },
   "dependencies": {

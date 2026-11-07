@@ -1,8 +1,9 @@
 import { useRef, useState } from 'react'
-import { CircleAlert, CircleCheck, FileJson, FolderOpen, RefreshCw } from 'lucide-react'
+import { FileJson, FolderOpen, RefreshCw } from 'lucide-react'
+import { SourceCheckList } from '@/components/SourceCheckList'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog'
-import { idClashes, readSourceText } from '@/lib/sources'
+import { checkSourceFiles, validSources, type SourceFileCheck } from '@/lib/source-check'
 import type { Source } from '@/lib/schema'
 
 interface SourceFolderImportDialogProps {
@@ -13,16 +14,6 @@ interface SourceFolderImportDialogProps {
   onImport: (sources: Source[]) => void
 }
 
-/** What reading one file gave. */
-interface FileCheck {
-  path: string
-  source?: Source
-  /** True when the source replaces one you already have. */
-  replaces?: boolean
-  skipped?: number
-  problem?: string
-}
-
 const plural = (n: number, word: string) => `${n} ${n === 1 ? word : `${word}s`}`
 
 /** The path a picked file has inside its folder, else its name. */
@@ -31,49 +22,19 @@ const pathOf = (file: File) => file.webkitRelativePath || file.name
 /**
  * Reads every JSON file in a folder, or several chosen files, checks each one,
  * and imports the valid sources together. Later files lose to earlier ones
- * when they use the same rule or roster ids.
+ * when they use the same source, rule or roster ids.
  */
 export function SourceFolderImportDialog({ open, existing, onOpenChange, onImport }: SourceFolderImportDialogProps) {
   const folderRef = useRef<HTMLInputElement>(null)
   const filesRef = useRef<HTMLInputElement>(null)
-  const [checks, setChecks] = useState<FileCheck[]>()
+  const [checks, setChecks] = useState<SourceFileCheck[]>()
   const [reading, setReading] = useState(false)
 
   const read = async (list: FileList | null) => {
     const files = [...(list ?? [])].filter((f) => f.name.toLowerCase().endsWith('.json')).sort((a, b) => pathOf(a).localeCompare(pathOf(b)))
     setReading(true)
-    const accepted: Source[] = [...existing]
-    const seenIds = new Set<string>()
-    const results: FileCheck[] = []
-    for (const file of files) {
-      const path = pathOf(file)
-      const result = readSourceText(await file.text(), file.name.replace(/\.json$/i, ''))
-      if (!result.ok) {
-        results.push({ path, problem: result.error })
-        continue
-      }
-      const { source } = result
-      if (seenIds.has(source.id)) {
-        results.push({ path, problem: `Another file in this folder is also source "${source.id}".` })
-        continue
-      }
-      const clashes = idClashes(source, accepted)
-      if (clashes.length > 0) {
-        results.push({ path, problem: `Uses ids another source has: ${clashes.slice(0, 3).join(', ')}${clashes.length > 3 ? '…' : ''}.` })
-        continue
-      }
-      if (source.rules.length + source.profiles.length === 0) {
-        results.push({ path, problem: 'Holds no rules or profiles.' })
-        continue
-      }
-      seenIds.add(source.id)
-      const replaces = existing.some((s) => s.id === source.id)
-      const index = accepted.findIndex((s) => s.id === source.id)
-      if (index >= 0) accepted[index] = source
-      else accepted.push(source)
-      results.push({ path, source, replaces, skipped: result.errors.length })
-    }
-    setChecks(results)
+    const texts = await Promise.all(files.map(async (f) => ({ path: pathOf(f), text: await f.text() })))
+    setChecks(checkSourceFiles(texts, existing))
     setReading(false)
   }
 
@@ -82,7 +43,7 @@ export function SourceFolderImportDialog({ open, existing, onOpenChange, onImpor
     onOpenChange(next)
   }
 
-  const valid = (checks ?? []).flatMap((c) => (c.source ? [c.source] : []))
+  const valid = validSources(checks ?? [])
 
   return (
     <Dialog open={open} onOpenChange={close}>
@@ -139,39 +100,7 @@ export function SourceFolderImportDialog({ open, existing, onOpenChange, onImpor
             </p>
           )}
 
-          {checks && !reading && (
-            <div className="flex flex-col gap-2" aria-live="polite">
-              <p className="font-semibold">
-                {checks.length === 0
-                  ? 'No JSON files found there.'
-                  : `${plural(valid.length, 'source')} ready to import, ${plural(checks.length - valid.length, 'file')} skipped.`}
-              </p>
-              <ul className="flex flex-col divide-y rounded-sm border bg-card">
-                {checks.map((c) => (
-                  <li key={c.path} className="flex items-start gap-2 px-3 py-2 text-sm">
-                    {c.source ? (
-                      <CircleCheck className="mt-0.5 size-4 shrink-0 text-primary" aria-label="Valid" />
-                    ) : (
-                      <CircleAlert className="mt-0.5 size-4 shrink-0 text-destructive" aria-label="Skipped" />
-                    )}
-                    <span className="flex min-w-0 flex-col">
-                      <span className="truncate font-mono text-xs text-muted-foreground">{c.path}</span>
-                      {c.source ? (
-                        <span>
-                          <span className="font-semibold">{c.source.name}</span>: {plural(c.source.rules.length, 'rule')},{' '}
-                          {plural(c.source.profiles.length, 'profile')}
-                          {c.replaces && ', replaces your copy'}
-                          {c.skipped ? `, ${plural(c.skipped, 'bad entry')} left out` : ''}.
-                        </span>
-                      ) : (
-                        <span className="text-destructive">{c.problem}</span>
-                      )}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {checks && !reading && <SourceCheckList checks={checks} />}
         </div>
 
         <DialogFooter>

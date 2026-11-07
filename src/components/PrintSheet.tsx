@@ -1,9 +1,7 @@
 import type { Ref } from 'react'
-import { ImageDown } from 'lucide-react'
 import { ModelCard } from '@/components/ModelCard'
 import { PrintRuleGlossary } from '@/components/PrintRuleGlossary'
 import type { RosterRow } from '@/components/RosterRow'
-import { Button } from '@/components/ui/button'
 import type { PaperSize, PrintNoncombatants } from '@/hooks/use-prefs'
 import { isNoncombatant, rulesOf, type WarbandTotals } from '@/lib/cost'
 import type { Roster, SpecialRule, Warband } from '@/lib/schema'
@@ -21,7 +19,6 @@ interface PrintSheetProps {
   rosters: readonly Roster[]
   paperSize: PaperSize
   sheetRef: Ref<HTMLDivElement>
-  onExportCard: (node: HTMLElement, name: string) => void
   /** Noncombatants go after the rest: as cards, as one summary line, or not at all. */
   noncombatantMode: PrintNoncombatants
   /** Whether to list what each rule on the sheet does. */
@@ -37,7 +34,6 @@ export function PrintSheet({
   rosters,
   paperSize,
   sheetRef,
-  onExportCard,
   noncombatantMode,
   showRuleGlossary,
 }: PrintSheetProps) {
@@ -56,27 +52,15 @@ export function PrintSheet({
   )
 
   const card = (row: RosterRow) => (
-    <li key={row.entry.modelId} className="flex break-inside-avoid flex-col gap-1">
-      <div data-card={row.entry.modelId}>
-        <ModelCard
-          variant="print"
-          model={row.model}
-          rules={rules}
-          cost={row.cost}
-          quantity={row.entry.quantity}
-          imageUrl={row.imageUrl}
-        />
-      </div>
-      <Button
-        variant="ghost"
-        className="self-end text-black hover:bg-black/5 print:hidden"
-        onClick={(e) => {
-          const node = e.currentTarget.parentElement?.querySelector<HTMLElement>('[data-card]')
-          if (node) onExportCard(node, row.model.name)
-        }}
-      >
-        <ImageDown /> Export card as PNG
-      </Button>
+    <li key={row.entry.modelId} className="break-inside-avoid">
+      <ModelCard
+        variant="print"
+        model={row.model}
+        rules={rules}
+        cost={row.cost}
+        quantity={row.entry.quantity}
+        imageUrl={row.imageUrl}
+      />
     </li>
   )
 

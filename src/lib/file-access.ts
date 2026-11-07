@@ -3,7 +3,7 @@
  * it, falling back to a download link and a file input.
  */
 
-interface FilePickerType {
+export interface FilePickerType {
   description: string
   accept: Record<string, string[]>
 }

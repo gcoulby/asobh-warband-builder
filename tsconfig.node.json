@@ -3,7 +3,8 @@
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.node.tsbuildinfo",
     "target": "es2023",
     "lib": [
-      "ES2023"
+      "ES2023",
+      "DOM"
     ],
     "types": [
       "node"
@@ -24,6 +25,7 @@
     "vite.config.ts",
     "vitest.config.ts",
     "playwright.config.ts",
-    "e2e"
+    "e2e",
+    "scripts"
   ]
 }

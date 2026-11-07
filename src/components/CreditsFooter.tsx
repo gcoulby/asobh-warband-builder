@@ -1,3 +1,4 @@
+import { BookUnlockButton } from '@/components/BookUnlockButton'
 import { builderCredit, dataCredit, gameCredit } from '@/data/credits'
 import { cn } from '@/lib/utils'
 
@@ -5,7 +6,7 @@ interface CreditsFooterProps {
   className?: string
 }
 
-/** Credits the game and its author, the builder's author and the source of the SBH Revised data. */
+/** Credits the game and its author, the builder's author and the source of the SBH Revised data. The author's surname also unlocks published book data. */
 export function CreditsFooter({ className }: CreditsFooterProps) {
   return (
     <footer className={cn('flex flex-col gap-0.5 border-t pt-3 text-xs text-muted-foreground', className)}>
@@ -21,7 +22,11 @@ export function CreditsFooter({ className }: CreditsFooterProps) {
         </a>
         . This is an unofficial fan-made tool.
       </p>
-      {[builderCredit, dataCredit].map((credit) => (
+      <p>
+        {builderCredit.role} {builderCredit.name.split(' ').slice(0, -1).join(' ')}{' '}
+        <BookUnlockButton>{builderCredit.name.split(' ').pop()}</BookUnlockButton>.
+      </p>
+      {[dataCredit].map((credit) => (
         <p key={credit.name}>
           {credit.role}{' '}
           {credit.url ? (

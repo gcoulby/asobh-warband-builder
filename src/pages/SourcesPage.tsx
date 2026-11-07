@@ -2,10 +2,12 @@ import { useMemo, useState } from 'react'
 import { useNavigate } from 'react-router'
 import { FileJson, FolderOpen, Library, Plus } from 'lucide-react'
 import { toast } from 'sonner'
+import { BookUpdateNotice } from '@/components/BookUpdateNotice'
 import { BundledSourcesDialog } from '@/components/BundledSourcesDialog'
 import { CreditsFooter } from '@/components/CreditsFooter'
 import { EmptyState } from '@/components/EmptyState'
 import { NewSourceDialog } from '@/components/NewSourceDialog'
+import { SourceFormatInfo } from '@/components/SourceFormatInfo'
 import { SourceFolderImportDialog } from '@/components/SourceFolderImportDialog'
 import { SourceImportDialog } from '@/components/SourceImportDialog'
 import { SourceListItem } from '@/components/SourceListItem'
@@ -66,6 +68,8 @@ export function SourcesPage() {
           </Button>
         </div>
       </div>
+
+      <BookUpdateNotice />
 
       {sources.length === 0 ? (
         <EmptyState
@@ -146,6 +150,7 @@ export function SourcesPage() {
           void navigate(`/sources/${encodeURIComponent(id)}`)
         }}
       />
+      <SourceFormatInfo />
       <CreditsFooter className="mt-6" />
     </main>
   )

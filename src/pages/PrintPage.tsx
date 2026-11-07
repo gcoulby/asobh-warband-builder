@@ -119,7 +119,6 @@ export function PrintPage() {
           rosters={rosters}
           paperSize={prefs.paperSize}
           sheetRef={sheetRef}
-          onExportCard={exportNode}
           noncombatantMode={prefs.printNoncombatants}
           showRuleGlossary={prefs.printRuleGlossary}
         />
